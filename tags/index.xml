@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Foxtrotlabs</title>
+    <link>https://foxtrotlabs.cc/tags/</link>
+    <description>Recent content in Tags on Foxtrotlabs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>copyright by foxtrot_charlie</copyright>
+    <lastBuildDate>Tue, 15 Jan 2019 10:55:34 +0100</lastBuildDate>
+    
+	<atom:link href="https://foxtrotlabs.cc/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ctf</title>
+      <link>https://foxtrotlabs.cc/tags/ctf/</link>
+      <pubDate>Tue, 15 Jan 2019 10:55:34 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gynvael</title>
+      <link>https://foxtrotlabs.cc/tags/gynvael/</link>
+      <pubDate>Tue, 15 Jan 2019 10:55:34 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/gynvael/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mission</title>
+      <link>https://foxtrotlabs.cc/tags/mission/</link>
+      <pubDate>Tue, 15 Jan 2019 10:55:34 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/mission/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>results</title>
+      <link>https://foxtrotlabs.cc/tags/results/</link>
+      <pubDate>Tue, 15 Jan 2019 10:55:34 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/results/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>security</title>
+      <link>https://foxtrotlabs.cc/tags/security/</link>
+      <pubDate>Tue, 15 Jan 2019 10:55:34 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>stream</title>
+      <link>https://foxtrotlabs.cc/tags/stream/</link>
+      <pubDate>Tue, 15 Jan 2019 10:55:34 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/stream/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>boot2root</title>
+      <link>https://foxtrotlabs.cc/tags/boot2root/</link>
+      <pubDate>Tue, 24 Jul 2018 13:36:50 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/boot2root/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hacking</title>
+      <link>https://foxtrotlabs.cc/tags/hacking/</link>
+      <pubDate>Tue, 24 Jul 2018 13:36:50 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/hacking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>palace</title>
+      <link>https://foxtrotlabs.cc/tags/palace/</link>
+      <pubDate>Tue, 24 Jul 2018 13:36:50 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/palace/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pinky</title>
+      <link>https://foxtrotlabs.cc/tags/pinky/</link>
+      <pubDate>Tue, 24 Jul 2018 13:36:50 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/pinky/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pinky&#39;s Palace I</title>
+      <link>https://foxtrotlabs.cc/tags/pinkys-palace-i/</link>
+      <pubDate>Tue, 24 Jul 2018 13:36:50 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/pinkys-palace-i/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>virtual machine</title>
+      <link>https://foxtrotlabs.cc/tags/virtual-machine/</link>
+      <pubDate>Tue, 24 Jul 2018 13:36:50 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/virtual-machine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vulnhub</title>
+      <link>https://foxtrotlabs.cc/tags/vulnhub/</link>
+      <pubDate>Tue, 24 Jul 2018 13:36:50 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/vulnhub/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>stegano</title>
+      <link>https://foxtrotlabs.cc/tags/stegano/</link>
+      <pubDate>Fri, 06 Oct 2017 12:23:46 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/tags/stegano/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

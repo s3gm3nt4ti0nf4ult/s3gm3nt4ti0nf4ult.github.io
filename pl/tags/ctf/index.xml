@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ctf on FoxtrotLabs</title>
+    <link>https://foxtrotlabs.cc/pl/tags/ctf/</link>
+    <description>Recent content in ctf on FoxtrotLabs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>copyright by foxtrot_charlie</copyright>
+    <lastBuildDate>Fri, 03 Jul 2020 18:21:47 +0200</lastBuildDate>
+    
+	<atom:link href="https://foxtrotlabs.cc/pl/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kolejny trywialny konkursik :)</title>
+      <link>https://foxtrotlabs.cc/pl/2020/07/kolejny-trywialny-konkursik/</link>
+      <pubDate>Fri, 03 Jul 2020 18:21:47 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/pl/2020/07/kolejny-trywialny-konkursik/</guid>
+      <description>0x00 Kolejny PCAP do analizy W poprzednim artykule, przedstawiłem rozwiązanie zadania, które polegało na wyzerowaniu pomiarów smart licznika w celu małej korekcji kosztów ogrzewania mieszkania przez pana Kowalskiego. Udało się rozwiązać zadanie jako pierwszemu (co było dziwne, bo zadanie należało do tych z serii proste i trochę przekombinowałem patrząc na rozwiązanie podrzucone przez autora). Od tamtego momentu pojawiły się jeszcze dwa zadania, które również udało mi się zgłosić i załapać na główną nagrodę (jeden opisałem tu) :) dziś będzie o tym ostatnim konkursie, który pojawił się razem z całkiem fajną prelekcją (a może webinarem?</description>
+    </item>
+    
+    <item>
+      <title>Smart Metering Challenge &#43; bonus</title>
+      <link>https://foxtrotlabs.cc/pl/2020/06/smart-metering-challenge-bonus/</link>
+      <pubDate>Sun, 07 Jun 2020 22:45:38 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/pl/2020/06/smart-metering-challenge-bonus/</guid>
+      <description>S w skrócie IoT pochodzi od Security
+ Ktoś Mądry
+0x01 - Hackowanie IoT Czasami czytając genialne artykuły Phracka, które stały się ikonicznymi dziełami Hackerów spędzam trochę czasu nad rozmyslaniami, że drzewiej to i nostalgia była lepsza ;) Przed wejściem w XXI wiek mitygacje były dużo bardziej prymitywne (o ile były, bo StackGuardy, NX - czy jak go Intel reklamował XD - a także ASRL to lata 1990-2000 jeśli chodzi o architektury x86).</description>
+    </item>
+    
+    <item>
+      <title>PL: Misja Gynvaela PL012 czyli zip &amp;&amp; crc32 cracking</title>
+      <link>https://foxtrotlabs.cc/pl/2017/10/pl-misja-gynvaela-pl012-czyli-zip-crc32-cracking/</link>
+      <pubDate>Sat, 21 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/pl/2017/10/pl-misja-gynvaela-pl012-czyli-zip-crc32-cracking/</guid>
+      <description>**Tysiące zagrożeń małoprawdopodobnych sumuje się w zagrożenie bardzo prawdopodobne.** Bruce Schneier  Wreszcie&amp;hellip; &amp;hellip; znalazłem trochę czasu, żeby nadgonić zaległości w misjach. Obecny tryb pracy niestety nie pozwala mi na zbyt częste i treściwe postowanie (&amp;hellip;tak obiecałem&amp;hellip; pamiętam). Ale udało mi się dorwać poprzednią misję z polskiego streamu. Moim zdaniem jest na tyle ciekawa, że warto ją przybliżyć. Zacznijmy, jak zwykle, od początku.
+MISJA 012 goo.gl/kBeZex DIFFICULTY: ██████░░░░ [6/10] ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅ Podczas przeszukiwania zdobytych dysków znaleźliśmy plik ZIP z hasłem.</description>
+    </item>
+    
+    <item>
+      <title>PL: Misja Gynvaela PL011</title>
+      <link>https://foxtrotlabs.cc/pl/2017/09/pl-misja-gynvaela-pl011/</link>
+      <pubDate>Fri, 29 Sep 2017 16:01:15 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/pl/2017/09/pl-misja-gynvaela-pl011/</guid>
+      <description>Zadanie Na 49 streamie nie pojawił się co prawda utęskniony raytracing &amp;ldquo;bardzo rozproszony&amp;rdquo;, ale próba kryptoanalizy szyfrogramu na żywo również okazała się tematem wartym uwagi. Jak zwykle, pod koniec streamu czekała na agenta (lub nas) misja. Jej treść brzmi następująco:
+MISJA 011 goo.gl/keE94T DIFFICULTY: █████░░░░░ [5/10] ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅ Jednemu z naszych agentów polowych poszczęściło się - zakradł się do biura podejrzanego i zrobił zdjęcie bardzo ważnego dokumentu. Zdjęcie udało się wywołać i otrzymaliśmy dzisiaj archiwum z jego skanem.</description>
+    </item>
+    
+  </channel>
+</rss>
