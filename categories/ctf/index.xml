@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ctf on Foxtrotlabs</title>
+    <link>https://foxtrotlabs.cc/categories/ctf/</link>
+    <description>Recent content in ctf on Foxtrotlabs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>copyright by foxtrot_charlie</copyright>
+    <lastBuildDate>Tue, 15 Jan 2019 10:55:34 +0100</lastBuildDate>
+    
+	<atom:link href="https://foxtrotlabs.cc/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Battle City Mission Winner Announcement</title>
+      <link>https://foxtrotlabs.cc/2019/01/battle-city-mission-winner-announcement/</link>
+      <pubDate>Tue, 15 Jan 2019 10:55:34 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2019/01/battle-city-mission-winner-announcement/</guid>
+      <description>0x00 Well done agents! The mission is now over! I repeat: The mission is now over!
+ If you are not familiar with missions - they are CTF-like challenges or code golfs published at the end of the Gynvael&amp;rsquo;s livestream. Mission number 25 was pretty special. It was brought to us by firemark, whom you might recall from our IRC channel
+The task was to create a bot firmware (probably simplyfied AI program) and win THEEEEEE BIIIIIIIG BOOOOOOOOOOOOOOOOOT BATTLE!</description>
+    </item>
+    
+    <item>
+      <title>EN: Hacking VulnHub Machine - Pinky&#39;s Palace I</title>
+      <link>https://foxtrotlabs.cc/2018/07/en-hacking-vulnhub-machine-pinkys-palace-i/</link>
+      <pubDate>Tue, 24 Jul 2018 13:36:50 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2018/07/en-hacking-vulnhub-machine-pinkys-palace-i/</guid>
+      <description>**But we are Poles and we are not afraid of dictionary attacks** A funny quote from the Internet  0x00 Gooood moooornnnnin&amp;rsquo; Internetnam! After a looooong time, I&amp;rsquo;ve finally managed to spend some time on writing. There is more to go, but for now - let&amp;rsquo;s dive into VulnHub VM - our target today is a well known Pinky&amp;rsquo;s Palace I by Pink_Panther.
+By the way I also recommend his OSCP failing post, that shows why failing is not the end of the world, but the beginning of the journey!</description>
+    </item>
+    
+    <item>
+      <title>EN: Gynvael&#39;s Mission 016</title>
+      <link>https://foxtrotlabs.cc/2017/10/en-gynvaels-mission-016/</link>
+      <pubDate>Fri, 06 Oct 2017 12:23:46 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2017/10/en-gynvaels-mission-016/</guid>
+      <description>My task I wasn&amp;rsquo;t in a hurry to accomplish mission no. 016 (in decimal), because I&amp;rsquo;m an author of this mess ;) So in this post I will show &amp;ldquo;my intended solution&amp;rdquo;. Before we begin, I want to give a huge shoutout to my IRC mate, who have told me a lot about a SSTV and a ham radio. This inspired me to create this mission. Kudos to @fishcake! The rating of this mission was done by @Gynvael.</description>
+    </item>
+    
+  </channel>
+</rss>

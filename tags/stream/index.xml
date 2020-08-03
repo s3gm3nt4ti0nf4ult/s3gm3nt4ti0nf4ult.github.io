@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>stream on Foxtrotlabs</title>
+    <link>https://foxtrotlabs.cc/tags/stream/</link>
+    <description>Recent content in stream on Foxtrotlabs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>copyright by foxtrot_charlie</copyright>
+    <lastBuildDate>Tue, 15 Jan 2019 10:55:34 +0100</lastBuildDate>
+    
+	<atom:link href="https://foxtrotlabs.cc/tags/stream/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Battle City Mission Winner Announcement</title>
+      <link>https://foxtrotlabs.cc/2019/01/battle-city-mission-winner-announcement/</link>
+      <pubDate>Tue, 15 Jan 2019 10:55:34 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2019/01/battle-city-mission-winner-announcement/</guid>
+      <description>0x00 Well done agents! The mission is now over! I repeat: The mission is now over!
+ If you are not familiar with missions - they are CTF-like challenges or code golfs published at the end of the Gynvael&amp;rsquo;s livestream. Mission number 25 was pretty special. It was brought to us by firemark, whom you might recall from our IRC channel
+The task was to create a bot firmware (probably simplyfied AI program) and win THEEEEEE BIIIIIIIG BOOOOOOOOOOOOOOOOOT BATTLE!</description>
+    </item>
+    
+  </channel>
+</rss>
