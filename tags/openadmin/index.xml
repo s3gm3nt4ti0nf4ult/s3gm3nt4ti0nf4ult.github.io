@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>openadmin on Foxtrotlabs</title>
+    <link>https://foxtrotlabs.cc/tags/openadmin/</link>
+    <description>Recent content in openadmin on Foxtrotlabs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>copyright by foxtrot_charlie</copyright>
+    <lastBuildDate>Fri, 21 Aug 2020 17:54:54 +0100</lastBuildDate><atom:link href="https://foxtrotlabs.cc/tags/openadmin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[HTB Writeup]: Openadmin HackTheBox Challenge</title>
+      <link>https://foxtrotlabs.cc/2020/08/htb-writeup-openadmin-hackthebox-challenge/</link>
+      <pubDate>Fri, 21 Aug 2020 17:54:54 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2020/08/htb-writeup-openadmin-hackthebox-challenge/</guid>
+      <description>&amp;lt;disclaimer&amp;gt;this is an old post, that was finished some time ago (February 2020), but due to the things (I forgot about retiring the machine) I&amp;rsquo;m publishing it now&amp;lt;/disclaimer&amp;gt;
+It&amp;rsquo;s been a looooong time&amp;hellip; &amp;hellip; since I&amp;rsquo;ve written something here. This place is not dead yet. I had really tight schedule with my security job, school, CTFs and PozSec meetups organization soooo it was really hard to start blogging again. I&amp;rsquo;m still learning so some topics I want to cover in depth require some time.</description>
+    </item>
+    
+  </channel>
+</rss>

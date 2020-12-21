@@ -1,0 +1,87 @@
+==================================================================
+https://keybase.io/foxtrot_charlie
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://foxtrotlabs.cc
+  * I am foxtrot_charlie (https://keybase.io/foxtrot_charlie) on keybase.
+  * I have a public key with fingerprint 4A01 73AA 5774 0315 4C10  1944 0087 30EC B0CB 0149
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120e8f0b94d112b3390ca4a0e68f721376264a2a1cf7313f5263190561b69bedc630a",
+      "fingerprint": "4a0173aa577403154c101944008730ecb0cb0149",
+      "host": "keybase.io",
+      "key_id": "008730ecb0cb0149",
+      "kid": "0101e6113b643a474d4631450224e0a386e94621126a8bffa16689a3b86dc893f2fe0a",
+      "uid": "51ae01ca01efe72c244c9f3e358f5d19",
+      "username": "foxtrot_charlie"
+    },
+    "merkle_root": {
+      "ctime": 1578750873,
+      "hash_meta": "a3dabc5a5470aac87d3a319151ccc94f58a0b7a1cde4df89af7e854cb98ba936",
+      "seqno": 14182552
+    },
+    "revoke": {
+      "sig_ids": [
+        "f042b4f71bd6b12b57bcf1b236ca122e3fee6f582aba676772aff380b9cc1dd90f"
+      ]
+    },
+    "service": {
+      "hostname": "foxtrotlabs.cc",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1578750907,
+  "expire_in": 157680000,
+  "prev": "5577bd7e0a10854d249cc4f8aca08b233c91ca8ef8523967a9f171e586847a58",
+  "seqno": 23,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owFlUwtsFUUUfa+0sQK1jVBi+YS4GoHSPnd2Zndma8Kn5amtCIptKWJ5zO7OtOtr
+32v3Lf0jgjZSfxH5KQVLDFBpREFpEMJXqIS0JdYiIgWChBLBFsEGA/idVyWGuNlk
+M3fvPffcc+68kzDEE+/1vCb3bW/3ZnvbLxueBSndnbWSEbaqpYxaKcgGP6zEYhE3
+ELQtKUOSgSIzwmVDRxYAigGhLpsUUZlphGMFQKwpGqIKBSbHEECuKhoEuqxqwNB0
+g1mmBmUqpUncDhUxp8yxQ66AFQAAQ0pVjJEMgYpMIAMdIVkmGMrMNGTxAqSLwuJw
+JFohyBk0wnx2WMTEIfAPvf/n3+EtA6YBAA0NQYowspDghVRZURCTKSQa05GmiJE0
+SgzOKdA0olNoEM0yiQ65wtkg70WDcCqgTAamYM04w4qpIGTqHDKoEq5aINp3UYQ5
+IVrKRDYPV7lO2A2YxdQpsZm0OE0qZU6whAWccNiNamy6djQTqJhgNTqDmJNGigOl
+zKUCgEKLGqZKVYRlSk2CLUiFqkAFpmnqiKuEygYWmlsMWVzw5pgRIaKhE4PqUBN0
+Iqw8FBYdECCKqiqCgsMqwkEW7R6xi4R8kYNLpYz5EpeRYiCOgWFphnBYxYbJgaFA
+zaRAURjkjGmio0INqmENY4VyDonYCNMElqXLXCpcHO3nVNjmIHzUsbuVKKFGxGea
+glaZOIXNcIn4V+y6ZZGMqDhudVk0uZIZgX9hAoYdssTGiIoK5kTscEiMIjLv1k2X
+cZrEqspshwXs0GBYI7J4on1YRdQ3sWCGhYWVQBYCWQoSrBEnVFhJxIzQ1IWrhHGi
+KlDXMNU5wICpRCMIU5X8J6QiLHJpkcAU6oWou8gRvg5tiIGxHm+8Z9yoB2NzvJGW
+ue6Q5JlJKTPu3LK4mOgV8wy9N+lOJLsyyXMw/4S/7uuBRjV7IOvUnpE/pLTHeU8V
+7Flu/Jbw3vUuz8Hpec5HTavG187/Qjq/LH7z7IYnp+WlJmyPxcfdMTt3rf99Ts6w
+yn0wK/bzP9c2770yogWWeq4mNUyZOilmeMI1T+PNhp7IoSHTCvurliXP6ph7ZtzW
+BV0/ev1n0qcWtuf25uxHLzW9Ai+/v+JKDbn13E++jsobT/jG94TKq1fU2W/2yL+k
+1SQvW1fw8qryGUuqnJq8UE/wrbrPdkyure9qwxfH6fm19hl/beZ33fPuWZjn/+bZ
+9sOpL6x7KLN+0vf+xGvkRNuWcyVLbzymnW+62v38x6OX5LZVJ2xaOZD768Z5eHJO
+7vVpGZmz170+84/Vw0jqpd1j9PvW7C+ut/edH34zrrd/s3trW3BC09n0mvZHp464
+kN5bU9CZ/VdbL0mb8nTe3BOdn2xo2rXV8k0s4H2+x1v7voLN+zrG7z29fs6GDz6d
+PPRwoh7v33RsT+tTlzJ33W6BF3MnPrz8eCvStqSuLZ5/7Mudp+PPtidsZNfr072j
+rs16Q+bv/tyXtLuzp7u8Szn0dv+RzsyrabH59fzk/TviCrOOnvYtvjKlufnA/sLV
+tyrPJWop7oxTR7bbH+4sf2D0i88kTu+O6VjYODb/Uqm0ZsLoA4q/f8lZp6gqqwWu
+vP3tI5V1kyYqA2NbjwUvHKCbJ2xKHnlywextjUeTk179Gw==
+=tq8r
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/foxtrot_charlie
+
+==================================================================
+
