@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>EN: Gynvael&#39;s Mission EN009 &amp;&amp; radare2 struggle :: Foxtrotlabs — In the middle of somewhere</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="So this is the way blogging looks like&amp;hellip; :)
+ 0x00: MISSION 009 AGENDA If you are watching Gynvael&amp;rsquo;s EN streams, you know what it&amp;rsquo;s all about. After every stream, Gynvael is publishing one mission aka easy CTF task. And here is my &amp;ldquo;writeup-wannabe&amp;rdquo; for challenge number 009. Honestly that was the hardest challenge made by Gynvael. I love it, and wait for more!
+TASK: Welcome back agent 1336. No mail." />
+<meta name="keywords" content="hacking" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://foxtrotlabs.cc/2017/07/en-gynvaels-mission-en009-radare2-struggle/" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+<link rel="stylesheet" href="https://foxtrotlabs.cc/assets/style.css">
+
+  <link rel="stylesheet" href="https://foxtrotlabs.cc/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+<meta name="twitter:creator" content="" />
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="EN: Gynvael&#39;s Mission EN009 &amp;&amp; radare2 struggle :: Foxtrotlabs">
+<meta property="og:description" content="So this is the way blogging looks like&amp;hellip; :)
+ 0x00: MISSION 009 AGENDA If you are watching Gynvael&amp;rsquo;s EN streams, you know what it&amp;rsquo;s all about. After every stream, Gynvael is publishing one mission aka easy CTF task. And here is my &amp;ldquo;writeup-wannabe&amp;rdquo; for challenge number 009. Honestly that was the hardest challenge made by Gynvael. I love it, and wait for more!
+TASK: Welcome back agent 1336. No mail." />
+<meta property="og:url" content="https://foxtrotlabs.cc/2017/07/en-gynvaels-mission-en009-radare2-struggle/" />
+<meta property="og:site_name" content="EN: Gynvael&#39;s Mission EN009 &amp;&amp; radare2 struggle" />
+
+  
+    <meta property="og:image" content="">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2017-07-26 12:34:19 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="https://foxtrotlabs.cc/en">
+  <div class="logo">
+    foxtrotlabs-en
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="https://foxtrotlabs.cc/posts">posts</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/pl">Polish side</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/about">about</a></li>
+        
+      
+        
+          <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="https://foxtrotlabs.cc/posts">posts</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/pl">Polish side</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://foxtrotlabs.cc/2017/07/en-gynvaels-mission-en009-radare2-struggle/">EN: Gynvael&rsquo;s Mission EN009 &amp;&amp; radare2 struggle</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2017-07-26 
+      </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <blockquote>
+<p>So this is the way blogging looks like&hellip; :)</p>
+</blockquote>
+<h3 id="0x00-mission-009-agenda">0x00: MISSION 009 AGENDA<a href="#0x00-mission-009-agenda" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>If you are watching <a href="https://www.youtube.com/channel/UCCkVMojdBWS-JtH7TliWkVg">Gynvael&rsquo;s EN streams</a>, you know what it&rsquo;s all about. After every stream, Gynvael is publishing one mission aka <code>easy</code> CTF task. And here is my &ldquo;writeup-wannabe&rdquo; for challenge number 009. Honestly that was the hardest challenge made by Gynvael. I love it, and wait for more!</p>
+<h4 id="task">TASK:<a href="#task" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<pre tabindex="0"><code>Welcome back agent 1336.
+No mail.
+&gt; mission --take
+MISSION 009               goo.gl/CQFtRZ             DIFFICULTY: ████████░░ [8╱10]
+┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+
+We've received an encrypted message from one of the agents-in-training. While we
+are always happy with good use of modern cryptograpical protocols, it turned out
+the agents-in-training didn't use one. They said it was too hard and they didn't
+understand the settings and options.
+
+&quot;So what did you use&quot; we asked and got the answer &quot;oh, it was a OTP XOR&quot;. Hmm,
+that's actually not so bad. We looked at the message again:
+
+   9a 60 76 14 8b 36 5a 10 2b 91 c4 6c ab 27 92 99 f8 6a ec 5d 32 20 3d 61 8f
+   c7 fb dd 02 72 bf
+
+And then we asked for the key.
+
+&quot;Oh? OTP requires us to store the key? We... we didn't know that.&quot;
+
+There we go again.
+
+Trying to be patient we asked &quot;what do you have&quot; and we've received an object
+file with with the cipher implementation, but without the original message (we've
+been told it has been removed for security reasons, of course).
+
+Well, it looks like a hopeless case, but take a look anyway - maybe you can
+decipher the message. Here's the binary:
+
+  https://goo.gl/ZwSwPS
+
+GOOD LUCK!                                                  Wednesday, 2017-07-19
+---------------------------------------------------------------------------------
+
+If you decode the answer, put it in the comments under this video! If you write
+a blogpost / post your solution online, please add a link in the comments too!
+
+P.S. I'll show/explain the solution on the stream next week.
+
+</code></pre><h3 id="0x01-lets-go-to-work">0x01 Let&rsquo;s go to work!<a href="#0x01-lets-go-to-work" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>XOR schould never be considered as an encryption&hellip; Unless it&rsquo;s OTP. There is a lot of usefull infromation about OTP, if you need small introduction please start with <a href="https://en.wikipedia.org/wiki/One-time_pad">click</a> and follow links in foot section of this article. The most important thing to remember is that without key, we cannot retrive this encrypted message. As I mentioned previously in my other Gynvael&rsquo;s wirteups, XOR has reallu fun feature:
+<code>given E - encrypted message, M - message, K - key:  K^M=E but also E^K=M and E^M=K</code></p>
+<p>But fortunately under this link <code>https://goo.gl/ZwSwPS</code> there is a binary file with cipher implementation.</p>
+<h4 id="basic-intel">Basic intel<a href="#basic-intel" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>I will use radare2 setup for analysis.</p>
+<blockquote>
+<p>mv 15579e83de01a559ddcf39104c20902bb2f94c53_mission009 mission009 for easier typing</p>
+</blockquote>
+<p>Open file with:</p>
+<p><code>radare2 mission009.o</code></p>
+<p>and <code>i</code> command will give basic information (like <code>rabin2 -I mission009.o</code>)</p>
+<p>This is an output:</p>
+<p><img src="https://foxtrotlabs.cc/pics/gm009_001.PNG" alt="001"></p>
+<p>Good for us, no anti-RE stuff was used, no encryption but binary is stripped. This is a <code>*.o</code> file, you can read about them here <a href="https://en.wikipedia.org/wiki/Object_file">Object files</a>.</p>
+<pre tabindex="0"><code>&quot;An object file is a file containing object code, meaning relocatable format machine code that is usually not directly executable. There are various formats for object files, and the same object code can be packaged in different object files. An object file may also work like a shared library.&quot;
+</code></pre><p><code>strings</code> command will also give us some usefull information:</p>
+<p><img src="https://foxtrotlabs.cc/pics/gm009_002.PNG" alt="002"></p>
+<p>Some readable strings:</p>
+<pre tabindex="0"><code>THE SECRH
+|$ H
+ET HAS BH
+\$?H
+EEN REMOH
+VED LOL
+</code></pre><p>And what&rsquo;s more important some tip:</p>
+<pre tabindex="0"><code>srand
+rand
+</code></pre><p>Someone used some randmoization&hellip;</p>
+<p>It&rsquo;s time to look inside that code!</p>
+<h3 id="0x02-getting-hands-dirty">0x02 Getting hands dirty<a href="#0x02-getting-hands-dirty" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Let&rsquo;s see what do we have inside. There is a lot of tools to do this, but due to my long struggle to master radare2, it will be my toolchain of choice. This dump was created by set of commands: ([0xXXXXXXXX] is the prompt)</p>
+<pre tabindex="0"><code>[0x00000164]&gt; aaa
+[x] Analyze all flags starting with sym. and entry0 (aa)
+[x] Analyze len bytes of instructions for references (aar)
+[x] Analyze function calls (aac)
+[ ] [*] Use -AA or aaaa to perform additional experimental analysis.
+[x] Constructing a function name for fcn.* and sym.func.* functions (aan))
+
+[0x00000164]&gt; afl
+0x00000164    5 323          entry0
+
+[0x00000164]&gt; pdf @ entry0 // this prints the disassembly of fumction referenced by entry but I prefer to have it visual...
+
+[0x00000164]&gt; VV @ entry0
+
+//And this is done by some awsome trick and tool dot from package graphviz
+:&gt; (':' gives command prompt in Visual Mode) ag sym.main &gt; graph.dot
+:&gt; !!dot -Tpng -o graph.png graph.dot // for more references I will provide link in last section of this post.
+</code></pre><p><img src="https://foxtrotlabs.cc/pics/gm009_004.PNG" alt="Dump"></p>
+<p>Ok, that&rsquo;s a very huge image. But I like it! Fortunately I do not have to do PrtScr screen by screen in my terminal.</p>
+<p>General analysis of first two blocks, gives us general view of key generation. In first block, some strings (shown by <code>strings</code> command) are stored in the memory, then funciton <a href="https://msdn.microsoft.com/en-us/library/1f4c8f33.aspx">_time64</a> is callend and then function <a href="https://msdn.microsoft.com/en-us/library/aa272944">srand</a> is called. Key generation (second block) depends on system timestamp, so the time since <code> January 1, 1970</code>. That&rsquo;s a lot of values to check, but what came to my mind was that date in mission description.</p>
+<pre tabindex="0"><code> Wednesday, 2017-07-19
+</code></pre><p>This was the only one time, when so called <em>agents</em> mentioned date in their message. This might be a lead (of course it could be misdirection too), but I&rsquo;ve assumed, for security, probable timestamp would come from the interval (<code>12 july 2017 21:00</code>, <code>19 july 2017 21:00</code>). So time period between Gynvael&rsquo;s streams <a href="https://www.youtube.com/watch?v=OAk23u9b-88">25&rsquo;s</a> and <a href="https://www.youtube.com/watch?v=7RotbY17tKk">26&rsquo;s</a>, because for me this is the most probable time of origin of this mission.</p>
+<p>So this block:</p>
+<p><img src="https://foxtrotlabs.cc/pics/gm009_005.PNG" alt="loop"></p>
+<p>Shows the loop of key generation. The key is then xored with message and&hellip; that&rsquo;s it, then there is this OTP message we are trying to decrypt.</p>
+<p>Each call of <code>rand()</code> function, gives us another state od pseudo-random number generator. What&rsquo;s important, pseudo-random function in C/C++ is not cryptographically secure, end with given seed (first, initialization value) we can reproduce value by value. In glibc (used by gcc) is called <a href="https://en.wikipedia.org/wiki/Linear_congruential_generator">LCG</a>. What&rsquo;s more, when given enough of generated numbers, there is really easy way to retrive ALL <em>random</em> numbers in seqence and next values that will be generated in the future! But it&rsquo;s not the topic of this task.</p>
+<pre tabindex="0"><code>Be careful! As rabin2, or radare2 -i option told us, agents compiled their work on Windows, implementation of LCG is slightly different on Windows than in Linux.
+</code></pre><p>The function flow goes this way:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">string s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>; <span style="color:#75715e">//key-to-be variable
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">32</span>; i<span style="color:#f92672">++</span>)
+{
+	foo <span style="color:#f92672">=</span> rand();
+	bar <span style="color:#f92672">=</span> foo <span style="color:#f92672">-</span> (( foo <span style="color:#f92672">*</span> <span style="color:#ae81ff">2139127681</span>) <span style="color:#f92672">&gt;&gt;</span><span style="color:#ae81ff">39</span>) <span style="color:#f92672">-</span> (foo <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">31</span>);
+	s <span style="color:#f92672">+=</span> <span style="color:#66d9ef">char</span>(bar);
+}
+</code></pre></div><p>32 is the lenght of encrypted message, so it&rsquo;s the lenght of OTP too.</p>
+<p>This values comes from converting them in radare2 from hex to dec.</p>
+<pre tabindex="0"><code>2139127681 = 0x7f807f81
+39 = 0x27
+31 = 0x17
+</code></pre><p>Ok, so no the task becomes to be easy&hellip; We have tu guess timestamp. How to do this? In probable-timestamp period for each timestamp we generate all 32 values and create probable key. After xoring with message if all given data is printable that migh be the key. Remove all garbish looking output and tadadadadam!</p>
+<p>For timestamp = <code>1500483661</code></p>
+<p>The message is&hellip;. <code>Who needs to store keys anyway.</code></p>
+<p>Full code is <a href="https://github.com/s3gm3nt4ti0nf4ult/random">here</a></p>
+<p>That&rsquo;s all. Thank you for your attention. To the next time! <code>/me bye!</code></p>
+<p><code>More cracking stuff comming soon...</code></p>
+
+      </div></div>
+
+  
+
+  <link rel="stylesheet" href="https://foxtrotlabs.cc/comments.css">
+ <section class="post-comments">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+ 
+
+<h1 id="Comments">Comments<a href="#Comments" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<font size="1"> My comments operate on free Heroku instance. If there is no traffic in 30 minutes the dyno service goes asleep. That causes a small delay in submitting your comment. Thank you for your patience ;)</font>
+
+  
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    <p>Nothing yet.</p>
+  
+
+  <h3>Say something</h3>
+
+  <form class="post-new-comment" method="POST" action="https://flabs-staticman.herokuapp.com/v2/entry/s3gm3nt4ti0nf4ult/page_source/master/comments">
+    <input type="hidden" name="options[redirect]" value="https://foxtrotlabs.cc/2017/07/en-gynvaels-mission-en009-radare2-struggle/#comment-submitted">
+    <input type="hidden" name="options[entryId]" value="96724ff7197b4871122b61d581d1ab0b">
+    <input name="fields[name]" type="text" class="post-comment-field" placeholder="Your name">
+    <input name="fields[email]" type="email" class="post-comment-field" placeholder="Your email address">
+    <textarea name="fields[body]" class="post-comment-field" placeholder="Your message. Feel free to use Markdown." rows="10"></textarea>
+    <input type="hidden" name="options[reCaptcha][siteKey]" value="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR">
+    <input type="hidden" name="options[reCaptcha][secret]" value="cNVL1K9Iu23KHkq4nAvjE8jFHYmFb1aJmvpOSSILJdZaUA07HolAG0UkqYzekmBKkxqNo4bAwKcPhGtIohOKp+PfBROWHhB+Vl+lGYQ9Z3+MTghdzhAZEC0V+Ti0WEvpfTXR7Lj6LUXwPNg+HRMj3/oYlou6vsz0cP1OSLPe9iMd4ZMGolwIaUowvWn9DVfU0eHKLAWUNXVRxFiBGcTKKbAd0JgR4ZtZs1VsPkhC3OlOsHm/yW2pA491SAQ0s820p+H1SncOd1kYE1h2gTL+oklzH+5CNz2V4xyq6Et4NLjinr0WGUN87eCFYUz+05wyEp+5lrG+uuq1eX2cBcfVoA=="></div>
+    <input type="submit" class="post-comment-field btn" value="Submit">
+     <div class="g-recaptcha" data-sitekey="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR"></div>
+  </form>
+</section>
+
+<div id="comment-submitted" class="dialog">
+<h3>Thank you</h3>
+  <p>Your comment has been submitted and will be published once it has been approved.</p>
+  <p><a href="#" class="btn">OK</a></p>
+</div>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>copyright by foxtrot_charlie</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://foxtrotlabs.cc/assets/main.js"></script>
+<script src="https://foxtrotlabs.cc/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

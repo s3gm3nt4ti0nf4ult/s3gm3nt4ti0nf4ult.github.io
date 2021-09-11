@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Foxtrotlabs</title>
+    <link>https://foxtrotlabs.cc/</link>
+    <description>Recent content on Foxtrotlabs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>copyright by foxtrot_charlie</copyright>
+    <lastBuildDate>Sat, 11 Sep 2021 00:00:00 +0100</lastBuildDate><atom:link href="https://foxtrotlabs.cc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[HTB Writeup]: Schooled - HackTHeBox Machine</title>
+      <link>https://foxtrotlabs.cc/2021/09/htb-writeup-schooled-hackthebox-machine/</link>
+      <pubDate>Sat, 11 Sep 2021 00:00:00 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2021/09/htb-writeup-schooled-hackthebox-machine/</guid>
+      <description>Info    Box Name     IP 10.10.10.234   OS FreeBSD   Pwned True   Vulnerability Stored XSS/Session Hijack/Priv Esc/RCE   Priv-esc Sudo NOPASSWD for pkg install   Obtained N/A   Retired TRUE    Recon The box schooled is rated as a medium box. It&amp;rsquo;s based on the FreeBSD 13 and features two vhosts. One with a static website and other one with moodle version 3.</description>
+    </item>
+    
+    <item>
+      <title>[HTB Writeup]: delivery HackTHeBox Machine</title>
+      <link>https://foxtrotlabs.cc/2021/05/htb-writeup-delivery-hackthebox-machine/</link>
+      <pubDate>Sat, 22 May 2021 10:00:00 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2021/05/htb-writeup-delivery-hackthebox-machine/</guid>
+      <description>Info    Box delivery     IP 10.10.10.222   OS Linux   Pwned True   Vulnerability Vulnerable helpdesk service containing plain text passwords   Priv-esc Weak credentials, cracked password   Obtained Awesome article link   Retired True    Recon The Delivery box is a Linux box that was created by beloved @ippsec and is rated as easy one.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Cyber2 Day 0x02</title>
+      <link>https://foxtrotlabs.cc/2020/12/advent-of-cyber2-day-0x02/</link>
+      <pubDate>Wed, 02 Dec 2020 18:38:59 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2020/12/advent-of-cyber2-day-0x02/</guid>
+      <description>0x00 Intro Another day, another challenge. The task was simple - RCE via Unrestricted File Upload. The uploaded file must be the .jpeg one, so sanitization mechanism has to be bypassed.
+0x01 Solution To get access to the upload page the id parameter is needed in the GET request.
+GET /uploads/?id=ODIzODI5MTNiYmYw HTTP/1.1 Host: 10.10.52.175 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8 Accept-Language: en-US,en;q=0.5 Accept-Encoding: gzip, deflate Connection: close Upgrade-Insecure-Requests: 1 Then there is a service to upload images of suspicious peoples hanging around.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Cyber2 Day 0x01</title>
+      <link>https://foxtrotlabs.cc/2020/12/advent-of-cyber2-day-0x01/</link>
+      <pubDate>Tue, 01 Dec 2020 18:38:59 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2020/12/advent-of-cyber2-day-0x01/</guid>
+      <description>0x00 Ho! Ho! Ho! December 1, the day on which the countdown begins. We don&amp;rsquo;t have much time to help our Santa deliver malicious payl^W pardon, I should talk about Santa in the red uniform not about red teaming. So as one may read, it&amp;rsquo;s only 24 days until Christmas and crackers/APTs/state actors are trying to ruin Christmas. This challenge was brought to you by John Hammond and I would consider it as easy one.</description>
+    </item>
+    
+    <item>
+      <title>[HTB Writeup]: Openadmin HackTheBox Challenge</title>
+      <link>https://foxtrotlabs.cc/2020/08/htb-writeup-openadmin-hackthebox-challenge/</link>
+      <pubDate>Fri, 21 Aug 2020 17:54:54 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2020/08/htb-writeup-openadmin-hackthebox-challenge/</guid>
+      <description>&amp;lt;disclaimer&amp;gt;this is an old post, that was finished some time ago (February 2020), but due to the things (I forgot about retiring the machine) I&amp;rsquo;m publishing it now&amp;lt;/disclaimer&amp;gt;
+It&amp;rsquo;s been a looooong time&amp;hellip; &amp;hellip; since I&amp;rsquo;ve written something here. This place is not dead yet. I had really tight schedule with my security job, school, CTFs and PozSec meetups organization soooo it was really hard to start blogging again. I&amp;rsquo;m still learning so some topics I want to cover in depth require some time.</description>
+    </item>
+    
+    <item>
+      <title>Gynvael&#39;s Challenges 0, 1 and 2</title>
+      <link>https://foxtrotlabs.cc/2020/05/gynvaels-challenges-0-1-and-2/</link>
+      <pubDate>Mon, 18 May 2020 11:29:16 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2020/05/gynvaels-challenges-0-1-and-2/</guid>
+      <description>0x00 Introduction If you have ever wondered why I am foxtrot_charlie, well - first of all my parents gave me this name, and then cf acronym comes to play. In military jargon cf could be described visually as the beginning of the year 2020. Pure cluster f***k. But lockdown has some advantages. For example I do not need to move around for my uni classes (why the hell something like that must have happened so we could study at home) so there is plenty of time to do my thing - hack.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://foxtrotlabs.cc/about/</link>
+      <pubDate>Fri, 01 Feb 2019 19:49:42 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/about/</guid>
+      <description>Hi! Welcome to the worst blog about IT sec on the Internet! I&amp;rsquo;m trying to find out if blogging is for me. You will find here some CTF writeups, my thoughts related to security and my notes. All thesis are my own opinions.
+Standard bio:
+Name: foxtrot_charlie
+Born: Yes
+From: Internet
+Mail: segment_0xf4ult[at]protonmail.com
+Twitter: @foxtrot_0x4fult
+Keybase.io: https://keybase.io/foxtrot_charlie
+  PGP Key:
+-----BEGIN PGP PUBLIC KEY BLOCK----- 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 4st2rU25mRVObJlp =wPLh -----END PGP PUBLIC KEY BLOCK----- </description>
+    </item>
+    
+    <item>
+      <title>Battle City Mission Winner Announcement</title>
+      <link>https://foxtrotlabs.cc/2019/01/battle-city-mission-winner-announcement/</link>
+      <pubDate>Tue, 15 Jan 2019 10:55:34 +0100</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2019/01/battle-city-mission-winner-announcement/</guid>
+      <description>0x00 Well done agents! The mission is now over! I repeat: The mission is now over!
+ If you are not familiar with missions - they are CTF-like challenges or code golfs published at the end of the Gynvael&amp;rsquo;s livestream. Mission number 25 was pretty special. It was brought to us by firemark, whom you might recall from our IRC channel
+The task was to create a bot firmware (probably simplyfied AI program) and win THEEEEEE BIIIIIIIG BOOOOOOOOOOOOOOOOOT BATTLE!</description>
+    </item>
+    
+    <item>
+      <title>EN: Hacking VulnHub Machine - Pinky&#39;s Palace I</title>
+      <link>https://foxtrotlabs.cc/2018/07/en-hacking-vulnhub-machine-pinkys-palace-i/</link>
+      <pubDate>Tue, 24 Jul 2018 13:36:50 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2018/07/en-hacking-vulnhub-machine-pinkys-palace-i/</guid>
+      <description>**But we are Poles and we are not afraid of dictionary attacks** A funny quote from the Internet  0x00 Gooood moooornnnnin&#39; Internetnam! After a looooong time, I&amp;rsquo;ve finally managed to spend some time on writing. There is more to go, but for now - let&amp;rsquo;s dive into VulnHub VM - our target today is a well known Pinky&amp;rsquo;s Palace I by Pink_Panther.
+By the way I also recommend his OSCP failing post, that shows why failing is not the end of the world, but the beginning of the journey!</description>
+    </item>
+    
+    <item>
+      <title>EN: Gynvael&#39;s Mission 016</title>
+      <link>https://foxtrotlabs.cc/2017/10/en-gynvaels-mission-016/</link>
+      <pubDate>Fri, 06 Oct 2017 12:23:46 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2017/10/en-gynvaels-mission-016/</guid>
+      <description>My task I wasn&amp;rsquo;t in a hurry to accomplish mission no. 016 (in decimal), because I&amp;rsquo;m an author of this mess ;) So in this post I will show &amp;ldquo;my intended solution&amp;rdquo;. Before we begin, I want to give a huge shoutout to my IRC mate, who have told me a lot about a SSTV and a ham radio. This inspired me to create this mission. Kudos to @fishcake! The rating of this mission was done by @Gynvael.</description>
+    </item>
+    
+    <item>
+      <title>EN: Gynvaels Mission EN015</title>
+      <link>https://foxtrotlabs.cc/2017/09/en-gynvaels-mission-en015/</link>
+      <pubDate>Fri, 22 Sep 2017 11:19:27 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2017/09/en-gynvaels-mission-en015/</guid>
+      <description>Task A stream number 34 was about implementing some basic stuff of a CHIP-8 virtual machine. The ending screen contains ofcoruse a mission!
+MISSION 015 goo.gl/JKN1Zq DIFFICULTY: █████░░░░░ [5╱10] ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅ One of our operatives managed to find an information leak vulnerability on an internal website of a hostile syndicate. The vulnerability itself is quite amusing, as it allows to leak any file on the FS in form of a bar chart.</description>
+    </item>
+    
+    <item>
+      <title>EN: Gynvael&#39;s Mission EN009 &amp;&amp; radare2 struggle</title>
+      <link>https://foxtrotlabs.cc/2017/07/en-gynvaels-mission-en009-radare2-struggle/</link>
+      <pubDate>Wed, 26 Jul 2017 12:34:19 +0200</pubDate>
+      
+      <guid>https://foxtrotlabs.cc/2017/07/en-gynvaels-mission-en009-radare2-struggle/</guid>
+      <description>So this is the way blogging looks like&amp;hellip; :)
+ 0x00: MISSION 009 AGENDA If you are watching Gynvael&amp;rsquo;s EN streams, you know what it&amp;rsquo;s all about. After every stream, Gynvael is publishing one mission aka easy CTF task. And here is my &amp;ldquo;writeup-wannabe&amp;rdquo; for challenge number 009. Honestly that was the hardest challenge made by Gynvael. I love it, and wait for more!
+TASK: Welcome back agent 1336. No mail.</description>
+    </item>
+    
+  </channel>
+</rss>

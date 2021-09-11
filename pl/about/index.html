@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  
+    <title>About :: FoxtrotLabs — Tam gdzie bajty mówią dobranoc</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Witam na najgorszym blogu o IT sec w sieci! Znajdziesz tutaj moje przemyślenia i writeupy ze zmagań z zadaniami CTF. Wszelkie publikowane tezy są moim prywatnym zdaniem.
+Standardowo kilka informacji:
+Imię: foxtrot_charlie
+Urodzony: Tak
+Skąd: Internet
+Kontakt: segment_0xf4ult[at]protonmail.com
+Twitter: @foxtrot_0x4fult
+Keybase.io: https://keybase.io/foxtrot_charlie
+ PGP Key:
+-----BEGIN PGP PUBLIC KEY BLOCK----- mQINBFnUupoBEADA8ppd7&#43;KrBFOWv8kuRpYOl5dd3W4o3DnAl0LDEptCs/WD2Gcu saFrgWkrBxfjIryd/dw5LBSxg6EzjoHCB8eXzbXfZ0sON/RoMXgfLXPSu3JiSBSn DK3QJ1ULbZ&#43;35N1UtxXCiewITCm7p/glrkJDzIJ4e8IiKWH6eEX8mQreCYK3o5yv uKT1roOE4KUSlGvNpkA8pI7XykmtiYKgv6a&#43;9H4wbpVcVulERMPVquKLzYv4mzx&#43; lCF9XN88x/vGXDMFLTjQ4ohFEBHpoxgh0Zrq/kNUzK5MHx7OZ89HBp0Wl/yXPgSu sqIUYVHxT81XRlh7VaKs9DbGqmbi7KY0Bki184JPV/zbMnTscvo41GcTUj9zuvcl 7aapAhhiNap4Oq6cPZQVwVz/9rRzZsX&#43;PsjGbOKhAt0LS3ALtsUxSxVA5oZTbtun ZlzLTvDNEEGKp61qLNjB5eKCWK&#43;K2gk3T4cO103Jz9yddX7xU/JRyyi&#43;nTmo4qof GCRfY7y9XOyWK//Z2zWIiL8oiQPMFVewl0FTxEZYfFsieWv3VoL4h5CXlWnIaOsr SbXCdwu9sONO1V03ZL1m3phigQdt&#43;vwlWb3YMNL6J9PUPAF&#43;m4WpeTyQ/8xqgsGT 1&#43;&#43;BRLhdo9yfq58hKet&#43;hiiXgCjm4746cSk7s9q7LmsZSIrPzkDMUQ7RnwARAQAB tDBmb3h0cm90X2NoYXJsaWUgPHNlZ21lbnRfMHhmNHVsdEBwcm90b25tYWlsLmNv bT6JAk4EEwEIADgWIQRKAXOqV3QDFUwQGUQAhzDssMsBSQUCWdS6mgIbAwULCQgH AgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAAhzDssMsBSaRJEAC9w9I5xZu4y8mw69&#43;C YW6trF/05HYU1DLgtQ&#43;uY/2qZ1qiNfGW/Aydi3MVjhofAtKhrGPfWo5g4c4Sw91t SgdLF9jp4cOL2y/8wNcLxEpBuWjT2gQnQcMBUoAwaoJ8rgag4yfVP7arZeNrtcnO 6CeobuPs/WPJ9ABzKSKkq2uxQzJdF84UuR&#43;5E/Bfd907ZEktvBcMUNM1YMEd7v3/ slviDGHLuCQDX0yxcSBE3uaSGyfY8Z8klCBGJ6PJUeLSTLWXj&#43;DRJoQk&#43;efJ&#43;oHV Gek5yhvu/xNZQkS&#43;PaDSwNIiPBU90SZZzcF4Pg8ZNgkALN2Q6ddJduyu&#43;Xlo&#43;Cj0 sKCTes4K7i3D0FNkYGJJSTqaDSlkGxXfI5ETjzhxlb1/KyfZC7nGwFDGvN&#43;1Z/Hd sIkkh3RQuEHBhQiJsrAMcbD1o12bCj9eTYQUxweoyy9n6SzwfVSHY3uItAqpJHAd m7DK&#43;Tbt6Kn5WtR1V/7M1S70lVdLraIBVdIl2E0tFjQbrc2HIsZ8RkDlvzLQxQvP HyJzazvQotMmEtDf9y1a44c/n68&#43;UzeKydce2Kz&#43;V2K7DbF14o8&#43;hZNZslGYtZj7 CoDWJos&#43;&#43;YVOqTYUgGM/jlhqkYxuRRp3XAFuTE5PmWWchdOv5ZycXRFBd8nhc95c UqushYV5gI3UViE8MM1tw4AjYbkCDQRZ1LqaARAAlTiedWhHqsOA9kvhyFUBfL&#43;u bZgC9sV3dtxc1iFRuMBSSRs9SylD3I/NZHx9DPyxkS6RBtSiARS2I7PqJ4kQPUjN us0VQ/vcsB1z0&#43;uO5KUYzP5k0WaqLhqRyjMd6ddORl8kiV4tCqjxk&#43;EqAvZicOqq CQ9HwXen3sY&#43;MTj9qVz1vAzzX/oyv0A4M3RWhf&#43;iuy9vMqETd6H4fZTZHygqv63P NKUce2mHqkorr3B21hITestyLgZ1j1wDIUPwNDezINq&#43;9QySSXjYi23g38mxEGCV pYCMKPww0GyM2t7cpbXgU9jfDAfQ6UOalqrK5mZwFhoAd3YxJdGPopa8Xy/KIYEO oy/x&#43;NYcCaGPERGJlUCmjioM3HDO1Dc2n&#43;ieOiC2&#43;/FowJ2TDhP1IzCrabemctvp JBfulFshvw9wJpFD&#43;ePYaY0NHJThil32I6lGd1ATrYJCis9CnqvU8cU3LUZu6HzA BI9IawjjvDDkQxkOPUrYIBOj&#43;Jx0mX/YvfOrJ3azNJpgPy&#43;2NfDuvCbZIJyqDu08 CkJxlyu0wpgajF2E8PgFMfigjtzNfXGWwCEqTocPagJDJgvE&#43;Cf3llLgnb&#43;AUcVT 8S6aET9z7ym5vzI&#43;TnQQQ1//gUscapvsT2ruwjV96EEgW3OR4nCH&#43;7W&#43;/9y7d&#43;WV iBH1LHzYvL1cHpkxpkEAEQEAAYkCNgQYAQgAIBYhBEoBc6pXdAMVTBAZRACHMOyw ywFJBQJZ1LqaAhsMAAoJEACHMOywywFJtUUP/iWWUoDdYe0Pjzx/iztIJzgO0V4U SmZsnO4jFOsfVT7PVOKdf0CJC23YhEPtGP4mj4OpqwzicxtV0vVX7OOo2ZICIAXQ kB1REDJuKE5MEr6ArxVL9HG9V94ouvOssxXhe6nuKHYmkiVP/Xo6KF758zJBjqEK VHO&#43;Pse2XmDit9WxSCQBiFBHnuqhptXjqlwO5uQ5oGh105ylVKg3bbwq2d3lyuky 1v8FIobyTZ3QGUDJTUK2edgjwHlgOnfkFcfkNzHTwN1MGoTVwrtg9sjZLljqTJMm Nk20gXqXr2&#43;IBYFAS1c6KFOZx6LFSDcq&#43;2maj6iZ&#43;qzcKL9/Zi1piPHWQFCRMNO0 CAO48cf3Cg8ZGhHvo&#43;JxS3HbSgi4awWkavy8SCtG8Uaiz5&#43;hsISPqpPRxvBsVNaO ralMKpxnGVPuiCmwjGkbsi2sMMsqsKpjYFJ4Nh4/bAf/gaS0pDXKwUN9jwM0JEYj i14hQwhD9Su92MuemCocv2vtX2&#43;Tye7TI&#43;39Hl8KZrJxiFdmzbzYe1mvL&#43;6mtWXz ybTRiiph9Pa8lk86YuCGKDUETFs1GB2oGIQbOUA&#43;cC7Vyt80JKw1P3kM85cmF4WS AjISOupY0/Bj08/Ckg&#43;ipUH&#43;xrWpEZggJrRcXpUgI5uSJ0vOlgpuiiJQ8d4sdtVh 4st2rU25mRVObJlp =wPLh -----END PGP PUBLIC KEY BLOCK----- " />
+<meta name="keywords" content="hacking" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://foxtrotlabs.cc/pl/about/" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+<link rel="stylesheet" href="https://foxtrotlabs.cc/assets/style.css">
+
+  <link rel="stylesheet" href="assets/%25!s%28%3cnil%3e%29.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+<meta name="twitter:creator" content="" />
+
+
+<meta property="og:locale" content="pl" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="About :: FoxtrotLabs">
+<meta property="og:description" content="Witam na najgorszym blogu o IT sec w sieci! Znajdziesz tutaj moje przemyślenia i writeupy ze zmagań z zadaniami CTF. Wszelkie publikowane tezy są moim prywatnym zdaniem.
+Standardowo kilka informacji:
+Imię: foxtrot_charlie
+Urodzony: Tak
+Skąd: Internet
+Kontakt: segment_0xf4ult[at]protonmail.com
+Twitter: @foxtrot_0x4fult
+Keybase.io: https://keybase.io/foxtrot_charlie
+ PGP Key:
+-----BEGIN PGP PUBLIC KEY BLOCK----- mQINBFnUupoBEADA8ppd7&#43;KrBFOWv8kuRpYOl5dd3W4o3DnAl0LDEptCs/WD2Gcu saFrgWkrBxfjIryd/dw5LBSxg6EzjoHCB8eXzbXfZ0sON/RoMXgfLXPSu3JiSBSn DK3QJ1ULbZ&#43;35N1UtxXCiewITCm7p/glrkJDzIJ4e8IiKWH6eEX8mQreCYK3o5yv uKT1roOE4KUSlGvNpkA8pI7XykmtiYKgv6a&#43;9H4wbpVcVulERMPVquKLzYv4mzx&#43; lCF9XN88x/vGXDMFLTjQ4ohFEBHpoxgh0Zrq/kNUzK5MHx7OZ89HBp0Wl/yXPgSu sqIUYVHxT81XRlh7VaKs9DbGqmbi7KY0Bki184JPV/zbMnTscvo41GcTUj9zuvcl 7aapAhhiNap4Oq6cPZQVwVz/9rRzZsX&#43;PsjGbOKhAt0LS3ALtsUxSxVA5oZTbtun ZlzLTvDNEEGKp61qLNjB5eKCWK&#43;K2gk3T4cO103Jz9yddX7xU/JRyyi&#43;nTmo4qof GCRfY7y9XOyWK//Z2zWIiL8oiQPMFVewl0FTxEZYfFsieWv3VoL4h5CXlWnIaOsr SbXCdwu9sONO1V03ZL1m3phigQdt&#43;vwlWb3YMNL6J9PUPAF&#43;m4WpeTyQ/8xqgsGT 1&#43;&#43;BRLhdo9yfq58hKet&#43;hiiXgCjm4746cSk7s9q7LmsZSIrPzkDMUQ7RnwARAQAB tDBmb3h0cm90X2NoYXJsaWUgPHNlZ21lbnRfMHhmNHVsdEBwcm90b25tYWlsLmNv bT6JAk4EEwEIADgWIQRKAXOqV3QDFUwQGUQAhzDssMsBSQUCWdS6mgIbAwULCQgH AgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAAhzDssMsBSaRJEAC9w9I5xZu4y8mw69&#43;C YW6trF/05HYU1DLgtQ&#43;uY/2qZ1qiNfGW/Aydi3MVjhofAtKhrGPfWo5g4c4Sw91t SgdLF9jp4cOL2y/8wNcLxEpBuWjT2gQnQcMBUoAwaoJ8rgag4yfVP7arZeNrtcnO 6CeobuPs/WPJ9ABzKSKkq2uxQzJdF84UuR&#43;5E/Bfd907ZEktvBcMUNM1YMEd7v3/ slviDGHLuCQDX0yxcSBE3uaSGyfY8Z8klCBGJ6PJUeLSTLWXj&#43;DRJoQk&#43;efJ&#43;oHV Gek5yhvu/xNZQkS&#43;PaDSwNIiPBU90SZZzcF4Pg8ZNgkALN2Q6ddJduyu&#43;Xlo&#43;Cj0 sKCTes4K7i3D0FNkYGJJSTqaDSlkGxXfI5ETjzhxlb1/KyfZC7nGwFDGvN&#43;1Z/Hd sIkkh3RQuEHBhQiJsrAMcbD1o12bCj9eTYQUxweoyy9n6SzwfVSHY3uItAqpJHAd m7DK&#43;Tbt6Kn5WtR1V/7M1S70lVdLraIBVdIl2E0tFjQbrc2HIsZ8RkDlvzLQxQvP HyJzazvQotMmEtDf9y1a44c/n68&#43;UzeKydce2Kz&#43;V2K7DbF14o8&#43;hZNZslGYtZj7 CoDWJos&#43;&#43;YVOqTYUgGM/jlhqkYxuRRp3XAFuTE5PmWWchdOv5ZycXRFBd8nhc95c UqushYV5gI3UViE8MM1tw4AjYbkCDQRZ1LqaARAAlTiedWhHqsOA9kvhyFUBfL&#43;u bZgC9sV3dtxc1iFRuMBSSRs9SylD3I/NZHx9DPyxkS6RBtSiARS2I7PqJ4kQPUjN us0VQ/vcsB1z0&#43;uO5KUYzP5k0WaqLhqRyjMd6ddORl8kiV4tCqjxk&#43;EqAvZicOqq CQ9HwXen3sY&#43;MTj9qVz1vAzzX/oyv0A4M3RWhf&#43;iuy9vMqETd6H4fZTZHygqv63P NKUce2mHqkorr3B21hITestyLgZ1j1wDIUPwNDezINq&#43;9QySSXjYi23g38mxEGCV pYCMKPww0GyM2t7cpbXgU9jfDAfQ6UOalqrK5mZwFhoAd3YxJdGPopa8Xy/KIYEO oy/x&#43;NYcCaGPERGJlUCmjioM3HDO1Dc2n&#43;ieOiC2&#43;/FowJ2TDhP1IzCrabemctvp JBfulFshvw9wJpFD&#43;ePYaY0NHJThil32I6lGd1ATrYJCis9CnqvU8cU3LUZu6HzA BI9IawjjvDDkQxkOPUrYIBOj&#43;Jx0mX/YvfOrJ3azNJpgPy&#43;2NfDuvCbZIJyqDu08 CkJxlyu0wpgajF2E8PgFMfigjtzNfXGWwCEqTocPagJDJgvE&#43;Cf3llLgnb&#43;AUcVT 8S6aET9z7ym5vzI&#43;TnQQQ1//gUscapvsT2ruwjV96EEgW3OR4nCH&#43;7W&#43;/9y7d&#43;WV iBH1LHzYvL1cHpkxpkEAEQEAAYkCNgQYAQgAIBYhBEoBc6pXdAMVTBAZRACHMOyw ywFJBQJZ1LqaAhsMAAoJEACHMOywywFJtUUP/iWWUoDdYe0Pjzx/iztIJzgO0V4U SmZsnO4jFOsfVT7PVOKdf0CJC23YhEPtGP4mj4OpqwzicxtV0vVX7OOo2ZICIAXQ kB1REDJuKE5MEr6ArxVL9HG9V94ouvOssxXhe6nuKHYmkiVP/Xo6KF758zJBjqEK VHO&#43;Pse2XmDit9WxSCQBiFBHnuqhptXjqlwO5uQ5oGh105ylVKg3bbwq2d3lyuky 1v8FIobyTZ3QGUDJTUK2edgjwHlgOnfkFcfkNzHTwN1MGoTVwrtg9sjZLljqTJMm Nk20gXqXr2&#43;IBYFAS1c6KFOZx6LFSDcq&#43;2maj6iZ&#43;qzcKL9/Zi1piPHWQFCRMNO0 CAO48cf3Cg8ZGhHvo&#43;JxS3HbSgi4awWkavy8SCtG8Uaiz5&#43;hsISPqpPRxvBsVNaO ralMKpxnGVPuiCmwjGkbsi2sMMsqsKpjYFJ4Nh4/bAf/gaS0pDXKwUN9jwM0JEYj i14hQwhD9Su92MuemCocv2vtX2&#43;Tye7TI&#43;39Hl8KZrJxiFdmzbzYe1mvL&#43;6mtWXz ybTRiiph9Pa8lk86YuCGKDUETFs1GB2oGIQbOUA&#43;cC7Vyt80JKw1P3kM85cmF4WS AjISOupY0/Bj08/Ckg&#43;ipUH&#43;xrWpEZggJrRcXpUgI5uSJ0vOlgpuiiJQ8d4sdtVh 4st2rU25mRVObJlp =wPLh -----END PGP PUBLIC KEY BLOCK----- " />
+<meta property="og:url" content="https://foxtrotlabs.cc/pl/about/" />
+<meta property="og:site_name" content="About" />
+
+  
+    <meta property="og:image" content="">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2019-02-01 19:49:42 &#43;0100 &#43;0100" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="https://foxtrotlabs.cc/pl">
+  <div class="logo">
+    foxtrotlabs-pl
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="https://foxtrotlabs.cc/pl/posts">posty</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/">English side</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/pl/about">o mnie</a></li>
+        
+      
+        
+          <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="https://foxtrotlabs.cc/pl/posts">posty</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/">English side</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/pl/about">o mnie</a></li>
+      
+    
+      
+        <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://foxtrotlabs.cc/pl/about/">About</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2019-02-01 
+      </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>Witam na najgorszym blogu o IT sec w sieci! Znajdziesz tutaj moje przemyślenia i writeupy ze zmagań z zadaniami CTF. Wszelkie publikowane tezy są <strong>moim prywatnym zdaniem</strong>.</p>
+<p>Standardowo kilka informacji:</p>
+<p>Imię: foxtrot_charlie</p>
+<p>Urodzony: Tak</p>
+<p>Skąd: Internet</p>
+<p>Kontakt: <code>segment_0xf4ult[at]protonmail.com</code></p>
+<p>Twitter: <code>@foxtrot_0x4fult</code></p>
+<p>Keybase.io: <code>https://keybase.io/foxtrot_charlie</code></p>
+<hr>
+<p>PGP Key:</p>
+<pre tabindex="0"><code>-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+4st2rU25mRVObJlp
+=wPLh
+-----END PGP PUBLIC KEY BLOCK-----
+
+</code></pre>
+      </div></div>
+
+  
+
+  <link rel="stylesheet" href="https://foxtrotlabs.cc/comments.css">
+ <section class="post-comments">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+ 
+
+<h1 id="Comments">Comments<a href="#Comments" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<font size="1"> My comments operate on free Heroku instance. If there is no traffic in 30 minutes the dyno service goes asleep. That causes a small delay in submitting your comment. Thank you for your patience ;)</font>
+
+  
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    <p>Nothing yet.</p>
+  
+
+  <h3>Say something</h3>
+
+  <form class="post-new-comment" method="POST" action="https://flabs-staticman.herokuapp.com/v2/entry/s3gm3nt4ti0nf4ult/page_source/master/comments">
+    <input type="hidden" name="options[redirect]" value="https://foxtrotlabs.cc/pl/about/#comment-submitted">
+    <input type="hidden" name="options[entryId]" value="6083a88ee3411b0d17ce02d738f69d47">
+    <input name="fields[name]" type="text" class="post-comment-field" placeholder="Your name">
+    <input name="fields[email]" type="email" class="post-comment-field" placeholder="Your email address">
+    <textarea name="fields[body]" class="post-comment-field" placeholder="Your message. Feel free to use Markdown." rows="10"></textarea>
+    <input type="hidden" name="options[reCaptcha][siteKey]" value="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR">
+    <input type="hidden" name="options[reCaptcha][secret]" value="cNVL1K9Iu23KHkq4nAvjE8jFHYmFb1aJmvpOSSILJdZaUA07HolAG0UkqYzekmBKkxqNo4bAwKcPhGtIohOKp+PfBROWHhB+Vl+lGYQ9Z3+MTghdzhAZEC0V+Ti0WEvpfTXR7Lj6LUXwPNg+HRMj3/oYlou6vsz0cP1OSLPe9iMd4ZMGolwIaUowvWn9DVfU0eHKLAWUNXVRxFiBGcTKKbAd0JgR4ZtZs1VsPkhC3OlOsHm/yW2pA491SAQ0s820p+H1SncOd1kYE1h2gTL+oklzH+5CNz2V4xyq6Et4NLjinr0WGUN87eCFYUz+05wyEp+5lrG+uuq1eX2cBcfVoA=="></div>
+    <input type="submit" class="post-comment-field btn" value="Submit">
+     <div class="g-recaptcha" data-sitekey="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR"></div>
+  </form>
+</section>
+
+<div id="comment-submitted" class="dialog">
+<h3>Thank you</h3>
+  <p>Your comment has been submitted and will be published once it has been approved.</p>
+  <p><a href="#" class="btn">OK</a></p>
+</div>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>copyright by foxtrot_charlie</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://foxtrotlabs.cc/assets/main.js"></script>
+<script src="https://foxtrotlabs.cc/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

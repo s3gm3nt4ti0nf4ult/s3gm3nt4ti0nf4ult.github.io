@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>EN: Gynvaels Mission EN015 :: Foxtrotlabs — In the middle of somewhere</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Task A stream number 34 was about implementing some basic stuff of a CHIP-8 virtual machine. The ending screen contains ofcoruse a mission!
+MISSION 015 goo.gl/JKN1Zq DIFFICULTY: █████░░░░░ [5╱10] ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅ One of our operatives managed to find an information leak vulnerability on an internal website of a hostile syndicate. The vulnerability itself is quite amusing, as it allows to leak any file on the FS in form of a bar chart." />
+<meta name="keywords" content="hacking" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://foxtrotlabs.cc/2017/09/en-gynvaels-mission-en015/" />
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+<link rel="stylesheet" href="https://foxtrotlabs.cc/assets/style.css">
+
+  <link rel="stylesheet" href="https://foxtrotlabs.cc/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+<meta name="twitter:creator" content="" />
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="EN: Gynvaels Mission EN015 :: Foxtrotlabs">
+<meta property="og:description" content="Task A stream number 34 was about implementing some basic stuff of a CHIP-8 virtual machine. The ending screen contains ofcoruse a mission!
+MISSION 015 goo.gl/JKN1Zq DIFFICULTY: █████░░░░░ [5╱10] ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅ One of our operatives managed to find an information leak vulnerability on an internal website of a hostile syndicate. The vulnerability itself is quite amusing, as it allows to leak any file on the FS in form of a bar chart." />
+<meta property="og:url" content="https://foxtrotlabs.cc/2017/09/en-gynvaels-mission-en015/" />
+<meta property="og:site_name" content="EN: Gynvaels Mission EN015" />
+
+  
+    <meta property="og:image" content="">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2017-09-22 11:19:27 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="https://foxtrotlabs.cc/en">
+  <div class="logo">
+    foxtrotlabs-en
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="https://foxtrotlabs.cc/posts">posts</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/pl">Polish side</a></li>
+        
+      
+        
+          <li><a href="https://foxtrotlabs.cc/about">about</a></li>
+        
+      
+        
+          <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="https://foxtrotlabs.cc/posts">posts</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/pl">Polish side</a></li>
+      
+    
+      
+        <li><a href="https://foxtrotlabs.cc/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-148414315-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://foxtrotlabs.cc/2017/09/en-gynvaels-mission-en015/">EN: Gynvaels Mission EN015</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2017-09-22 
+      </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h3 id="task">Task<a href="#task" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>A stream number <a href="https://youtu.be/BQRX3owv2JI">34</a> was about implementing some basic stuff of a CHIP-8 virtual machine. The ending screen contains ofcoruse a mission!</p>
+<pre tabindex="0"><code>MISSION 015               goo.gl/JKN1Zq             DIFFICULTY: █████░░░░░ [5╱10] 
+┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+One of our operatives managed to find an information leak vulnerability on an 
+internal website of a hostile syndicate. The vulnerability itself is quite 
+amusing, as it allows to leak any file on the FS in form of a bar chart. Our 
+operative leaked a script responsible for authenticating a system operator. 
+ 
+Your task is to analyze the chart and then the script, and attempt to recover 
+system operator's password. 
+ 
+  Chart: goo.gl/YbYYcS 
+ 
+Good luck!
+</code></pre><p>Well, I think that there was some CTF challenge with data leaked via bar charts. Unfortunately I don&rsquo;t have a link. If someone knows what CTF task it was, please give me a hint ;) The image looks like this:</p>
+<p><img src="https://foxtrotlabs.cc/pics/GLS015EN/mission.png" alt="image"></p>
+<h3 id="getting-started">Getting started<a href="#getting-started" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Leaking a source code via a png file sound like a fun! But how to extract the data? First of all I&rsquo;ve checked all metadata.</p>
+<p><img src="https://foxtrotlabs.cc/pics/GLS015EN/exiftools.png" alt="metadata"></p>
+<p>It&rsquo;s just a simple png file. Nothing more in it.</p>
+<p>Since the image presents a bar plot, some information might be passed by values represented by bars <em>rocket science, applause intensifies</em>. I&rsquo;ve decided to write a script in Python (that was obvious) and check what these values represent. My first idea was to check the length of all red lines.</p>
+<h3 id="first-attempt">First attempt<a href="#first-attempt" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>So the script looks like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> PIL <span style="color:#f92672">import</span> Image
+<span style="color:#f92672">import</span> binascii
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+	plt <span style="color:#f92672">=</span> Image<span style="color:#f92672">.</span>open(<span style="color:#e6db74">&#39;mission15.png&#39;</span>)
+	szX, szY <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>size
+	print(<span style="color:#e6db74">&#34;Image is </span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> x </span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> pixels&#34;</span><span style="color:#f92672">.</span>format(szX, szY))
+	opcodes <span style="color:#f92672">=</span> []
+	<span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> range(szX):
+		lng <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+		<span style="color:#66d9ef">for</span> col <span style="color:#f92672">in</span> range(szY):
+			<span style="color:#66d9ef">if</span> plt<span style="color:#f92672">.</span>getpixel((line, col))<span style="color:#f92672">==</span>(<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>):
+				lng <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+		print(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(lng, bytes([lng])))
+		opcodes<span style="color:#f92672">.</span>append(bytes([lng]))
+
+
+	<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;rom.bin&#34;</span>, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> f:
+		<span style="color:#66d9ef">for</span> l <span style="color:#f92672">in</span> opcodes:
+			f<span style="color:#f92672">.</span>write(l)
+
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+	main()</code></pre></div>
+<p>The output goes as follows:</p>
+<pre tabindex="0"><code>60
+63
+112
+104
+112
+10
+10
+105
+102
+32
+40
+&lt;cut&gt;
+</code></pre><p>Huh, some numbers! Let&rsquo;s convert them to hex.</p>
+<pre tabindex="0"><code>60 0x3c
+63 0x3f
+112 0x70
+104 0x68
+112 0x70
+10 0xa
+10 0xa
+105 0x69
+102 0x66
+32 0x20
+40 0x28
+&lt;cut&gt;
+</code></pre><p>Well, I&rsquo;m not an expert but my first idea was to save this values in binary file and then try to disassemble them in radare2 or IDA.</p>
+<p>So I opened binary file <code>rom.bin</code> in radare2 and&hellip;
+This looks kinda sorta familiar&hellip;:</p>
+<p><img src="https://foxtrotlabs.cc/pics/GLS015EN/disassm.png" alt="dissasm"></p>
+<p>But there are some invalid instructions and this:.</p>
+<p><img src="https://foxtrotlabs.cc/pics/GLS015EN/w_t_f_disassm.png" alt="dissasm"></p>
+<h3 id="solution">Solution<a href="#solution" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Well, ALWAYS try to print binary file. This numbers are not opcodes in sam PE/ELF file. This is source code in php:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;password&#39;</span>]) <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">is_string</span>($_GET[<span style="color:#e6db74">&#39;password&#39;</span>])) {
+  <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;bad password&#34;</span>);
+}
+
+$p <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;password&#39;</span>];
+
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strlen</span>($p) <span style="color:#f92672">!==</span> <span style="color:#ae81ff">25</span>) {
+  <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;bad password&#34;</span>);
+}
+
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">md5</span>($p) <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;e66c97b8837d0328f3e5522ebb058f85&#39;</span>) {
+  <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;bad password&#34;</span>);
+}
+
+<span style="color:#75715e">// Split the password in five and check the pieces.
+</span><span style="color:#75715e">// We need to be sure!
+</span><span style="color:#75715e"></span>$values <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+  <span style="color:#ae81ff">0</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;e6d9fe6df8fd2a07ca6636729d4a615a&#39;</span>,
+  <span style="color:#ae81ff">5</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;273e97dc41693b152c71715d099a1049&#39;</span>,
+  <span style="color:#ae81ff">10</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;bd014fafb6f235929c73a6e9d5f1e458&#39;</span>,
+  <span style="color:#ae81ff">15</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;ab892a96d92d434432d23429483c0a39&#39;</span>,
+  <span style="color:#ae81ff">20</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;b56a807858d5948a4e4604c117a62c2d&#39;</span>
+);
+
+<span style="color:#66d9ef">for</span> ($i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; $i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">25</span>; $i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">5</span>) {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">md5</span>(<span style="color:#a6e22e">substr</span>($p, $i, <span style="color:#ae81ff">5</span>)) <span style="color:#f92672">!==</span> $values[$i]) {
+    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;bad password&#34;</span>);
+  }
+}
+
+<span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;GW!&#34;</span>);</code></pre></div>
+<p>That being said, we have to &ldquo;guess&rdquo; a password which gives us answer &ldquo;GW!&rdquo;</p>
+<p>There is a <code>little</code> problem. I do not speak PHP :(&hellip; But well, let&rsquo;s analyse the code.</p>
+<p>So <code>$p</code> is a name/an alias (I don&rsquo;t know how it&rsquo;s in PHP) for variable that will contain password, I think.</p>
+<p>The pass should be 25 letters long. After performing this check it&rsquo;s being hashed using <em>cough</em> secure <em>cough</em> (never use that in production or not validation) md5.
+Then there are 5 more hashes, they are md5 too you can be prove that by checking them in some scritps or just looking on line 28. Fortunately there is a comment here, to split password in 5 and check hashes with those five in an array named <code>$values</code>.</p>
+<p>I did so. You can write some code and use for example a rockyou.txt dictionary to check for this words. There is also a posibility to bruteforce the hash char by char (it&rsquo;s doable in short time because of length of only five) or&hellip; use some awesome online crackers like <a href="https://hashkiller.co.uk/md5-decrypter.aspx">hashkiller.co.uk</a>.</p>
+<p><img src="https://foxtrotlabs.cc/pics/GLS015EN/cracked.png" alt="hashkiller"></p>
+<p>So the parts of the password recovered from hashes looks like:
+<code>Pie charts are delicious!</code>. And after hashing this string with the md5 from source code (that one calculated for full password), we get:
+<code>e66c97b8837d0328f3e5522ebb058f85</code> this is a correct value from line 13. Bruteforcing 25 chars doesn&rsquo;t sound like a fun, so it&rsquo;s good to have 5 additional hashes of the password&rsquo;s parts. ;)</p>
+<p>Thanx for mission Gynvael!</p>
+
+      </div></div>
+
+  
+
+  <link rel="stylesheet" href="https://foxtrotlabs.cc/comments.css">
+ <section class="post-comments">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+ 
+
+<h1 id="Comments">Comments<a href="#Comments" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<font size="1"> My comments operate on free Heroku instance. If there is no traffic in 30 minutes the dyno service goes asleep. That causes a small delay in submitting your comment. Thank you for your patience ;)</font>
+
+  
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    <p>Nothing yet.</p>
+  
+
+  <h3>Say something</h3>
+
+  <form class="post-new-comment" method="POST" action="https://flabs-staticman.herokuapp.com/v2/entry/s3gm3nt4ti0nf4ult/page_source/master/comments">
+    <input type="hidden" name="options[redirect]" value="https://foxtrotlabs.cc/2017/09/en-gynvaels-mission-en015/#comment-submitted">
+    <input type="hidden" name="options[entryId]" value="025bd7d10537f382db5683cae4f62d04">
+    <input name="fields[name]" type="text" class="post-comment-field" placeholder="Your name">
+    <input name="fields[email]" type="email" class="post-comment-field" placeholder="Your email address">
+    <textarea name="fields[body]" class="post-comment-field" placeholder="Your message. Feel free to use Markdown." rows="10"></textarea>
+    <input type="hidden" name="options[reCaptcha][siteKey]" value="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR">
+    <input type="hidden" name="options[reCaptcha][secret]" value="cNVL1K9Iu23KHkq4nAvjE8jFHYmFb1aJmvpOSSILJdZaUA07HolAG0UkqYzekmBKkxqNo4bAwKcPhGtIohOKp+PfBROWHhB+Vl+lGYQ9Z3+MTghdzhAZEC0V+Ti0WEvpfTXR7Lj6LUXwPNg+HRMj3/oYlou6vsz0cP1OSLPe9iMd4ZMGolwIaUowvWn9DVfU0eHKLAWUNXVRxFiBGcTKKbAd0JgR4ZtZs1VsPkhC3OlOsHm/yW2pA491SAQ0s820p+H1SncOd1kYE1h2gTL+oklzH+5CNz2V4xyq6Et4NLjinr0WGUN87eCFYUz+05wyEp+5lrG+uuq1eX2cBcfVoA=="></div>
+    <input type="submit" class="post-comment-field btn" value="Submit">
+     <div class="g-recaptcha" data-sitekey="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR"></div>
+  </form>
+</section>
+
+<div id="comment-submitted" class="dialog">
+<h3>Thank you</h3>
+  <p>Your comment has been submitted and will be published once it has been approved.</p>
+  <p><a href="#" class="btn">OK</a></p>
+</div>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>copyright by foxtrot_charlie</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://foxtrotlabs.cc/assets/main.js"></script>
+<script src="https://foxtrotlabs.cc/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
