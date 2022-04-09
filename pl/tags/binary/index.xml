@@ -1,22 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>binary on FoxtrotLabs</title>
-    <link>https://foxtrotlabs.cc/pl/tags/binary/</link>
-    <description>Recent content in binary on FoxtrotLabs</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>copyright by foxtrot_charlie</copyright>
-    <lastBuildDate>Mon, 14 Jan 2019 23:14:29 +0100</lastBuildDate><atom:link href="https://foxtrotlabs.cc/pl/tags/binary/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>foxtrot_charlie vs ROP Emporium akt I</title>
-      <link>https://foxtrotlabs.cc/pl/2019/01/foxtrot_charlie-vs-rop-emporium-akt-i/</link>
-      <pubDate>Mon, 14 Jan 2019 23:14:29 +0100</pubDate>
-      
-      <guid>https://foxtrotlabs.cc/pl/2019/01/foxtrot_charlie-vs-rop-emporium-akt-i/</guid>
-      <description>&#34;No przecież piszę tego posta...&#34; - foxtrot_charlie  0bd2f9b87f862629f04ba850c60bb890f9a80c7ca7e293503f298a93c08b6c54
-0x00 - Wracamy po dłuższej przerwie Ostatni rok był dla mnie bardzo szczególny. Nie wchodząc nadmiernie w nudne tłumaczenia, chciałbym zdementować jakobym rzucił tego bloga. Po prostu brakło czasu, a skill sam się nie wyekspi. Co nie znaczy, że zostałem pr0 h4Xi0r3m. Do tego jeszcze długa droga, tym niemniej wracam na scenę (taką jednoosobową, jak ten blog!). Skoro nowy rok to i stary ja :D!</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>binary on FoxtrotLabs</title><link>https://foxtrotlabs.cc/pl/tags/binary/</link><description>Recent content in binary on FoxtrotLabs</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>copyright by foxtrot_charlie</copyright><lastBuildDate>Mon, 14 Jan 2019 23:14:29 +0100</lastBuildDate><atom:link href="https://foxtrotlabs.cc/pl/tags/binary/index.xml" rel="self" type="application/rss+xml"/><item><title>foxtrot_charlie vs ROP Emporium akt I</title><link>https://foxtrotlabs.cc/pl/2019/01/foxtrot_charlie-vs-rop-emporium-akt-i/</link><pubDate>Mon, 14 Jan 2019 23:14:29 +0100</pubDate><guid>https://foxtrotlabs.cc/pl/2019/01/foxtrot_charlie-vs-rop-emporium-akt-i/</guid><description>"No przecież piszę tego posta..." - foxtrot_charlie 0bd2f9b87f862629f04ba850c60bb890f9a80c7ca7e293503f298a93c08b6c54
+0x00 - Wracamy po dłuższej przerwie Ostatni rok był dla mnie bardzo szczególny. Nie wchodząc nadmiernie w nudne tłumaczenia, chciałbym zdementować jakobym rzucił tego bloga. Po prostu brakło czasu, a skill sam się nie wyekspi. Co nie znaczy, że zostałem pr0 h4Xi0r3m. Do tego jeszcze długa droga, tym niemniej wracam na scenę (taką jednoosobową, jak ten blog!). Skoro nowy rok to i stary ja :D!</description></item></channel></rss>

